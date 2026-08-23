@@ -1,6 +1,6 @@
 # ui5-pdfme documentation
 
-The complete technical and functional documentation is available as a static site in [index.html](index.html). GitHub Pages publishes this directory automatically.
+The complete technical and functional documentation is available as a bilingual static site in [Spanish](index.html) and [English](en.html). The language switch preserves the current section and remembers the visitor's choice. GitHub Pages publishes this directory automatically.
 
 Main references:
 

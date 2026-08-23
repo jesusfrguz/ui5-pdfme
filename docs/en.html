@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Technical and functional ui5-pdfme documentation for SAPUI5, OpenUI5, Fiori, React, and JavaScript.">
+  <title>ui5-pdfme · Documentation</title>
+  <link rel="alternate" hreflang="es" href="index.html">
+  <link rel="alternate" hreflang="en" href="en.html">
+  <link rel="alternate" hreflang="x-default" href="index.html">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/language.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="mark">PDF</span> ui5-pdfme</a>
+    <button class="menu" aria-label="Open navigation">Menu</button>
+    <nav aria-label="Main navigation"><a href="#quickstart">Quick start</a><a href="#platforms">Platforms</a><a href="#data">Data</a><a href="#templates">Templates</a><a href="#api">API</a><a href="https://github.com/jesusfrguz/ui5-pdfme">GitHub</a></nav>
+    <div class="language-switch" role="group" aria-label="Language"><a href="index.html" lang="es" hreflang="es" data-language="es">ES</a><a href="en.html" lang="en" hreflang="en" aria-current="page" data-language="en">EN</a></div>
+  </header>
+
+  <div class="hero" id="top"><div class="hero-inner">
+    <div>
+      <span class="eyebrow">SAPUI5 · OpenUI5 · Fiori · React · JavaScript</span>
+      <h1>Design once.<br>Print with any data.</h1>
+      <p>A visual PDF form editor with JSON templates, multiple data sources, OData V2/V4, tables, variables, preview, download, and print.</p>
+      <div class="actions"><a class="button" href="#quickstart">Get started</a><a class="button secondary" href="#architecture">View architecture</a></div>
+    </div>
+    <figure class="hero-shot"><img src="assets/images/ui5-studio.png" alt="ui5-pdfme visual editor running in SAPUI5"></figure>
+  </div></div>
+
+  <div class="shell">
+    <aside class="side" aria-label="Contents">
+      <a href="#overview">Overview</a><a href="#quickstart">Quick start</a><a href="#architecture">Architecture</a><a href="#platforms">Platforms</a><a href="#data">Data and OData</a><a href="#mapping">Mappings</a><a href="#templates">Templates</a><a href="#api">API and events</a><a href="#persistence">Persistence</a><a href="#security">Security</a><a href="#deploy">Build and deployment</a><a href="#ai">AI agents</a><a href="#troubleshooting">Troubleshooting</a>
+    </aside>
+    <main class="content">
+      <section id="overview">
+        <span class="pill">Functional</span><h2>What it solves</h2>
+        <p class="lead">It lets users visually build invoices, orders, labels, certificates, or any print form, then lets the application fill the design with real data without coupling it to the backend.</p>
+        <div class="grid"><article class="card"><h3>Visual design</h3><p>Text, tables, lists, images, signatures, SVG, shapes, dates, selectors, and barcodes.</p></article><article class="card"><h3>Combined data</h3><p>JSON, REST, functions, OData V2/V4, and UI5 models with dependencies and fallback values.</p></article><article class="card"><h3>Real output</h3><p>A versionable template, PDF preview, download, print, and bytes that the application can reuse.</p></article></div>
+        <table class="matrix"><thead><tr><th>Capability</th><th>Result</th></tr></thead><tbody><tr><td>Variables</td><td>A schema field receives a value from a path or text template.</td></tr><tr><td>Dynamic tables</td><td>A collection is transformed into the JSON matrix expected by pdfme.</td></tr><tr><td>Multiple documents</td><td><code>mapping.repeat</code> generates one input per record.</td></tr><tr><td>Extension</td><td>Registerable providers, loaders, formatters, and schema plugins.</td></tr></tbody></table>
+      </section>
+
+      <section id="quickstart">
+        <span class="pill">5 minutes</span><h2>Quick start</h2><p>Install the package and choose an adapter. All three use the same template, data-source, and mapping contract.</p>
+        <pre><code># Once published on npm
+npm install ui5-pdfme
+
+# Current precompiled release, including the UI5 distribution
+npm install https://github.com/jesusfrguz/ui5-pdfme/releases/download/v0.1.0/ui5-pdfme-0.1.0.tgz</code></pre>
+        <h3>JavaScript</h3><pre><code>import { WebPdfTemplateStudio } from "ui5-pdfme";
+
+const studio = new WebPdfTemplateStudio("#studio", {
+  template,
+  dataSources: [{ id: "order", type: "rest", url: "/api/orders/5001" }],
+  mapping: { fields: { customer: "order.customerName" } },
+  language: "en",
+  filename: "order.pdf"
+});</code></pre>
+        <h3>React</h3><pre><code>import { PdfTemplateStudio } from "ui5-pdfme/react";
+
+&lt;PdfTemplateStudio
+  ref={studioRef}
+  template={template}
+  dataSources={dataSources}
+  mapping={mapping}
+  language="en"
+/&gt;</code></pre>
+        <h3>SAPUI5 / OpenUI5</h3><pre><code>&lt;mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:pdf="ui5.pdfme"&gt;
+  &lt;pdf:PdfTemplateStudio id="printStudio" height="48rem" /&gt;
+&lt;/mvc:View&gt;</code></pre>
+      </section>
+
+      <section id="architecture">
+        <span class="pill">Technical</span><h2>Architecture</h2>
+        <div class="flow" aria-label="Architecture flow"><span>JSON / REST / OData / function</span><i>→</i><span>DataResolver</span><i>→</i><span>MappingEngine</span><i>→</i><span>pdfme</span><i>→</i><span>PDF</span></div>
+        <p><strong>DataResolver</strong> fetches independent sources in parallel and respects <code>dependsOn</code>. <strong>MappingEngine</strong> converts declarative paths into pdfme inputs. The adapters only manage lifecycle, events, and presentation.</p>
+        <table class="matrix"><thead><tr><th>Layer</th><th>JavaScript/React</th><th>UI5/Fiori</th></tr></thead><tbody><tr><td>Editor</td><td><code>WebPdfTemplateStudio</code></td><td><code>ui5.pdfme.PdfTemplateStudio</code></td></tr><tr><td>Web data</td><td>fetch JSON/REST/OData</td><td>UI5 V2/V4/JSON models</td></tr><tr><td>Generation</td><td>@pdfme/generator</td><td>@pdfme/generator packaged as a UI5 resource</td></tr><tr><td>Template</td><td colspan="2">The same pdfme JSON and the same field names</td></tr></tbody></table>
+      </section>
+
+      <section id="platforms">
+        <span class="pill">Real examples</span><h2>Platforms</h2>
+        <h3>SAPUI5, OpenUI5, and Fiori</h3><p>Native control, Fiori themes, UI5 events, and access to propagated models. Declare <code>ui5.pdfme</code> in the manifest dependencies.</p>
+        <figure class="shot"><img src="assets/images/ui5-studio.png" alt="Invoice editor in SAPUI5"><figcaption>SAPUI5 demo: three sources, a dynamic table, en-US formats, and PDF preview.</figcaption></figure>
+        <h3>Framework-free JavaScript</h3><p>An ESM class for Vite or another modern bundler. It exposes <code>pdfme:*</code> DOM events.</p>
+        <figure class="shot"><img src="assets/images/javascript-studio.png" alt="ui5-pdfme editor in JavaScript"><figcaption>The same engine running in a JavaScript web app.</figcaption></figure>
+        <h3>React</h3><p>A declarative component with an imperative ref to the studio for registering extensions or generating documents.</p>
+        <figure class="shot"><img src="assets/images/react-studio.png" alt="ui5-pdfme editor in React"><figcaption>React adapter: the same data and template contract, with lifecycle managed by React.</figcaption></figure>
+      </section>
+
+      <section id="data">
+        <span class="pill">Integration</span><h2>Data and OData</h2>
+        <pre><code>const dataSources = [
+  { id: "order", type: "rest", url: "/api/orders/5001" },
+  { id: "brand", type: "json", data: { company: "Example Inc." } },
+  { id: "totals", type: "function", loader: "totals", dependsOn: ["order"] },
+  { id: "products", type: "odata", url: "/odata/v4/Products?$top=50" }
+];</code></pre>
+        <p>On the web, OData uses HTTP and normalizes V2 (<code>d.results</code>) and V4 (<code>value</code>) responses. In UI5, prefer the <code>odata</code> provider with <code>modelName</code> and <code>path</code>; this preserves destinations, batch, authentication, and CSRF handling from the application model.</p>
+        <div class="callout"><strong>Dependencies:</strong> a calculated source can read <code>context.data.order</code> when it declares <code>dependsOn: ["order"]</code>. Cycles are rejected.</div>
+        <pre><code>studio.registerLoader("totals", (_source, context) => ({
+  total: context.data.order.items.reduce((sum, item) => sum + item.amount, 0)
+}));</code></pre>
+      </section>
+
+      <section id="mapping">
+        <span class="pill">Declarative</span><h2>Mappings and formats</h2>
+        <pre><code>const mapping = {
+  fields: {
+    customer: "order.customer.name",
+    reference: { path: "order.reference", defaultValue: "—" },
+    header: { template: "Order {order.number} · {brand.company}" },
+    total: { path: "totals.total", formatter: "number",
+      options: { locale: "en-US", style: "currency", currency: "USD" } },
+    items: { path: "order.items", formatter: "table",
+      options: { columns: ["description", "quantity", "amount"] } }
+  }
+};</code></pre>
+        <p>Built-in formatters: <code>raw</code>, <code>json</code>, <code>join</code>, <code>number</code>, <code>date</code>, and <code>table</code>. Custom formatters are registered by name and must be deterministic.</p>
+      </section>
+
+      <section id="templates">
+        <span class="pill">Design</span><h2>Templates</h2>
+        <p>A pdfme template contains its background/size and an array of schemas per page. Each schema's <code>name</code> is the stable key used by the mapping.</p>
+        <pre><code>const template = {
+  basePdf: { width: 210, height: 297, padding: [12, 12, 12, 12] },
+  schemas: [[
+    { name: "title", type: "text", position: { x: 20, y: 18 },
+      width: 90, height: 12, content: "INVOICE", fontSize: 22 },
+    { name: "customer", type: "text", position: { x: 20, y: 42 },
+      width: 130, height: 10, content: "Customer" }
+  ]]
+};</code></pre>
+        <p>The data panel lets users insert fields and tables from resolved samples. In production, save the template together with its mapping, contract version, language, author, status, and date.</p>
+      </section>
+
+      <section id="api">
+        <span class="pill">Reference</span><h2>API and events</h2>
+        <pre><code>await studio.refreshData();
+const bytes = await studio.generate();
+await studio.preview();
+await studio.download();
+await studio.print();
+
+studio.getTemplate();
+studio.getResolvedData();
+studio.getInputs();
+studio.registerDataProvider(type, provider);
+studio.registerLoader(name, loader);
+studio.registerFormatter(name, formatter);</code></pre>
+        <table class="matrix"><thead><tr><th>Web event</th><th>UI5 event</th><th>Detail</th></tr></thead><tbody><tr><td><code>pdfme:templateSave</code></td><td><code>templateSave</code></td><td>template</td></tr><tr><td><code>pdfme:templateChange</code></td><td><code>templateChange</code></td><td>template</td></tr><tr><td><code>pdfme:dataResolved</code></td><td><code>dataResolved</code></td><td>data, inputs</td></tr><tr><td><code>pdfme:generated</code></td><td><code>generated</code></td><td>bytes, Blob</td></tr><tr><td><code>pdfme:error</code></td><td><code>error</code></td><td>operation, error</td></tr></tbody></table>
+      </section>
+
+      <section id="persistence">
+        <span class="pill">Operations</span><h2>Persistence and lifecycle</h2>
+        <p>The package does not impose a database. The application can persist data in OData, REST, CAP, ABAP, BTP, or its own storage. A recommended entity includes: ID, version, name, document type, template JSON, mapping JSON, data-contract version, draft/published status, author, and timestamps.</p>
+        <div class="callout">Publishing must be an authorized operation. Keep immutable versions so that a historical reprint uses exactly the approved design.</div>
+      </section>
+
+      <section id="security">
+        <span class="pill">Production</span><h2>Security</h2>
+        <ul><li>Do not store tokens, cookies, or credentials in a template or source.</li><li>Restrict the origins, paths, and collection sizes allowed by the backend.</li><li>Field visibility is not a replacement for service authorization.</li><li>Treat remote text as untrusted; previews use text APIs.</li><li>Validate and version the template/mapping before publishing.</li><li>Standard browsers do not allow silent printing; it requires controlled infrastructure.</li></ul>
+      </section>
+
+      <section id="deploy">
+        <span class="pill">Delivery</span><h2>Build, tests, and GitHub Pages</h2>
+        <pre><code>npm ci
+npm test
+npm run build
+npm run docs:dev
+npm run example:js
+npm run example:react</code></pre>
+        <p><code>npm run build</code> creates the precompiled UI5 artifact. Vite bundles the web entry points and their WASM resources. The Pages workflow publishes this <code>docs/</code> folder as a static site.</p>
+        <p>Test coverage includes concurrent/dependent resolution, cycles, fallbacks, OData V2/V4, mappings, tables, repetition, and final PDF creation.</p>
+      </section>
+
+      <section id="ai">
+        <span class="pill">Automation</span><h2>AI agents</h2>
+        <p>The repository includes <code>AGENTS.md</code> and specialized recipes so an agent can install the library, connect data, create templates, and run consistent validation.</p>
+        <p><a href="../AGENTS.md">Main agent contract</a> · <a href="../agents/README.md">Recipe index</a> · <a href="../agents/CREATE_TEMPLATE.md">Template creation</a> · <a href="../agents/VALIDATION_CHECKLIST.md">Checklist</a></p>
+      </section>
+
+      <section id="troubleshooting">
+        <span class="pill">Help</span><h2>Troubleshooting</h2>
+        <table class="matrix"><thead><tr><th>Symptom</th><th>Check</th></tr></thead><tbody><tr><td>Empty data panel</td><td>Register loaders before <code>refreshData</code>; check IDs and <code>dependsOn</code>.</td></tr><tr><td>Empty field</td><td>The schema name must match the key in <code>mapping.fields</code>.</td></tr><tr><td>OData returns an unexpected object</td><td>Distinguish entity/collection and check V2 <code>d.results</code> or V4 <code>value</code>.</td></tr><tr><td>WASM not found</td><td>Use a modern bundler and preserve asset/base-path URLs.</td></tr><tr><td>UI5 does not load the library</td><td>Declare <code>ui5.pdfme</code> in the manifest and check the npm/UI5 graph.</td></tr><tr><td>Table overflows</td><td>Test large datasets and use a flexible base PDF with suitable margins.</td></tr></tbody></table>
+      </section>
+    </main>
+  </div>
+  <footer class="footer">ui5-pdfme · Apache-2.0 · Powered by <a href="https://pdfme.com/">pdfme</a></footer>
+  <script type="module" src="assets/docs.js"></script>
+</body>
+</html>

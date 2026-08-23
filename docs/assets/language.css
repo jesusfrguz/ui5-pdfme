@@ -1,0 +1,38 @@
+.language-switch {
+  display: flex;
+  flex: none;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+}
+
+.language-switch a {
+  padding: 4px 8px;
+  color: #42566b;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.language-switch a[aria-current="page"] {
+  background: var(--brand);
+  color: #fff;
+}
+
+.language-switch a:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: -2px;
+}
+
+@media (max-width: 900px) {
+  .content {
+    min-width: 0;
+  }
+
+  .matrix {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
