@@ -1,0 +1,12 @@
+specVersion: "4.0"
+metadata:
+  name: ui5-pdfme
+type: library
+resources:
+  configuration:
+    paths:
+      src: dist-v6/resources
+builder:
+  libraryPreload:
+    excludes:
+      - "ui5/pdfme/thirdparty/_dynamics/**"

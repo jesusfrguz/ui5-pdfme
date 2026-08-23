@@ -1,0 +1,35 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "ui5.pdfme",
+    "type": "library",
+    "applicationVersion": {
+      "version": "${version}"
+    },
+    "title": "{{libraryTitle}}",
+    "description": "{{libraryDescription}}",
+    "i18n": "i18n/i18n.properties"
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "supportedThemes": [
+      "sap_horizon",
+      "sap_horizon_dark",
+      "sap_fiori_3",
+      "sap_fiori_3_dark"
+    ]
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.71.0",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "library": {
+      "i18n": "i18n/i18n.properties"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<library xmlns="http://www.sap.com/sap.ui.library.xsd">
+  <name>ui5.pdfme</name>
+  <vendor>ui5-pdfme contributors</vendor>
+  <version>${version}</version>
+  <documentation>Reusable visual PDF template studio for SAPUI5 and Fiori.</documentation>
+  <dependencies>
+    <dependency>sap.ui.core</dependency>
+    <dependency>sap.m</dependency>
+    <dependency>sap.ui.layout</dependency>
+  </dependencies>
+</library>

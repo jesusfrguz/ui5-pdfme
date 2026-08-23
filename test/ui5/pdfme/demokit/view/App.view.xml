@@ -1,0 +1,25 @@
+<mvc:View
+  controllerName="ui5.pdfme.demokit.controller.App"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:pdf="ui5.pdfme">
+  <App>
+    <Page title="ui5-pdfme" showHeader="true">
+      <content>
+        <MessageStrip
+          class="sapUiSmallMargin"
+          text="Ejemplo con tres fuentes combinadas: pedido, marca y totales calculados. Selecciona cualquier campo del panel para insertarlo."
+          type="Information"
+          showIcon="true" />
+        <pdf:PdfTemplateStudio
+          id="studio"
+          class="sapUiSmallMargin"
+          height="calc(100vh - 9rem)"
+          filename="factura-demo.pdf"
+          language="es"
+          templateSave="onTemplateSave"
+          error="onError" />
+      </content>
+    </Page>
+  </App>
+</mvc:View>

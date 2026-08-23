@@ -1,0 +1,12 @@
+node_modules/
+.tmp-ui5-1.71-build/
+dist/
+dist-v6/
+.ui5/
+.ui5-tooling-modules/
+coverage/
+*.log
+*.tgz
+.tmp-package-test/
+.tmp-release-test/
+.tmp-web-build/

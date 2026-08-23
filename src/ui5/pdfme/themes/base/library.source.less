@@ -1,0 +1,62 @@
+.ui5PdfmeStudio {
+  display: flex;
+  min-height: 32rem;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--sapGroup_ContentBorderColor, #d9d9d9);
+  border-radius: var(--sapElement_BorderCornerRadius, 0.5rem);
+  background: var(--sapBackgroundColor, #fff);
+  box-sizing: border-box;
+}
+
+.ui5PdfmeStudioWorkspace {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.ui5PdfmeStudioDataPanel {
+  flex: 0 0 20rem;
+  min-width: 15rem;
+  max-width: 30%;
+  overflow: auto;
+  border-inline-end: 1px solid var(--sapGroup_ContentBorderColor, #d9d9d9);
+  background: var(--sapGroup_ContentBackground, #fff);
+}
+
+.ui5PdfmeStudioDesigner {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 30rem;
+  overflow: hidden;
+  background: var(--sapShell_Background, #f5f6f7);
+}
+
+.ui5PdfmeStudioDesigner > div {
+  height: 100%;
+}
+
+.ui5PdfmePreviewFrame {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 75vh;
+  border: 0;
+  background: var(--sapBackgroundColor, #fff);
+}
+
+@media (max-width: 50rem) {
+  .ui5PdfmeStudioWorkspace {
+    flex-direction: column;
+  }
+
+  .ui5PdfmeStudioDataPanel {
+    flex: 0 0 12rem;
+    width: 100%;
+    max-width: none;
+    border-inline-end: 0;
+    border-block-end: 1px solid var(--sapGroup_ContentBorderColor, #d9d9d9);
+  }
+}
