@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 import { resolveHelpUrl } from "../../src-web/studio.mjs";
@@ -51,4 +51,28 @@ test("the bilingual user guide covers the complete functional workflow", async (
   assert.match(english, /QR, Code 128, EAN-13, Data Matrix, or PDF417/);
   assert.match(spanish, /fondos PDF importados/);
   assert.match(english, /imported PDF backgrounds/);
+});
+
+test("the guide header exposes bilingual video, selectable captions, and valid media assets", async () => {
+  const [spanish, english, spanishCaptions, englishCaptions, spanishVideo, englishVideo] = await Promise.all([
+    readFile(resolve(root, "docs/guide/index.html"), "utf8"),
+    readFile(resolve(root, "docs/guide/en.html"), "utf8"),
+    readFile(resolve(root, "docs/assets/video/ui5-pdfme-guide-es.vtt"), "utf8"),
+    readFile(resolve(root, "docs/assets/video/ui5-pdfme-guide-en.vtt"), "utf8"),
+    stat(resolve(root, "docs/assets/video/ui5-pdfme-guide-es.mp4")),
+    stat(resolve(root, "docs/assets/video/ui5-pdfme-guide-en.mp4"))
+  ]);
+
+  for (const guide of [spanish, english]) {
+    assert.match(guide, /data-guide-video/);
+    assert.match(guide, /ui5-pdfme-guide-es\.mp4/);
+    assert.match(guide, /ui5-pdfme-guide-en\.mp4/);
+    assert.match(guide, /data-video-captions[^>]+aria-pressed="false"/);
+    assert.match(guide, /kind="captions"/);
+    assert.doesNotMatch(guide, /kind="captions"[^>]+default/);
+  }
+  assert.match(spanishCaptions, /^WEBVTT\s/m);
+  assert.match(englishCaptions, /^WEBVTT\s/m);
+  assert.ok(spanishVideo.size > 100_000);
+  assert.ok(englishVideo.size > 100_000);
 });

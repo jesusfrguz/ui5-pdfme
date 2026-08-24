@@ -432,6 +432,47 @@ sap.ui.define([
     return this;
   };
 
+  PdfTemplateStudio.prototype._applyNewTemplate = function (template) {
+    this._activeTemplateRecord = null;
+    this._autoMappings = Object.create(null);
+    this._inputs = null;
+    this.setTemplate(template);
+    this._updateStudioTitle();
+    this.fireTemplateChange({ template: template });
+    return template;
+  };
+
+  PdfTemplateStudio.prototype.startBlankTemplate = function () {
+    return this._applyNewTemplate(PdfEngine.createBlankTemplate());
+  };
+
+  PdfTemplateStudio.prototype.importPdfTemplate = function (source) {
+    this.setBusy(true);
+    return PdfEngine.createTemplateFromPdf(source).then(function (template) {
+      return this._applyNewTemplate(template);
+    }.bind(this)).catch(function (error) {
+      this._handleError("importPdfTemplate", error);
+      throw error;
+    }.bind(this)).finally(function () { this.setBusy(false); }.bind(this));
+  };
+
+  PdfTemplateStudio.prototype._choosePdfTemplate = function (onLoaded) {
+    var input = document.createElement("input");
+    input.type = "file";
+    input.accept = "application/pdf,.pdf";
+    input.style.display = "none";
+    document.body.appendChild(input);
+    input.addEventListener("change", function () {
+      var file = input.files && input.files[0];
+      if (!file) { input.remove(); return; }
+      this.importPdfTemplate(file).then(function (template) {
+        if (typeof onLoaded === "function") { onLoaded(template); }
+      }).catch(function () {}).finally(function () { input.remove(); });
+    }.bind(this), { once: true });
+    input.click();
+    return input;
+  };
+
   PdfTemplateStudio.prototype.setShowDataPanel = function (show) {
     var visible = Boolean(show);
     this.setProperty("showDataPanel", visible, true);
@@ -527,6 +568,14 @@ sap.ui.define([
     this.setProperty("templateRepositories", sources, true);
     if (this._templateStore) {
       this._templateStore.configure(sources);
+    }
+    if (this._templateCatalogDialog) {
+      this._templateCatalogDialog.destroy();
+      this._templateCatalogDialog = null;
+      this._templateCatalogList = null;
+      this._templateCatalogSearch = null;
+      this._templateCatalogStatus = null;
+      this._templateCatalogRepository = null;
     }
     return this;
   };
@@ -1154,10 +1203,6 @@ sap.ui.define([
 
   PdfTemplateStudio.prototype.openTemplateCatalog = function () {
     var repositories = this.getTemplateRepositories() || [];
-    if (!repositories.length) {
-      MessageToast.show(text(this._bundle, "noTemplateRepositories"));
-      return null;
-    }
     if (this._templateCatalogDialog) {
       this._templateCatalogDialog.open();
       this._refreshTemplateCatalog();
@@ -1191,14 +1236,32 @@ sap.ui.define([
         this.loadTemplate(summary.id, { repositoryId: summary.repositoryId }).then(function () { this._templateCatalogDialog.close(); }.bind(this)).catch(function () {});
       }.bind(this)
     }).addStyleClass("ui5PdfmeTemplateCatalogList");
+    var creationToolbar = new OverflowToolbar({ content: [
+      new Button({
+        text: text(this._bundle, "blankTemplate"),
+        icon: "sap-icon://document",
+        type: "Emphasized",
+        press: function () {
+          this.startBlankTemplate();
+          this._templateCatalogDialog.close();
+        }.bind(this)
+      }),
+      new Button({
+        text: text(this._bundle, "loadPdf"),
+        icon: "sap-icon://upload",
+        press: function () {
+          this._choosePdfTemplate(function () { this._templateCatalogDialog.close(); }.bind(this));
+        }.bind(this)
+      })
+    ] }).addStyleClass("ui5PdfmeTemplateCreationToolbar");
     this._templateCatalogDialog = new Dialog({
       title: text(this._bundle, "templates"),
       contentWidth: "64rem",
       contentHeight: "70vh",
       stretchOnPhone: true,
       subHeader: new OverflowToolbar({ content: [this._templateCatalogSearch, this._templateCatalogStatus, this._templateCatalogRepository, new Button({ icon: "sap-icon://refresh", tooltip: text(this._bundle, "refreshTemplates"), press: this._refreshTemplateCatalog.bind(this) })] }),
-      content: [this._templateCatalogList],
-      beginButton: new Button({ text: text(this._bundle, "saveAs"), icon: "sap-icon://save", type: "Emphasized", press: this.openTemplateSaveDialog.bind(this) }),
+      content: [creationToolbar, this._templateCatalogList],
+      beginButton: new Button({ text: text(this._bundle, "saveAs"), icon: "sap-icon://save", type: "Emphasized", enabled: repositories.length > 0, press: this.openTemplateSaveDialog.bind(this) }),
       endButton: new Button({ text: text(this._bundle, "close"), press: function () { this._templateCatalogDialog.close(); }.bind(this) })
     }).addStyleClass("ui5PdfmeTemplateCatalogDialog");
     this.addDependent(this._templateCatalogDialog);

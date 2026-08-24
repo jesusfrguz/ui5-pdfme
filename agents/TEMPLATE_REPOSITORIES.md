@@ -36,7 +36,7 @@ const studio = new WebPdfTemplateStudio("#studio", {
 });
 ```
 
-The Templates toolbar button opens the responsive catalog. Search matches name, description and tags; status and repository selectors filter the result. Save asks for metadata the first time and updates the active record afterwards.
+The Templates toolbar button opens the responsive catalog. It can start a blank A4 template or load a local PDF as the pdfme `basePdf`, even when no repository is configured. Search matches name, description and tags; status and repository selectors filter stored records. Save asks for metadata the first time and updates the active record afterwards.
 
 ## REST backend
 

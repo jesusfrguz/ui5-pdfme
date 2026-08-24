@@ -243,6 +243,28 @@ sap.ui.define([
     };
   };
 
+  PdfEngine.createTemplateFromPdf = function (source) {
+    var dataPromise = typeof Blob !== "undefined" && source instanceof Blob
+      ? source.arrayBuffer()
+      : Promise.resolve(source);
+    return dataPromise.then(function (data) {
+      if (typeof data === "string") {
+        if (data.indexOf("data:application/pdf;") !== 0) {
+          throw new TypeError("A PDF file is required");
+        }
+      } else {
+        var bytes = data instanceof Uint8Array ? data : data instanceof ArrayBuffer ? new Uint8Array(data) : null;
+        var header = bytes ? String.fromCharCode.apply(null, bytes.subarray(0, Math.min(bytes.length, 1024))) : "";
+        if (header.indexOf("%PDF-") === -1) {
+          throw new TypeError("A PDF file is required");
+        }
+      }
+      return Common.getB64BasePdf(data).then(function (basePdf) {
+        return { basePdf: basePdf, schemas: [[]] };
+      });
+    });
+  };
+
   function reserveRepeatedFixedFieldMargins(basePdf, fixedSchemas) {
     var pageHeight = Number(basePdf.height);
     if (!Number.isFinite(pageHeight) || pageHeight <= 0) {

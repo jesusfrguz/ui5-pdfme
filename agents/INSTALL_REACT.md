@@ -24,6 +24,7 @@ export function PrintTemplatePage({ template }) {
   return (
     <PdfTemplateStudio
       ref={studioRef}
+      style={{ height: "760px" }}
       template={template}
       templateRepositories={[{ id: "browser", type: "localStorage", storageKey: "my-app.templates" }]}
       autoResolve={false}
@@ -38,6 +39,8 @@ export function PrintTemplatePage({ template }) {
   );
 }
 ```
+
+Give the component an explicit usable height, either through `style` as above or through a class whose height resolves to a concrete value. When using `height: 100%`, every ancestor up to the page layout must also provide a resolved height.
 
 The ref is the underlying `WebPdfTemplateStudio`. Use it for `preview`, `download`, `print`, `generate`, `openTemplateCatalog`, `listTemplates`, `loadTemplate`, `saveTemplateRecord`, registrations and state inspection. Props update the active configuration; keep template, mapping and repository arrays stable when possible. A standalone `PdfTemplateCatalog` is also exported.
 

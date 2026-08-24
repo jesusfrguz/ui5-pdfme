@@ -1,0 +1,28 @@
+WEBVTT
+
+00:00:00.150 --> 00:00:16.380
+ui5-pdfme transforma los datos de una aplicación en documentos PDF. Combina una plantilla visual reutilizable, un contrato de datos y un mapeo seguro, sin mezclar el diseño con las credenciales ni con la lógica del sistema.
+
+00:00:17.280 --> 00:00:32.930
+El trabajo puede empezar con el diseño preparado por la aplicación o con una plantilla del catálogo. Puedes buscarla, filtrar por estado o repositorio, abrir una versión y guardar los cambios con su nombre, descripción, etiquetas y estado.
+
+00:00:33.830 --> 00:00:49.510
+La pantalla reúne tres áreas principales. A la izquierda están los campos de datos y la paleta de contenido. En el centro aparece el lienzo de cada página. A la derecha se encuentra la lista de campos y sus propiedades.
+
+00:00:50.410 --> 00:01:04.410
+Seleccionar un valor del panel lo inserta como campo conectado. Su identificador estable enlaza el diseño con el mapeo, y el icono de base de datos permite distinguirlo del contenido estático creado desde la paleta.
+
+00:01:05.310 --> 00:01:24.320
+En el lienzo puedes seleccionar, mover y redimensionar cada elemento. Las propiedades permiten ajustar el tipo, el contenido, el estilo, la etiqueta y el comportamiento. Los encabezados, pies y textos conectados también pueden fijarse y repetirse en todas las páginas.
+
+00:01:25.220 --> 00:01:45.240
+Las tablas reciben colecciones completas y pueden continuar en nuevas páginas. También puedes combinar varias variables en un texto y añadir imágenes, firmas, formas, fechas, códigos de barras o QR. El contenido dinámico respeta los márgenes reservados por los elementos repetidos.
+
+00:01:46.140 --> 00:02:07.430
+Antes de publicar, abre la vista previa del PDF. Comprueba valores vacíos, textos largos, caracteres especiales, tablas con muchas filas, saltos de página, márgenes, idioma, fechas, moneda y fuentes. Esta revisión valida el documento generado, no solo el aspecto del diseñador.
+
+00:02:08.330 --> 00:02:25.540
+Cuando el resultado es correcto, guarda la plantilla en el repositorio autorizado. Después puedes descargar el PDF o abrir el diálogo de impresión del navegador. La plantilla conserva el diseño y el mapeo; los datos se resuelven de nuevo para cada documento.
+
+00:02:26.440 --> 00:02:41.610
+El mismo contrato de plantilla, datos y mapeo funciona en SAPUI5 y OpenUI5, en JavaScript y en React. Así, la experiencia visual cambia de adaptador, pero el documento final conserva el mismo comportamiento.

@@ -1,7 +1,7 @@
 const language = document.documentElement.lang === "en" ? "en" : "es";
 const labels = language === "en"
-  ? { copy: "Copy", copied: "Copied" }
-  : { copy: "Copiar", copied: "Copiado" };
+  ? { copy: "Copy", copied: "Copied", captions: "Captions", captionsOn: "Captions on", captionsOff: "Captions off", audioEs: "Spanish (Spain)", audioEn: "English" }
+  : { copy: "Copiar", copied: "Copiado", captions: "Subtítulos", captionsOn: "Subtítulos activados", captionsOff: "Subtítulos desactivados", audioEs: "Español (España)", audioEn: "Inglés" };
 const preferredLanguage = localStorage.getItem("ui5-pdfme-docs-language");
 
 if (preferredLanguage && preferredLanguage !== language) {
@@ -33,6 +33,74 @@ document.querySelectorAll("pre").forEach((block) => {
     setTimeout(() => { button.textContent = labels.copy; }, 1200);
   });
   block.append(button);
+});
+
+document.querySelectorAll("[data-guide-video]").forEach((player) => {
+  const video = player.querySelector("video");
+  const source = video?.querySelector("source");
+  let track = video?.querySelector("track");
+  const status = player.querySelector("[data-video-status]");
+  const languageButtons = [...player.querySelectorAll("[data-video-language]")];
+  const captionsButton = player.querySelector("[data-video-captions]");
+  let activeLanguage = player.dataset.videoLanguage || language;
+  let captionsEnabled = captionsButton?.getAttribute("aria-pressed") !== "false";
+
+  if (!video || !source || !track) return;
+
+  const updateStatus = () => {
+    const audioLabel = activeLanguage === "es" ? labels.audioEs : labels.audioEn;
+    if (status) status.textContent = `Audio: ${audioLabel} · ${captionsEnabled ? labels.captionsOn : labels.captionsOff}`;
+    if (captionsButton) {
+      captionsButton.textContent = `CC ${labels.captions}`;
+      captionsButton.setAttribute("aria-pressed", String(captionsEnabled));
+    }
+  };
+
+  const setCaptionMode = () => {
+    [...video.textTracks].forEach((textTrack) => {
+      textTrack.mode = captionsEnabled ? "showing" : "disabled";
+    });
+  };
+
+  const replaceTrack = () => {
+    const nextTrack = document.createElement("track");
+    nextTrack.kind = "captions";
+    nextTrack.src = player.dataset[`captions${activeLanguage === "es" ? "Es" : "En"}`];
+    nextTrack.srclang = activeLanguage;
+    nextTrack.label = activeLanguage === "es" ? "Español" : "English";
+    nextTrack.default = captionsEnabled;
+    track.replaceWith(nextTrack);
+    track = nextTrack;
+  };
+
+  languageButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const nextLanguage = button.dataset.videoLanguage;
+      if (!nextLanguage || nextLanguage === activeLanguage) return;
+      const currentTime = video.currentTime;
+      const shouldResume = !video.paused;
+      activeLanguage = nextLanguage;
+      player.dataset.videoLanguage = activeLanguage;
+      source.src = player.dataset[`video${activeLanguage === "es" ? "Es" : "En"}`];
+      replaceTrack();
+      languageButtons.forEach((candidate) => candidate.setAttribute("aria-pressed", String(candidate.dataset.videoLanguage === activeLanguage)));
+      video.load();
+      video.addEventListener("loadedmetadata", () => {
+        video.currentTime = Math.min(currentTime, Math.max(0, video.duration - .1));
+        setCaptionMode();
+        if (shouldResume) video.play().catch(() => {});
+      }, { once: true });
+      updateStatus();
+    });
+  });
+
+  captionsButton?.addEventListener("click", () => {
+    captionsEnabled = !captionsEnabled;
+    setCaptionMode();
+    updateStatus();
+  });
+  video.addEventListener("loadedmetadata", setCaptionMode);
+  updateStatus();
 });
 
 const links = [...document.querySelectorAll(".side a")];

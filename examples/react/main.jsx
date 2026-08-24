@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     studio.current?.registerLoader("totals", totalsLoader).refreshData();
   }, []);
-  return <main className="shell"><PdfTemplateStudio ref={studio} template={invoiceTemplate} templateRepositories={templateRepositories} dataSources={dataSources} mapping={mapping} filename="invoice-react.pdf" language="en" autoResolve={false} /></main>;
+  return <main className="shell"><PdfTemplateStudio ref={studio} style={{ height: "100%", minHeight: 0 }} template={invoiceTemplate} templateRepositories={templateRepositories} dataSources={dataSources} mapping={mapping} filename="invoice-react.pdf" language="en" autoResolve={false} /></main>;
 }
 
 createRoot(document.getElementById("root")).render(<App />);

@@ -11,6 +11,7 @@
   <link rel="alternate" hreflang="x-default" href="index.html">
   <link rel="stylesheet" href="../assets/styles.css">
   <link rel="stylesheet" href="../assets/language.css">
+  <link rel="stylesheet" href="../assets/video.css">
 </head>
 <body>
   <header class="topbar">
@@ -27,7 +28,17 @@
       <p>Aprende a abrir una plantilla, insertar contenido, comprobar el resultado y guardar el diseño sin necesidad de conocer su integración técnica.</p>
       <div class="actions"><a class="button" href="#first-document">Crear el primer documento</a><a class="button secondary" href="#screen">Conocer la pantalla</a></div>
     </div>
-    <figure class="hero-shot"><img src="../assets/images/ui5-studio.png" alt="Editor ui5-pdfme con panel de datos, lienzo y propiedades"></figure>
+    <figure class="hero-shot guide-video" data-guide-video data-video-language="es" data-video-es="../assets/video/ui5-pdfme-guide-es.mp4" data-video-en="../assets/video/ui5-pdfme-guide-en.mp4" data-captions-es="../assets/video/ui5-pdfme-guide-es.vtt" data-captions-en="../assets/video/ui5-pdfme-guide-en.vtt">
+      <video controls playsinline preload="metadata" poster="../assets/video/ui5-pdfme-guide-poster.jpg" aria-label="Vídeo explicativo del funcionamiento de ui5-pdfme">
+        <source src="../assets/video/ui5-pdfme-guide-es.mp4" type="video/mp4">
+        <track kind="captions" src="../assets/video/ui5-pdfme-guide-es.vtt" srclang="es" label="Español">
+      </video>
+      <figcaption class="guide-video-controls">
+        <span class="guide-video-status" data-video-status aria-live="polite">Audio: Español (España) · Subtítulos desactivados</span>
+        <span class="guide-video-actions"><span class="guide-video-group" role="group" aria-label="Idioma del audio"><button type="button" data-video-language="es" aria-pressed="true">ES</button><button type="button" data-video-language="en" aria-pressed="false">EN</button></span><button type="button" data-video-captions aria-pressed="false">CC Subtítulos</button></span>
+      </figcaption>
+      <noscript><p><a href="../assets/video/ui5-pdfme-guide-es.mp4">Reproducir el vídeo en español</a> · <a href="../assets/video/ui5-pdfme-guide-en.mp4">Play the video in English</a></p></noscript>
+    </figure>
   </div></div>
 
   <div class="shell">

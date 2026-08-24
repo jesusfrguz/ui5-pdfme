@@ -25,6 +25,7 @@
 - [ ] Save/reload preserves the template.
 - [ ] Preview, download and print produce a valid PDF.
 - [ ] Catalog search/status/repository filters return the expected templates.
+- [ ] Catalog creation starts a blank A4 template and imports every page of a valid PDF background; invalid files are rejected.
 - [ ] List, get and save work for every configured template repository.
 - [ ] Server-driven REST/OData pagination is exhausted or intentionally bounded.
 - [ ] Long text, zero rows, many rows and page breaks were inspected.

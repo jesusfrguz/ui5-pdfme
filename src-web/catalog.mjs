@@ -5,14 +5,19 @@ const catalogLabels = {
   es: { title: "Plantillas", search: "Buscar plantillas", allStatuses: "Todos los estados", allSources: "Todos los orígenes", refresh: "Actualizar", empty: "No hay plantillas que coincidan con los filtros.", open: "Abrir", updated: "Actualizada", source: "Origen", loading: "Cargando plantillas…", error: "No se pudieron cargar las plantillas." }
 };
 
+Object.assign(catalogLabels.en, { blankTemplate: "Blank template", loadPdf: "Load PDF" });
+Object.assign(catalogLabels.es, { blankTemplate: "Plantilla en blanco", loadPdf: "Cargar PDF" });
+
 const catalogStyles = `
 .pdfme-template-catalog{--tc-brand:#0a6ed1;--tc-text:#172b3f;--tc-muted:#5f7285;--tc-line:#dce3e8;display:flex;flex-direction:column;min-height:18rem;color:var(--tc-text);font:14px/1.4 Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#fff}.pdfme-template-catalog *{box-sizing:border-box}.pdfme-template-catalog-toolbar{display:grid;grid-template-columns:minmax(14rem,1fr) minmax(10rem,.28fr) minmax(10rem,.28fr) auto;gap:.65rem;padding:1rem;border-bottom:1px solid var(--tc-line);background:#f8fafb}.pdfme-template-catalog-control{min-height:2.5rem;width:100%;border:1px solid #c8d2da;border-radius:.55rem;background:#fff;color:var(--tc-text);padding:.5rem .7rem;font:inherit}.pdfme-template-catalog-control:focus{outline:3px solid #0a6ed122;border-color:var(--tc-brand)}.pdfme-template-catalog-refresh{width:2.5rem;padding:0;border:1px solid #c8d2da;border-radius:.55rem;background:#fff;color:var(--tc-brand);cursor:pointer;font-size:1.2rem}.pdfme-template-catalog-refresh:hover{background:#edf6ff}.pdfme-template-catalog-summary{display:flex;align-items:center;min-height:2.5rem;padding:.55rem 1rem;color:var(--tc-muted);font-size:.82rem;border-bottom:1px solid var(--tc-line)}.pdfme-template-catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(16rem,1fr));align-content:start;align-items:start;flex:1 1 auto;min-height:0;gap:.85rem;padding:1rem;overflow:auto}.pdfme-template-card{display:flex;flex-direction:column;min-height:12rem;padding:1rem;border:1px solid var(--tc-line);border-radius:.8rem;background:#fff;box-shadow:0 .2rem .7rem #17324d0b}.pdfme-template-card:hover{border-color:#89bce7;box-shadow:0 .4rem 1.2rem #17324d16}.pdfme-template-card-top{display:flex;align-items:flex-start;gap:.6rem}.pdfme-template-card h3{min-width:0;margin:0;font-size:1rem;line-height:1.3;overflow-wrap:anywhere}.pdfme-template-status{margin-left:auto;padding:.16rem .45rem;border-radius:99px;background:#edf3f7;color:#456278;font-size:.69rem;font-weight:700;text-transform:uppercase}.pdfme-template-description{margin:.55rem 0;color:var(--tc-muted);font-size:.83rem}.pdfme-template-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin:.2rem 0 .7rem}.pdfme-template-tag{padding:.13rem .4rem;border-radius:.35rem;background:#eef7ff;color:#075b9e;font-size:.7rem}.pdfme-template-meta{display:grid;gap:.18rem;margin-top:auto;color:var(--tc-muted);font-size:.72rem}.pdfme-template-open{align-self:flex-end;margin-top:.75rem;min-height:2.25rem;padding:.4rem .75rem;border:1px solid var(--tc-brand);border-radius:.5rem;background:var(--tc-brand);color:#fff;font:600 .8rem/1 inherit;cursor:pointer}.pdfme-template-open:hover{background:#085caf}.pdfme-template-empty{grid-column:1/-1;margin:3rem auto;color:var(--tc-muted);text-align:center}.pdfme-template-catalog[aria-busy=true] .pdfme-template-catalog-grid{opacity:.55}.pdfme-template-catalog-error{color:#bb0000}@media(max-width:700px){.pdfme-template-catalog-toolbar{grid-template-columns:1fr auto}.pdfme-template-catalog-search{grid-column:1/-1}.pdfme-template-catalog-grid{grid-template-columns:1fr}.pdfme-template-source-filter{display:none}}`;
+
+const catalogCreationStyles = `.pdfme-template-catalog-create{display:flex;align-items:center;gap:.55rem;padding:.8rem 1rem;border-bottom:1px solid var(--tc-line);background:#fff}.pdfme-template-create-button{min-height:2.4rem;padding:.45rem .8rem;border:1px solid #8aa4b8;border-radius:.55rem;background:#fff;color:#23445f;font:600 .82rem/1 inherit;cursor:pointer}.pdfme-template-create-button:first-child{border-color:var(--tc-brand);background:var(--tc-brand);color:#fff}.pdfme-template-create-button:hover{filter:brightness(.96)}.pdfme-template-create-button:disabled{cursor:progress;opacity:.55}@media(max-width:440px){.pdfme-template-catalog-create{align-items:stretch;flex-direction:column}.pdfme-template-create-button{width:100%}}`;
 
 function ensureCatalogStyles() {
   if (document.querySelector("style[data-pdfme-template-catalog]")) return;
   const style = document.createElement("style");
   style.dataset.pdfmeTemplateCatalog = "true";
-  style.textContent = catalogStyles;
+  style.textContent = catalogStyles + catalogCreationStyles;
   document.head.append(style);
 }
 
@@ -55,6 +60,24 @@ export class WebTemplateCatalog {
     this.element.className = "pdfme-template-catalog";
     this.element.setAttribute("aria-label", labels.title);
     this.element.setAttribute("aria-busy", "false");
+    const creation = document.createElement("div");
+    creation.className = "pdfme-template-catalog-create";
+    const blankButton = document.createElement("button");
+    blankButton.type = "button";
+    blankButton.className = "pdfme-template-create-button";
+    blankButton.textContent = labels.blankTemplate;
+    const pdfButton = document.createElement("button");
+    pdfButton.type = "button";
+    pdfButton.className = "pdfme-template-create-button";
+    pdfButton.textContent = labels.loadPdf;
+    const pdfInput = document.createElement("input");
+    pdfInput.type = "file";
+    pdfInput.accept = "application/pdf,.pdf";
+    pdfInput.hidden = true;
+    blankButton.hidden = typeof this.configuration.onBlankTemplate !== "function";
+    pdfButton.hidden = typeof this.configuration.onPdfImport !== "function";
+    creation.hidden = blankButton.hidden && pdfButton.hidden;
+    creation.append(blankButton, pdfButton, pdfInput);
     const toolbar = document.createElement("div");
     toolbar.className = "pdfme-template-catalog-toolbar";
     this.search = document.createElement("input");
@@ -81,13 +104,28 @@ export class WebTemplateCatalog {
     this.grid = document.createElement("div");
     this.grid.className = "pdfme-template-catalog-grid";
     toolbar.append(this.search, this.status, this.repository, refreshButton);
-    this.element.append(toolbar, this.summary, this.grid);
+    this.element.append(creation, toolbar, this.summary, this.grid);
     this.root.append(this.element);
     let timer;
     this.search.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => this.refresh(), 180); });
     this.status.addEventListener("change", () => this.refresh());
     this.repository.addEventListener("change", () => this.refresh());
     refreshButton.addEventListener("click", () => this.refresh());
+    blankButton.addEventListener("click", async () => {
+      blankButton.disabled = true;
+      try { await this.configuration.onBlankTemplate?.({}); }
+      catch (error) { this.emit("error", { operation: "createBlankTemplate", error }); }
+      finally { blankButton.disabled = false; }
+    });
+    pdfButton.addEventListener("click", () => pdfInput.click());
+    pdfInput.addEventListener("change", async () => {
+      const file = pdfInput.files?.[0];
+      if (!file) return;
+      pdfButton.disabled = true;
+      try { await this.configuration.onPdfImport?.({ file }); }
+      catch (error) { this.emit("error", { operation: "importPdfTemplate", error }); }
+      finally { pdfButton.disabled = false; pdfInput.value = ""; }
+    });
   }
 
   query() { return { search: this.search?.value || "", status: this.status?.value || "", repositoryId: this.repository?.value || "" }; }

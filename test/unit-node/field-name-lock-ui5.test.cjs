@@ -45,7 +45,10 @@ test("UI5 protects field identifiers for default and custom pdfme plugins", asyn
     "@pdfme/ui": { Designer: function () {} },
     "@pdfme/generator": { generate: function (options) { generatedTemplate = options.template; generatedInputs = options.inputs; return options.template; } },
     "@pdfme/schemas": schemas,
-    "@pdfme/common": { checkTemplate: function () {} }
+    "@pdfme/common": {
+      checkTemplate: function () {},
+      getB64BasePdf: function (data) { return Promise.resolve(data); }
+    }
   });
   const plugins = new PdfEngine({
     plugins: { Custom: customPlugin },
@@ -99,6 +102,10 @@ test("UI5 protects field identifiers for default and custom pdfme plugins", asyn
     ]]
   };
   const engine = new PdfEngine();
+  const importedTemplate = await PdfEngine.createTemplateFromPdf("data:application/pdf;base64,JVBERi0=");
+  assert.equal(importedTemplate.basePdf, "data:application/pdf;base64,JVBERi0=");
+  assert.equal(importedTemplate.schemas.length, 1);
+  assert.equal(importedTemplate.schemas[0].length, 0);
   engine.generate(template, [{ company: "Fiori Labs" }]);
 
   assert.equal(generatedTemplate.schemas[0].map((schema) => schema.name).join(","), "body");

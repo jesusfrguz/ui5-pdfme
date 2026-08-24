@@ -4,7 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ui5-pdfme · JavaScript</title>
-  <style>body{margin:0;background:#eef2f5;font-family:Arial,sans-serif}.hero{padding:20px 28px;background:#102a43;color:#fff}.hero h1{margin:0 0 4px}.hero p{margin:0;color:#cfe8ff}.shell{padding:20px;height:calc(100vh - 105px)}#studio{height:100%}</style>
+  <style>
+    html,body{min-height:100%}
+    body{display:flex;flex-direction:column;height:100vh;height:100dvh;min-height:100%;margin:0;background:#eef2f5;font-family:Arial,sans-serif}
+    .hero{flex:0 0 auto;padding:20px 28px;background:#102a43;color:#fff}
+    .hero h1{margin:0 0 4px}.hero p{margin:0;color:#cfe8ff}
+    .shell{flex:1 1 auto;min-height:0;padding:20px;box-sizing:border-box}
+    #studio{height:100%;min-height:0}
+  </style>
 </head>
 <body>
   <header class="hero"><h1>ui5-pdfme · JavaScript</h1><p>Framework-agnostic visual PDF templates with multiple data sources.</p></header>

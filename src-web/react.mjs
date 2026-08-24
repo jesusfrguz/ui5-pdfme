@@ -43,7 +43,7 @@ export const PdfTemplateCatalog = forwardRef(function PdfTemplateCatalog(props, 
   return React.createElement("div", { ref: hostRef, className: props.className, style: props.style });
 });
 
-export { WebPdfTemplateStudio, createBlankTemplate, createDefaultPlugins } from "./studio.mjs";
+export { WebPdfTemplateStudio, createBlankTemplate, createTemplateFromPdf, createDefaultPlugins } from "./studio.mjs";
 export { DataProviderRegistry, DataResolver, MappingEngine } from "./core.mjs";
 export { TemplateRepositoryRegistry, TemplateStore } from "./template-repository.mjs";
 export { WebTemplateCatalog } from "./catalog.mjs";

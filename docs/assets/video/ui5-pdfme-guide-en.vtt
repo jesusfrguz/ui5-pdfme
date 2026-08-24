@@ -1,0 +1,28 @@
+WEBVTT
+
+00:00:00.150 --> 00:00:15.110
+ui5-pdfme turns application data into PDF documents. It combines a reusable visual template, a data contract, and safe mapping, without mixing the design with credentials or system logic.
+
+00:00:17.280 --> 00:00:32.620
+Work can start with the design supplied by the application or with a template from the catalog. You can search, filter by status or repository, open a version, and save changes with its name, description, tags, and status.
+
+00:00:33.830 --> 00:00:46.890
+The screen brings together three main areas. Data fields and the content palette are on the left. The page canvas is in the centre. The field list and its properties are on the right.
+
+00:00:50.410 --> 00:01:03.210
+Selecting a value from the panel inserts it as a connected field. Its stable identifier links the design to the mapping, and the database icon distinguishes it from static content created from the palette.
+
+00:01:05.310 --> 00:01:21.970
+On the canvas you can select, move, and resize every element. Properties control its type, content, style, label, and behaviour. Headers, footers, and connected text can also be fixed and repeated on every page.
+
+00:01:25.220 --> 00:01:44.330
+Tables receive complete collections and can continue onto new pages. You can also combine several variables in one text and add images, signatures, shapes, dates, barcodes, or QR codes. Dynamic content respects the margins reserved by repeated elements.
+
+00:01:46.140 --> 00:02:06.500
+Before publishing, open the PDF preview. Check empty values, long text, special characters, tables with many rows, page breaks, margins, language, dates, currency, and fonts. This review validates the generated document, not only the designer view.
+
+00:02:08.330 --> 00:02:23.930
+When the result is correct, save the template in an authorised repository. You can then download the PDF or open the browser print dialog. The template preserves the design and mapping; data is resolved again for each document.
+
+00:02:26.440 --> 00:02:40.580
+The same template, data, and mapping contract works in SAPUI5 and OpenUI5, JavaScript, and React. The visual experience changes adapter, while the final document keeps the same behaviour.

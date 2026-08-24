@@ -32,6 +32,7 @@ export const template = {
 1. List document sections, required fields, table columns, locales, page size and branding.
 2. Give every field a semantic, stable name. Never use translated display text as the key.
 3. Create a minimal valid template or load an existing version.
+   In the visual catalog, choose **Blank template** for pdfme's blank A4 base or **Load PDF** to use every page of a local PDF as the background.
 4. Define `mapping.fields` separately and provide representative data.
 5. Open the visual designer for final positioning and styling.
 6. Generate a PDF and inspect long strings, empty values, large tables, page breaks and locale formats.
