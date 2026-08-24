@@ -57,3 +57,12 @@ test("MappingEngine creates one input per repeated record", () => {
   assert.deepEqual(inputs.map((input) => input.id), ["1", "2"]);
   assert.deepEqual(inputs.map((input) => input.label), ["X-1", "X-2"]);
 });
+
+test("UI5 MappingEngine creates multi-variable JSON inputs", () => {
+  const engine = new MappingEngine();
+  const input = engine.map({ totals: { subtotal: 125.5 } }, {
+    summary: { variables: { subtotal: "totals.subtotal" } }
+  });
+
+  assert.deepEqual(JSON.parse(input.summary), { subtotal: "125.5" });
+});

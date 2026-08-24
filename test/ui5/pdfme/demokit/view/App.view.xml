@@ -8,7 +8,7 @@
       <content>
         <MessageStrip
           class="sapUiSmallMargin"
-          text="Ejemplo con tres fuentes combinadas: pedido, marca y totales calculados. Selecciona cualquier campo del panel para insertarlo."
+          text="Selecciona una plantilla del catálogo. Puedes buscar, filtrar, abrirla, editarla y guardarla en el repositorio de ejemplo."
           type="Information"
           showIcon="true" />
         <pdf:PdfTemplateStudio
@@ -17,7 +17,6 @@
           height="calc(100vh - 9rem)"
           filename="factura-demo.pdf"
           language="es"
-          templateSave="onTemplateSave"
           error="onError" />
       </content>
     </Page>

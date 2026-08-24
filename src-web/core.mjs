@@ -42,6 +42,88 @@ export function flattenData(object, { maxDepth = 6, includeArrays = true } = {})
   return result;
 }
 
+export const FIXED_POSITION_VALUE_PREFIX = "\u0000ui5-pdfme-fixed:";
+const FIXED_INPUT_ALIAS = "__ui5PdfmeFixedInputAlias";
+const FIXED_INPUT_NAME = "__ui5PdfmeFixedInputName";
+
+function reserveRepeatedFixedFieldMargins(basePdf, fixedSchemas) {
+  const pageHeight = Number(basePdf.height);
+  if (!Number.isFinite(pageHeight) || pageHeight <= 0) return basePdf.padding;
+
+  const padding = basePdf.padding.map((value) => Number(value) || 0);
+  fixedSchemas.forEach((schema) => {
+    if (schema.repeatOnEveryPage !== true) return;
+    const y = Number(schema.position?.y);
+    const height = Number(schema.height);
+    if (!Number.isFinite(y) || !Number.isFinite(height) || height < 0) return;
+
+    const top = Math.max(0, Math.min(pageHeight, y));
+    const bottom = Math.max(top, Math.min(pageHeight, y + height));
+    if ((top + bottom) / 2 <= pageHeight / 2) {
+      padding[0] = Math.max(padding[0], bottom);
+    } else {
+      padding[2] = Math.max(padding[2], pageHeight - top);
+    }
+  });
+  return padding;
+}
+
+export function prepareTemplateForGeneration(template) {
+  const basePdf = template?.basePdf;
+  if (!basePdf || typeof basePdf !== "object" || !Array.isArray(basePdf.padding) || !Array.isArray(template?.schemas)) {
+    return template;
+  }
+
+  const fixedSchemas = [];
+  const schemas = template.schemas.map((page, pageIndex) => (Array.isArray(page) ? page : []).filter((schema, schemaIndex) => {
+    const fixed = schema?.fixedPosition === true;
+    if (fixed) {
+      const repeats = schema.repeatOnEveryPage === true;
+      const inputAlias = schema.readOnly === true ? null : `__ui5PdfmeFixed_${pageIndex}_${schemaIndex}`;
+      const content = inputAlias ? `{${inputAlias}}` : (schema.content || "");
+      fixedSchemas.push({
+        ...schema,
+        readOnly: true,
+        content: repeats
+          ? content
+          : `${FIXED_POSITION_VALUE_PREFIX}${pageIndex + 1}:{currentPage}\u0000${content}`,
+        required: false,
+        ...(inputAlias ? { [FIXED_INPUT_ALIAS]: inputAlias, [FIXED_INPUT_NAME]: schema.name } : {})
+      });
+    }
+    return !fixed;
+  }));
+  if (!fixedSchemas.length) return template;
+
+  const fixedNames = new Set(fixedSchemas.map(({ name }) => name));
+  const existingStaticSchemas = Array.isArray(basePdf.staticSchema)
+    ? basePdf.staticSchema.filter(({ name }) => !fixedNames.has(name))
+    : [];
+  return {
+    ...template,
+    basePdf: {
+      ...basePdf,
+      padding: reserveRepeatedFixedFieldMargins(basePdf, fixedSchemas),
+      staticSchema: [...existingStaticSchemas, ...fixedSchemas]
+    },
+    schemas
+  };
+}
+
+export function prepareInputsForGeneration(template, inputs) {
+  const bindings = Array.isArray(template?.basePdf?.staticSchema)
+    ? template.basePdf.staticSchema.filter((schema) => schema?.[FIXED_INPUT_ALIAS] && schema?.[FIXED_INPUT_NAME])
+    : [];
+  if (!bindings.length || !Array.isArray(inputs)) return inputs;
+  return inputs.map((input) => {
+    const prepared = { ...(input || {}) };
+    bindings.forEach((schema) => {
+      prepared[schema[FIXED_INPUT_ALIAS]] = input?.[schema[FIXED_INPUT_NAME]] ?? "";
+    });
+    return prepared;
+  });
+}
+
 export class DataProviderRegistry {
   constructor() {
     this.providers = new Map();
@@ -199,6 +281,15 @@ export class MappingEngine {
     if (typeof definition === "string") value = getPath(data, definition);
     else if (definition && typeof definition === "object" && !Array.isArray(definition)) {
       if (Object.hasOwn(definition, "value")) value = definition.value;
+      else if (Object.hasOwn(definition, "variables")) {
+        const variables = Array.isArray(definition.variables)
+          ? Object.fromEntries(definition.variables.map((name) => [name, name]))
+          : definition.variables || {};
+        value = Object.fromEntries(Object.entries(variables).map(([name, variableDefinition]) => [
+          name,
+          this.resolveField(variableDefinition, data)
+        ]));
+      }
       else if (Object.hasOwn(definition, "template")) {
         value = String(definition.template).replace(/\{([^{}]+)\}/g, (_match, path) => asString(getPath(data, path.trim(), "")));
       } else value = getPath(data, definition.path, definition.defaultValue);

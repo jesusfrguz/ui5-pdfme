@@ -10,3 +10,4 @@ coverage/
 .tmp-package-test/
 .tmp-release-test/
 .tmp-web-build/
+.pages/

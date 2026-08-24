@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Jesús Franco Guzmán">
   <meta name="description" content="Technical and functional ui5-pdfme documentation for SAPUI5, OpenUI5, Fiori, React, and JavaScript.">
   <title>ui5-pdfme · Documentation</title>
   <link rel="alternate" hreflang="es" href="index.html">
@@ -15,7 +16,7 @@
   <header class="topbar">
     <a class="brand" href="#top"><span class="mark">PDF</span> ui5-pdfme</a>
     <button class="menu" aria-label="Open navigation">Menu</button>
-    <nav aria-label="Main navigation"><a href="#quickstart">Quick start</a><a href="#platforms">Platforms</a><a href="#data">Data</a><a href="#templates">Templates</a><a href="#api">API</a><a href="https://github.com/jesusfrguz/ui5-pdfme">GitHub</a></nav>
+    <nav aria-label="Main navigation"><a href="#quickstart">Quick start</a><a href="guide/en.html">User guide</a><a href="#platforms">Platforms</a><a href="examples/">Demos</a><a href="#data">Data</a><a href="#api">API</a><a href="https://github.com/jesusfrguz/ui5-pdfme">GitHub</a></nav>
     <div class="language-switch" role="group" aria-label="Language"><a href="index.html" lang="es" hreflang="es" data-language="es">ES</a><a href="en.html" lang="en" hreflang="en" aria-current="page" data-language="en">EN</a></div>
   </header>
 
@@ -24,7 +25,7 @@
       <span class="eyebrow">SAPUI5 · OpenUI5 · Fiori · React · JavaScript</span>
       <h1>Design once.<br>Print with any data.</h1>
       <p>A visual PDF form editor with JSON templates, multiple data sources, OData V2/V4, tables, variables, preview, download, and print.</p>
-      <div class="actions"><a class="button" href="#quickstart">Get started</a><a class="button secondary" href="#architecture">View architecture</a></div>
+      <div class="actions"><a class="button" href="examples/">Try the demos</a><a class="button secondary" href="guide/en.html">User guide</a><a class="button secondary" href="#quickstart">Integrate</a></div>
     </div>
     <figure class="hero-shot"><img src="assets/images/ui5-studio.png" alt="ui5-pdfme visual editor running in SAPUI5"></figure>
   </div></div>
@@ -80,11 +81,11 @@ const studio = new WebPdfTemplateStudio("#studio", {
 
       <section id="platforms">
         <span class="pill">Real examples</span><h2>Platforms</h2>
-        <h3>SAPUI5, OpenUI5, and Fiori</h3><p>Native control, Fiori themes, UI5 events, and access to propagated models. Declare <code>ui5.pdfme</code> in the manifest dependencies.</p>
+        <h3>SAPUI5, OpenUI5, and Fiori</h3><p>Native control, Fiori themes, UI5 events, and access to propagated models. Declare <code>ui5.pdfme</code> in the manifest dependencies. <a href="examples/ui5/">Open the live demo</a>.</p>
         <figure class="shot"><img src="assets/images/ui5-studio.png" alt="Invoice editor in SAPUI5"><figcaption>SAPUI5 demo: three sources, a dynamic table, en-US formats, and PDF preview.</figcaption></figure>
-        <h3>Framework-free JavaScript</h3><p>An ESM class for Vite or another modern bundler. It exposes <code>pdfme:*</code> DOM events.</p>
+        <h3>Framework-free JavaScript</h3><p>An ESM class for Vite or another modern bundler. It exposes <code>pdfme:*</code> DOM events. <a href="examples/javascript/">Open the live demo</a>.</p>
         <figure class="shot"><img src="assets/images/javascript-studio.png" alt="ui5-pdfme editor in JavaScript"><figcaption>The same engine running in a JavaScript web app.</figcaption></figure>
-        <h3>React</h3><p>A declarative component with an imperative ref to the studio for registering extensions or generating documents.</p>
+        <h3>React</h3><p>A declarative component with an imperative ref to the studio for registering extensions or generating documents. <a href="examples/react/">Open the live demo</a>.</p>
         <figure class="shot"><img src="assets/images/react-studio.png" alt="ui5-pdfme editor in React"><figcaption>React adapter: the same data and template contract, with lifecycle managed by React.</figcaption></figure>
       </section>
 
@@ -141,19 +142,34 @@ const bytes = await studio.generate();
 await studio.preview();
 await studio.download();
 await studio.print();
+studio.openHelp();
 
 studio.getTemplate();
 studio.getResolvedData();
 studio.getInputs();
 studio.registerDataProvider(type, provider);
 studio.registerLoader(name, loader);
-studio.registerFormatter(name, formatter);</code></pre>
-        <table class="matrix"><thead><tr><th>Web event</th><th>UI5 event</th><th>Detail</th></tr></thead><tbody><tr><td><code>pdfme:templateSave</code></td><td><code>templateSave</code></td><td>template</td></tr><tr><td><code>pdfme:templateChange</code></td><td><code>templateChange</code></td><td>template</td></tr><tr><td><code>pdfme:dataResolved</code></td><td><code>dataResolved</code></td><td>data, inputs</td></tr><tr><td><code>pdfme:generated</code></td><td><code>generated</code></td><td>bytes, Blob</td></tr><tr><td><code>pdfme:error</code></td><td><code>error</code></td><td>operation, error</td></tr></tbody></table>
+studio.registerFormatter(name, formatter);
+
+await studio.listTemplates({ search: "invoice", status: "published" });
+await studio.loadTemplate("invoice-es", { repositoryId: "backend" });
+await studio.saveTemplateRecord({ name: "Invoice", tags: ["sales"] });</code></pre>
+        <table class="matrix"><thead><tr><th>Web event</th><th>UI5 event</th><th>Detail</th></tr></thead><tbody><tr><td><code>pdfme:templateSave</code></td><td><code>templateSave</code></td><td>template</td></tr><tr><td><code>pdfme:templatesListed</code></td><td><code>templatesListed</code></td><td>templates</td></tr><tr><td><code>pdfme:templateLoaded</code></td><td><code>templateLoaded</code></td><td>record</td></tr><tr><td><code>pdfme:templateSaved</code></td><td><code>templatePersisted</code></td><td>record</td></tr><tr><td><code>pdfme:dataResolved</code></td><td><code>dataResolved</code></td><td>data, inputs</td></tr><tr><td><code>pdfme:generated</code></td><td><code>generated</code></td><td>bytes, Blob</td></tr><tr><td><code>pdfme:help</code></td><td><code>help</code></td><td>url</td></tr><tr><td><code>pdfme:error</code></td><td><code>error</code></td><td>operation, error</td></tr></tbody></table>
       </section>
 
       <section id="persistence">
         <span class="pill">Operations</span><h2>Persistence and lifecycle</h2>
-        <p>The package does not impose a database. The application can persist data in OData, REST, CAP, ABAP, BTP, or its own storage. A recommended entity includes: ID, version, name, document type, template JSON, mapping JSON, data-contract version, draft/published status, author, and timestamps.</p>
+        <p>The visual catalog lists configured repositories, searches name/description/tags, filters by status and source, and opens the selected template in the editor. Included adapters are <code>memory</code>, <code>localStorage</code>, <code>rest</code>, <code>odata</code>, and <code>function</code>.</p>
+        <pre><code>templateRepositories: [{
+  id: "browser",
+  type: "localStorage",
+  storageKey: "my-app.templates"
+}, {
+  id: "backend",
+  type: "rest",
+  url: "/api/templates"
+}]</code></pre>
+        <p>REST uses collection/detail GET and POST/PUT; OData uses POST/PATCH and follows V2/V4 paging. In Fiori, provide <code>modelName</code> and <code>path</code> to preserve destinations, batch, and CSRF handling. Runnable Node, PostgreSQL, and CAP/OData examples are included. See <a href="../agents/TEMPLATE_REPOSITORIES.md">Template catalog and repositories</a>.</p>
         <div class="callout">Publishing must be an authorized operation. Keep immutable versions so that a historical reprint uses exactly the approved design.</div>
       </section>
 
@@ -170,7 +186,7 @@ npm run build
 npm run docs:dev
 npm run example:js
 npm run example:react</code></pre>
-        <p><code>npm run build</code> creates the precompiled UI5 artifact. Vite bundles the web entry points and their WASM resources. The Pages workflow publishes this <code>docs/</code> folder as a static site.</p>
+        <p><code>npm run build</code> creates the precompiled UI5 artifact. Vite bundles the web entry points and their WASM resources. <code>npm run build:pages</code> assembles the documentation and the live UI5, JavaScript, and React demos in <code>.pages/</code>; the workflow deploys that static artifact.</p>
         <p>Test coverage includes concurrent/dependent resolution, cycles, fallbacks, OData V2/V4, mappings, tables, repetition, and final PDF creation.</p>
       </section>
 
@@ -186,7 +202,7 @@ npm run example:react</code></pre>
       </section>
     </main>
   </div>
-  <footer class="footer">ui5-pdfme · Apache-2.0 · Powered by <a href="https://pdfme.com/">pdfme</a></footer>
+  <footer class="footer">ui5-pdfme · Author: <a href="https://www.linkedin.com/in/jesus-franco-guzman/">Jesús Franco Guzmán</a> · Apache-2.0 · Powered by <a href="https://pdfme.com/">pdfme</a></footer>
   <script type="module" src="assets/docs.js"></script>
 </body>
 </html>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Jesús Franco Guzmán">
+  <meta name="description" content="Guía de uso de ui5-pdfme para diseñar, comprobar, guardar e imprimir plantillas PDF.">
+  <title>ui5-pdfme · Guía de uso</title>
+  <link rel="alternate" hreflang="es" href="index.html">
+  <link rel="alternate" hreflang="en" href="en.html">
+  <link rel="alternate" hreflang="x-default" href="index.html">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <link rel="stylesheet" href="../assets/language.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="mark">PDF</span> ui5-pdfme</a>
+    <button class="menu" aria-label="Abrir navegación">Menú</button>
+    <nav aria-label="Navegación principal"><a href="../">Documentación</a><a href="#first-document">Primer documento</a><a href="#fields">Campos</a><a href="#templates">Plantillas</a><a href="../examples/">Demos</a></nav>
+    <div class="language-switch" role="group" aria-label="Idioma"><a href="index.html" lang="es" hreflang="es" aria-current="page" data-language="es">ES</a><a href="en.html" lang="en" hreflang="en" data-language="en">EN</a></div>
+  </header>
+
+  <div class="hero" id="top"><div class="hero-inner">
+    <div>
+      <span class="eyebrow">Guía funcional</span>
+      <h1>De los datos<br>al PDF final.</h1>
+      <p>Aprende a abrir una plantilla, insertar contenido, comprobar el resultado y guardar el diseño sin necesidad de conocer su integración técnica.</p>
+      <div class="actions"><a class="button" href="#first-document">Crear el primer documento</a><a class="button secondary" href="#screen">Conocer la pantalla</a></div>
+    </div>
+    <figure class="hero-shot"><img src="../assets/images/ui5-studio.png" alt="Editor ui5-pdfme con panel de datos, lienzo y propiedades"></figure>
+  </div></div>
+
+  <div class="shell">
+    <aside class="side" aria-label="Contenido">
+      <a href="#purpose">Qué puedes hacer</a><a href="#screen">La pantalla</a><a href="#first-document">Primer documento</a><a href="#fields">Campos y datos</a><a href="#advanced">Contenido avanzado</a><a href="#templates">Guardar plantillas</a><a href="#validate">Comprobar el PDF</a><a href="#troubleshooting">Problemas comunes</a><a href="#glossary">Glosario</a>
+    </aside>
+    <main class="content">
+      <section id="purpose">
+        <span class="pill">Objetivo</span><h2>Qué puedes hacer</h2>
+        <p class="lead">ui5-pdfme combina un diseño visual con campos proporcionados por la aplicación. El resultado es una plantilla reutilizable que puede generar muchos documentos con datos diferentes.</p>
+        <div class="grid"><article class="card"><h3>Diseñar</h3><p>Añade textos, tablas, imágenes, firmas, formas, fechas y códigos; colócalos y ajusta sus propiedades.</p></article><article class="card"><h3>Conectar</h3><p>Inserta campos del panel de datos para que el documento se rellene automáticamente.</p></article><article class="card"><h3>Entregar</h3><p>Comprueba el PDF, guarda la plantilla y descarga o imprime el documento final.</p></article></div>
+        <div class="callout"><strong>Importante:</strong> una plantilla guarda el diseño, no las credenciales ni los permisos. La aplicación decide qué datos y repositorios puede utilizar cada persona.</div>
+      </section>
+
+      <section id="screen">
+        <span class="pill">Recorrido</span><h2>Conocer la pantalla</h2>
+        <figure class="shot"><img src="../assets/images/ui5-studio.png" alt="Vista completa del diseñador"><figcaption>La disposición puede compactarse en pantallas estrechas, pero las operaciones son las mismas.</figcaption></figure>
+        <table class="matrix"><thead><tr><th>Zona</th><th>Para qué sirve</th></tr></thead><tbody>
+          <tr><td>Plantillas</td><td>Busca, filtra y abre diseños guardados.</td></tr>
+          <tr><td>Campos de datos</td><td>Muestra los valores disponibles. Seleccionar uno lo inserta en el documento.</td></tr>
+          <tr><td>Paleta lateral</td><td>Añade contenido estático como texto, imagen, tabla, forma o fecha. <em>Códigos y QR</em> agrupa los formatos de código disponibles.</td></tr>
+          <tr><td>Lienzo</td><td>Representa las páginas. Aquí seleccionas, mueves y dimensionas los elementos.</td></tr>
+          <tr><td>Lista y propiedades</td><td>Permite localizar un elemento y cambiar su identificador, contenido, estilo y comportamiento.</td></tr>
+          <tr><td>Barra superior</td><td>Guarda, abre la vista previa, descarga, imprime, muestra la ayuda o entra en pantalla completa.</td></tr>
+        </tbody></table>
+      </section>
+
+      <section id="first-document">
+        <span class="pill">5 minutos</span><h2>Crear el primer documento</h2>
+        <ol>
+          <li><strong>Abre una plantilla.</strong> Pulsa <em>Plantillas</em>, usa los filtros si es necesario y selecciona <em>Abrir</em>. Si no hay catálogo, trabaja con el diseño que ha preparado la aplicación.</li>
+          <li><strong>Añade contenido.</strong> Selecciona un campo del panel izquierdo para conectarlo a datos, o elige un tipo en la paleta para crear contenido estático.</li>
+          <li><strong>Colócalo.</strong> Arrastra el elemento en el lienzo y usa sus tiradores para cambiar el tamaño.</li>
+          <li><strong>Configúralo.</strong> Selecciona el elemento y revisa sus propiedades. Usa un identificador corto, semántico y único.</li>
+          <li><strong>Comprueba el resultado.</strong> Pulsa <em>Vista previa del PDF</em>. Corrige el diseño hasta que los datos se lean correctamente.</li>
+          <li><strong>Guarda.</strong> Indica nombre, descripción, etiquetas, estado y repositorio cuando sea la primera vez.</li>
+        </ol>
+      </section>
+
+      <section id="fields">
+        <span class="pill">Concepto clave</span><h2>Campos estáticos y conectados</h2>
+        <table class="matrix"><thead><tr><th>Tipo</th><th>Cuándo utilizarlo</th><th>Comportamiento</th></tr></thead><tbody>
+          <tr><td>Estático</td><td>Títulos, etiquetas, instrucciones, líneas y elementos decorativos.</td><td>Conserva el contenido escrito en la plantilla y muestra un ojo en la lista. Si se repite en todas las páginas, muestra además el icono de páginas superpuestas. <strong>Valor desde datos</strong> permanece desactivado.</td></tr>
+          <tr><td>Conectado</td><td>Cliente, fecha, importe, dirección, artículos y cualquier valor que cambie.</td><td>Recibe un valor de la aplicación. Muestra el icono de base de datos y <strong>Valor desde datos</strong> está activado.</td></tr>
+        </tbody></table>
+        <h3>Identificador del campo</h3>
+        <p>Es la clave estable que relaciona el diseño con los datos. Debe ser única en toda la plantilla. No uses el texto traducido que ve el destinatario: son preferibles nombres como <code>customerName</code>, <code>invoiceDate</code> o <code>items</code>.</p>
+        <h3>Etiqueta y valor en un solo campo Text</h3>
+        <p>En un Text conectado, activa <strong>Mostrar etiqueta</strong> y edita <strong>Texto de la etiqueta</strong> para representar un campo compacto como <code>Subtotal: 125,50 €</code>. La etiqueta se ve en el layout y se incluye en la vista previa y en el PDF final. En un Text estático, el flag permanece marcado y deshabilitado porque el contenido de la plantilla ya es su texto visible.</p>
+        <h3>Panel de datos</h3>
+        <ul>
+          <li>Usa la búsqueda para localizar un campo por su ruta o valor de ejemplo.</li>
+          <li><strong>Incluido</strong> indica que el diseño ya utiliza ese dato; no significa necesariamente que esté visible en la página actual.</li>
+          <li><strong>No incluido</strong> indica que todavía no existe un elemento que utilice ese dato.</li>
+          <li>Pulsa actualizar si la aplicación ha cambiado los datos de ejemplo.</li>
+        </ul>
+      </section>
+
+      <section id="advanced">
+        <span class="pill">Diseños reales</span><h2>Contenido avanzado</h2>
+        <h3>Tablas</h3><p>Inserta el campo que representa la colección completa, no solamente una propiedad de la primera fila. Ajusta cabeceras, anchos y altura con ejemplos sin filas, con pocas filas y con muchas filas.</p>
+        <h3>Texto con varias variables</h3><p>Utilízalo para frases que combinan texto fijo y varios valores, por ejemplo un resumen con número de factura, cliente y total. Mantén cada variable disponible en los datos.</p>
+        <h3>Imágenes, firmas y códigos</h3><p>Reserva espacio suficiente y comprueba la calidad en el PDF generado. En <strong>Códigos y QR</strong>, elige QR, Code 128, EAN-13, Data Matrix o PDF417. Verifica cada código con un lector real antes de publicar la plantilla.</p>
+        <h3>Varias páginas</h3><p>Para una cabecera o un pie estático, o para un campo Text conectado a datos, activa <strong>Posición fija no desplazable</strong>. El elemento conservará sus coordenadas y quedará fuera del flujo cuando crezcan tablas o textos. Después puedes activar opcionalmente <strong>Repetir en todas las páginas</strong>; el valor resuelto del Text también se repetirá. Si no lo haces, se dibujará solo en su página original. Al generar, el borde del elemento repetido amplía automáticamente el margen superior o inferior más cercano para que el contenido que salta de página no se superponga; el margen configurado sigue siendo el mínimo. En textos estáticos repetidos puedes utilizar <code>{currentPage}</code> y <code>{totalPages}</code>. Estas opciones no se muestran para campos conectados que no sean Text ni cuando el fondo es un PDF importado.</p>
+      </section>
+
+      <section id="templates">
+        <span class="pill">Ciclo de vida</span><h2>Guardar y recuperar plantillas</h2>
+        <p>La primera vez, <em>Guardar plantilla</em> solicita metadatos. Las siguientes guardadas actualizan el registro abierto, salvo que la aplicación ofrezca una operación específica para crear otra versión.</p>
+        <table class="matrix"><thead><tr><th>Dato</th><th>Recomendación</th></tr></thead><tbody>
+          <tr><td>Nombre</td><td>Describe el documento y, si procede, el país o idioma.</td></tr>
+          <tr><td>Descripción</td><td>Indica finalidad, destinatario y particularidades relevantes.</td></tr>
+          <tr><td>Etiquetas</td><td>Usa términos consistentes para facilitar la búsqueda.</td></tr>
+          <tr><td>Borrador</td><td>Diseño en preparación o pendiente de revisión.</td></tr>
+          <tr><td>Publicada</td><td>Versión aprobada para uso operativo.</td></tr>
+          <tr><td>Archivada</td><td>Diseño conservado como histórico, pero no recomendado para nuevos documentos.</td></tr>
+        </tbody></table>
+        <div class="callout">Cambiar el estado no sustituye una aprobación. Los permisos, revisiones y versiones disponibles dependen del sistema donde está integrado el editor.</div>
+      </section>
+
+      <section id="validate">
+        <span class="pill">Antes de publicar</span><h2>Comprobar el PDF</h2>
+        <ul>
+          <li>Actualiza los datos y abre la vista previa.</li>
+          <li>Comprueba valores vacíos, textos muy largos y caracteres especiales.</li>
+          <li>Prueba tablas sin filas, con una fila y con muchas filas.</li>
+          <li>Revisa saltos de página, márgenes y contenido fuera del área imprimible.</li>
+          <li>Verifica idioma, fechas, zona horaria, moneda y fuentes.</li>
+          <li>Descarga un PDF y ábrelo fuera del editor.</li>
+          <li>Realiza una impresión de prueba cuando el tamaño físico sea importante.</li>
+        </ul>
+        <p>Los navegadores muestran su propio diálogo de impresión. El editor no puede imprimir de forma silenciosa.</p>
+      </section>
+
+      <section id="troubleshooting">
+        <span class="pill">Ayuda</span><h2>Problemas comunes</h2>
+        <table class="matrix"><thead><tr><th>Problema</th><th>Qué hacer</th></tr></thead><tbody>
+          <tr><td>No aparecen campos de datos</td><td>Pulsa actualizar. Si sigue vacío, la aplicación todavía no ha proporcionado datos o no tienes acceso; contacta con el responsable funcional.</td></tr>
+          <tr><td>Un campo queda vacío en el PDF</td><td>Comprueba que está conectado, que su identificador corresponde a una opción disponible y que el dato de ejemplo tiene valor.</td></tr>
+          <tr><td>No se acepta un identificador</td><td>Elige una opción disponible para un campo conectado o utiliza un nombre único para un campo estático.</td></tr>
+          <tr><td>No aparecen las opciones de posición fija</td><td>Selecciona un elemento estático o un Text conectado. Estas opciones no están disponibles para otros campos conectados ni para fondos PDF importados.</td></tr>
+          <tr><td>La tabla desborda</td><td>Aumenta su espacio, reduce columnas o texto y prueba con más filas. Revisa también la página siguiente.</td></tr>
+          <tr><td>No puedo guardar o publicar</td><td>Revisa el repositorio y el estado seleccionados. La aplicación puede limitar estas operaciones según tus permisos.</td></tr>
+          <tr><td>No aparece la impresión</td><td>Permite que el PDF termine de generarse y revisa si el navegador ha bloqueado el diálogo o la nueva ventana.</td></tr>
+        </tbody></table>
+        <p>Para fallos de integración, consulta los <a href="../#troubleshooting">problemas técnicos</a>.</p>
+      </section>
+
+      <section id="glossary">
+        <span class="pill">Referencia rápida</span><h2>Glosario</h2>
+        <table class="matrix"><tbody><tr><th>Plantilla</th><td>Diseño reutilizable del documento.</td></tr><tr><th>Campo</th><td>Elemento colocado en una página.</td></tr><tr><th>Campo conectado</th><td>Elemento cuyo valor procede de los datos de la aplicación.</td></tr><tr><th>Identificador</th><td>Nombre estable y único que relaciona un campo con su valor.</td></tr><tr><th>Repositorio</th><td>Origen donde se buscan y guardan plantillas.</td></tr><tr><th>Vista previa</th><td>PDF generado para comprobar el resultado antes de descargar o imprimir.</td></tr></tbody></table>
+      </section>
+    </main>
+  </div>
+  <footer class="footer">ui5-pdfme · <a href="../">Documentación técnica</a> · <a href="../examples/">Demos funcionales</a> · Apache-2.0</footer>
+  <script type="module" src="../assets/docs.js"></script>
+</body>
+</html>

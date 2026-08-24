@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Jesús Franco Guzmán">
+  <meta name="description" content="ui5-pdfme user guide for designing, checking, saving, and printing PDF templates.">
+  <title>ui5-pdfme · User guide</title>
+  <link rel="alternate" hreflang="es" href="index.html">
+  <link rel="alternate" hreflang="en" href="en.html">
+  <link rel="alternate" hreflang="x-default" href="index.html">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <link rel="stylesheet" href="../assets/language.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="mark">PDF</span> ui5-pdfme</a>
+    <button class="menu" aria-label="Open navigation">Menu</button>
+    <nav aria-label="Main navigation"><a href="../en.html">Documentation</a><a href="#first-document">First document</a><a href="#fields">Fields</a><a href="#templates">Templates</a><a href="../examples/">Demos</a></nav>
+    <div class="language-switch" role="group" aria-label="Language"><a href="index.html" lang="es" hreflang="es" data-language="es">ES</a><a href="en.html" lang="en" hreflang="en" aria-current="page" data-language="en">EN</a></div>
+  </header>
+
+  <div class="hero" id="top"><div class="hero-inner">
+    <div>
+      <span class="eyebrow">Functional guide</span>
+      <h1>From data<br>to the final PDF.</h1>
+      <p>Learn to open a template, insert content, check the result, and save the design without needing to understand its technical integration.</p>
+      <div class="actions"><a class="button" href="#first-document">Create the first document</a><a class="button secondary" href="#screen">Explore the screen</a></div>
+    </div>
+    <figure class="hero-shot"><img src="../assets/images/javascript-studio.png" alt="ui5-pdfme editor with data panel, canvas, and properties"></figure>
+  </div></div>
+
+  <div class="shell">
+    <aside class="side" aria-label="Contents">
+      <a href="#purpose">What you can do</a><a href="#screen">The screen</a><a href="#first-document">First document</a><a href="#fields">Fields and data</a><a href="#advanced">Advanced content</a><a href="#templates">Save templates</a><a href="#validate">Check the PDF</a><a href="#troubleshooting">Common problems</a><a href="#glossary">Glossary</a>
+    </aside>
+    <main class="content">
+      <section id="purpose">
+        <span class="pill">Goal</span><h2>What you can do</h2>
+        <p class="lead">ui5-pdfme combines a visual design with fields supplied by the application. The result is a reusable template that can generate many documents with different data.</p>
+        <div class="grid"><article class="card"><h3>Design</h3><p>Add text, tables, images, signatures, shapes, dates, and codes; position them and adjust their properties.</p></article><article class="card"><h3>Connect</h3><p>Insert fields from the data panel so the application fills the document automatically.</p></article><article class="card"><h3>Deliver</h3><p>Check the PDF, save the template, and download or print the final document.</p></article></div>
+        <div class="callout"><strong>Important:</strong> a template stores the design, not credentials or permissions. The application decides which data and repositories each person may use.</div>
+      </section>
+
+      <section id="screen">
+        <span class="pill">Tour</span><h2>Explore the screen</h2>
+        <figure class="shot"><img src="../assets/images/javascript-studio.png" alt="Complete designer view"><figcaption>The layout becomes compact on narrow screens, but the operations remain the same.</figcaption></figure>
+        <table class="matrix"><thead><tr><th>Area</th><th>Purpose</th></tr></thead><tbody>
+          <tr><td>Templates</td><td>Search, filter, and open saved designs.</td></tr>
+          <tr><td>Data fields</td><td>Shows available values. Selecting one inserts it into the document.</td></tr>
+          <tr><td>Side palette</td><td>Adds static content such as text, images, tables, shapes, or dates. <em>Barcodes and QR</em> groups the available code formats.</td></tr>
+          <tr><td>Canvas</td><td>Represents the pages. Select, move, and resize elements here.</td></tr>
+          <tr><td>Field list and properties</td><td>Locates an element and changes its identifier, content, style, and behavior.</td></tr>
+          <tr><td>Top toolbar</td><td>Saves, previews, downloads, prints, opens help, or enters full screen.</td></tr>
+        </tbody></table>
+      </section>
+
+      <section id="first-document">
+        <span class="pill">5 minutes</span><h2>Create the first document</h2>
+        <ol>
+          <li><strong>Open a template.</strong> Select <em>Templates</em>, use filters if needed, and choose <em>Open</em>. If there is no catalog, work with the design prepared by the application.</li>
+          <li><strong>Add content.</strong> Select a field from the left panel to connect it to data, or choose a type from the palette to create static content.</li>
+          <li><strong>Position it.</strong> Drag the element on the canvas and use its handles to resize it.</li>
+          <li><strong>Configure it.</strong> Select the element and review its properties. Use a short, semantic, unique identifier.</li>
+          <li><strong>Check the result.</strong> Select <em>PDF preview</em>. Correct the design until its data is easy to read.</li>
+          <li><strong>Save.</strong> Enter a name, description, tags, status, and repository the first time.</li>
+        </ol>
+      </section>
+
+      <section id="fields">
+        <span class="pill">Key concept</span><h2>Static and connected fields</h2>
+        <table class="matrix"><thead><tr><th>Type</th><th>When to use it</th><th>Behavior</th></tr></thead><tbody>
+          <tr><td>Static</td><td>Titles, labels, instructions, lines, and decorative elements.</td><td>Keeps the content written in the template and shows an eye in the list. When repeated on every page, it also shows the stacked-pages icon. <strong>Value from data</strong> remains off.</td></tr>
+          <tr><td>Connected</td><td>Customer, date, amount, address, items, and any changing value.</td><td>Receives a value from the application. It shows the database icon and <strong>Value from data</strong> is on.</td></tr>
+        </tbody></table>
+        <h3>Field identifier</h3>
+        <p>This is the stable key connecting the design to its data. It must be unique across the whole template. Do not use translated text shown to the recipient; names such as <code>customerName</code>, <code>invoiceDate</code>, or <code>items</code> are preferable.</p>
+        <h3>Label and value in one Text field</h3>
+        <p>For a connected Text, enable <strong>Show label</strong> and edit <strong>Label text</strong> to render a compact field such as <code>Subtotal: $125.50</code>. The label is visible in the layout and is included in preview and the final PDF. For static Text, the flag remains checked and disabled because the template content already is its visible text.</p>
+        <h3>Data panel</h3>
+        <ul>
+          <li>Use search to locate a field by its path or sample value.</li>
+          <li><strong>Included</strong> means the design already uses that value; it does not necessarily mean it is visible on the current page.</li>
+          <li><strong>Not included</strong> means no element uses that value yet.</li>
+          <li>Select refresh when the application has changed its sample data.</li>
+        </ul>
+      </section>
+
+      <section id="advanced">
+        <span class="pill">Real designs</span><h2>Advanced content</h2>
+        <h3>Tables</h3><p>Insert the field representing the complete collection, not just a property from its first row. Adjust headers, widths, and height with empty, small, and large examples.</p>
+        <h3>Multi-variable text</h3><p>Use it for sentences combining fixed text with several values, such as a summary with invoice number, customer, and total. Keep every variable available in the data.</p>
+        <h3>Images, signatures, and codes</h3><p>Reserve enough space and check their quality in the generated PDF. Under <strong>Barcodes and QR</strong>, choose QR, Code 128, EAN-13, Data Matrix, or PDF417. Verify each code with a real scanner before publishing the template.</p>
+        <h3>Multiple pages</h3><p>For a static header or footer, or a data-bound Text field, enable <strong>Fixed non-moving position</strong>. The element keeps its coordinates and stays outside the flow when tables or text grow. You may then enable <strong>Repeat on every page</strong>; the Text's resolved value is repeated too. Otherwise it is drawn only on its original page. During generation, the repeated element's boundary automatically extends the nearest top or bottom page padding so content that moves to another page cannot overlap it; configured padding remains the minimum. Repeated static text may use <code>{currentPage}</code> and <code>{totalPages}</code>. These options are hidden for connected fields other than Text and when the background is an imported PDF.</p>
+      </section>
+
+      <section id="templates">
+        <span class="pill">Lifecycle</span><h2>Save and retrieve templates</h2>
+        <p>The first time, <em>Save template</em> requests metadata. Later saves update the open record unless the application provides a specific operation for creating another version.</p>
+        <table class="matrix"><thead><tr><th>Value</th><th>Recommendation</th></tr></thead><tbody>
+          <tr><td>Name</td><td>Describe the document and, when relevant, its country or language.</td></tr>
+          <tr><td>Description</td><td>State the purpose, recipient, and relevant special behavior.</td></tr>
+          <tr><td>Tags</td><td>Use consistent terms that make searching easier.</td></tr>
+          <tr><td>Draft</td><td>A design in progress or awaiting review.</td></tr>
+          <tr><td>Published</td><td>A version approved for operational use.</td></tr>
+          <tr><td>Archived</td><td>A design kept for historical purposes but not recommended for new documents.</td></tr>
+        </tbody></table>
+        <div class="callout">Changing status is not an approval by itself. Available permissions, reviews, and versions depend on the system hosting the editor.</div>
+      </section>
+
+      <section id="validate">
+        <span class="pill">Before publishing</span><h2>Check the PDF</h2>
+        <ul>
+          <li>Refresh the data and open PDF preview.</li>
+          <li>Check empty values, very long text, and special characters.</li>
+          <li>Test tables with no rows, one row, and many rows.</li>
+          <li>Review page breaks, margins, and content outside the printable area.</li>
+          <li>Verify language, dates, timezone, currency, and fonts.</li>
+          <li>Download a PDF and open it outside the editor.</li>
+          <li>Make a test print when physical size matters.</li>
+        </ul>
+        <p>Browsers show their own print dialog. The editor cannot print silently.</p>
+      </section>
+
+      <section id="troubleshooting">
+        <span class="pill">Help</span><h2>Common problems</h2>
+        <table class="matrix"><thead><tr><th>Problem</th><th>What to do</th></tr></thead><tbody>
+          <tr><td>No data fields appear</td><td>Select refresh. If the panel remains empty, the application has not supplied data or you lack access; contact the functional owner.</td></tr>
+          <tr><td>A field is empty in the PDF</td><td>Check that it is connected, its identifier matches an available option, and the sample data has a value.</td></tr>
+          <tr><td>An identifier is rejected</td><td>Choose an available option for a connected field or use a unique name for a static field.</td></tr>
+          <tr><td>The fixed-position options are missing</td><td>Select a static element or a connected Text. These options are unavailable for other connected fields and imported PDF backgrounds.</td></tr>
+          <tr><td>A table overflows</td><td>Increase its space, reduce columns or text, and test with more rows. Review the following page too.</td></tr>
+          <tr><td>I cannot save or publish</td><td>Check the selected repository and status. The application may limit these operations according to your permissions.</td></tr>
+          <tr><td>The print dialog does not appear</td><td>Allow the PDF to finish generating and check whether the browser blocked the dialog or new window.</td></tr>
+        </tbody></table>
+        <p>For integration failures, consult <a href="../en.html#troubleshooting">technical troubleshooting</a>.</p>
+      </section>
+
+      <section id="glossary">
+        <span class="pill">Quick reference</span><h2>Glossary</h2>
+        <table class="matrix"><tbody><tr><th>Template</th><td>The reusable design of a document.</td></tr><tr><th>Field</th><td>An element placed on a page.</td></tr><tr><th>Connected field</th><td>An element whose value comes from application data.</td></tr><tr><th>Identifier</th><td>The stable, unique name connecting a field to its value.</td></tr><tr><th>Repository</th><td>The source used to find and save templates.</td></tr><tr><th>Preview</th><td>A generated PDF used to check the result before downloading or printing.</td></tr></tbody></table>
+      </section>
+    </main>
+  </div>
+  <footer class="footer">ui5-pdfme · <a href="../en.html">Technical documentation</a> · <a href="../examples/">Functional demos</a> · Apache-2.0</footer>
+  <script type="module" src="../assets/docs.js"></script>
+</body>
+</html>

@@ -32,6 +32,8 @@ const mapping = {
 
 Built-in formatters: `raw`, `json`, `join`, `number`, `date`, `table`. Register custom formatters by name. A formatter receives already-resolved values; it must be deterministic and should not perform network access.
 
+`multiVariableText` schemas are mapped automatically from their `{placeholders}`. A placeholder may be a complete path such as `{totals.subtotal}` or a field-mapping alias such as `{subtotal}`. Internally the mapping engine serializes those values to the JSON object expected by pdfme. The equivalent explicit mapping form is `{ variables: { subtotal: "totals.subtotal" } }`.
+
 ## Security
 
 - Allowlist REST/OData origins in the host app; do not let arbitrary saved templates choose unrestricted URLs.

@@ -44,6 +44,7 @@ Configure it from the controller:
 var studio = this.byId("printStudio");
 studio.configure({
   template: template,
+  templateRepositories: [{ id: "browser", type: "localStorage", storageKey: "my-app.templates" }],
   dataSources: [{
     id: "order",
     type: "odata",
@@ -60,7 +61,7 @@ studio.configure({
 });
 ```
 
-The UI5 provider uses a propagated named model. It supports V4 context/list bindings, V2 `read`, and `JSONModel#getProperty`. Keep backend authentication, destinations and CSRF handling in the host application.
+The data provider uses a propagated named model. It supports V4 context/list bindings, V2 `read`, and `JSONModel#getProperty`. For a template catalog backed by OData, configure a repository with `{ type: "odata", modelName: "templates", path: "/Templates" }`; the control then exposes the searchable catalog and native list/get/save operations. Keep backend authentication, destinations and CSRF handling in the host application. See [template repositories](TEMPLATE_REPOSITORIES.md).
 
 ## Fiori integration
 
@@ -68,4 +69,4 @@ Place the studio on a dedicated route or full-screen page. Use the normal flexib
 
 ## Success check
 
-Run a production `ui5 build`, load the app without loader errors, resolve an OData entity including navigation properties, save the template JSON, and generate a PDF in the deployed route/base-path configuration.
+Run a production `ui5 build`, load the app without loader errors, resolve an OData entity including navigation properties, save the template JSON, verify fixed-only content on its original page plus repeated fixed content and resolved Text values on every PDF page, and generate a PDF in the deployed route/base-path configuration.

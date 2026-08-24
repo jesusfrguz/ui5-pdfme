@@ -6,9 +6,12 @@ sap.ui.define([], function () {
 
     render: function (renderManager, control) {
       renderManager.openStart("section", control)
-        .class("ui5PdfmeStudio")
-        .style("height", control.getHeight())
-        .accessibilityState(control, { role: "region", label: control.getTitle() })
+        .class("ui5PdfmeStudio");
+      if (!control.getShowDataPanel()) {
+        renderManager.class("ui5PdfmeStudioDataPanelHidden");
+      }
+      renderManager.style("height", control.getHeight())
+        .accessibilityState(control, { role: "region", label: control._getStudioTitleText() })
         .openEnd();
 
       renderManager.renderControl(control.getAggregation("_toolbar"));
@@ -17,13 +20,12 @@ sap.ui.define([], function () {
         .class("ui5PdfmeStudioWorkspace")
         .openEnd();
 
-      if (control.getShowDataPanel()) {
-        renderManager.openStart("aside", control.getId() + "-dataPanel")
-          .class("ui5PdfmeStudioDataPanel")
-          .openEnd();
-        renderManager.renderControl(control.getAggregation("_dataPanel"));
-        renderManager.close("aside");
-      }
+      renderManager.openStart("aside", control.getId() + "-dataPanel")
+        .class("ui5PdfmeStudioDataPanel")
+        .attr("aria-hidden", String(!control.getShowDataPanel()))
+        .openEnd();
+      renderManager.renderControl(control.getAggregation("_dataPanel"));
+      renderManager.close("aside");
 
       renderManager.openStart("main", control.getId() + "-designer")
         .class("ui5PdfmeStudioDesigner")

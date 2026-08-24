@@ -63,6 +63,15 @@ sap.ui.define(["../util/ObjectPath"], function (ObjectPath) {
     } else if (definition && typeof definition === "object" && !Array.isArray(definition)) {
       if (Object.prototype.hasOwnProperty.call(definition, "value")) {
         value = definition.value;
+      } else if (Object.prototype.hasOwnProperty.call(definition, "variables")) {
+        var variableDefinitions = Array.isArray(definition.variables) ? definition.variables.reduce(function (result, name) {
+          result[name] = name;
+          return result;
+        }, {}) : definition.variables || {};
+        value = Object.keys(variableDefinitions).reduce(function (result, name) {
+          result[name] = this.resolveField(variableDefinitions[name], data);
+          return result;
+        }.bind(this), {});
       } else if (Object.prototype.hasOwnProperty.call(definition, "template")) {
         value = this._resolveTemplate(definition.template, data);
       } else {

@@ -9,7 +9,44 @@
   box-sizing: border-box;
 }
 
+.ui5PdfmeStudio:fullscreen {
+  width: 100vw;
+  height: 100vh !important;
+  border: 0;
+  border-radius: 0;
+}
+
+.ui5PdfmeStudioToolbar {
+  flex: 0 0 auto;
+  min-height: 3rem;
+  padding-inline: 0.75rem;
+  border-block-end: 1px solid var(--sapGroup_ContentBorderColor, #d9d9d9);
+  background: var(--sapPageHeader_Background, #fff);
+}
+
+.ui5PdfmeStudioToolbar .sapMTitle {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.ui5PdfmeStudioToolbar .sapMBtnInner,
+.ui5PdfmeDataPanelHeader .sapMBtnInner {
+  border-radius: var(--sapElement_BorderCornerRadius, 0.5rem);
+}
+
+.ui5PdfmeDataPanelToggle .sapMBtnInner {
+  background: var(--sapButton_Lite_Background, transparent);
+}
+
+.ui5PdfmeDataPanelToggle .sapMToggleBtnPressed {
+  border-color: var(--sapButton_Selected_BorderColor, #0a6ed1);
+  background: var(--sapButton_Selected_Background, #e5f0fa);
+  color: var(--sapButton_Selected_TextColor, #0854a0);
+  text-shadow: none;
+}
+
 .ui5PdfmeStudioWorkspace {
+  position: relative;
   display: flex;
   flex: 1 1 auto;
   min-height: 0;
@@ -22,7 +59,66 @@
   max-width: 30%;
   overflow: auto;
   border-inline-end: 1px solid var(--sapGroup_ContentBorderColor, #d9d9d9);
-  background: var(--sapGroup_ContentBackground, #fff);
+  background: var(--sapShell_Background, #f5f6f7);
+  opacity: 1;
+  transition: flex-basis 0.2s ease, min-width 0.2s ease, max-width 0.2s ease, opacity 0.15s ease;
+}
+
+.ui5PdfmeStudioDataPanelHidden .ui5PdfmeStudioDataPanel {
+  flex-basis: 0;
+  min-width: 0;
+  max-width: 0;
+  overflow: hidden;
+  border-inline-end: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ui5PdfmeDataPanelHeader {
+  min-height: 3rem;
+  padding-inline: 0.75rem 0.375rem;
+  border-block-end: 0;
+  background: transparent;
+}
+
+.ui5PdfmeDataPanelHeader .sapMTitle {
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.ui5PdfmeDataPanelHint {
+  color: var(--sapContent_LabelColor, #5b738b);
+  font-size: 0.75rem;
+}
+
+.ui5PdfmeStudioDataPanel .sapMList {
+  padding: 0 0.5rem 0.5rem;
+  background: transparent;
+}
+
+.ui5PdfmeStudioDataPanel .sapMLIB {
+  margin-block-end: 0.375rem;
+  border: 1px solid var(--sapList_BorderColor, #d9d9d9);
+  border-radius: var(--sapElement_BorderCornerRadius, 0.5rem);
+  background: var(--sapList_Background, #fff);
+  overflow: hidden;
+}
+
+.ui5PdfmeStudioDataPanel .sapMLIB:hover {
+  border-color: var(--sapContent_ForegroundBorderColor, #89919a);
+  box-shadow: 0 0.125rem 0.5rem rgba(34, 53, 72, 0.08);
+}
+
+.ui5PdfmeStudioDataPanel .sapMSLIInfo {
+  padding: 0.125rem 0.4375rem;
+  border-radius: 999px;
+  background: var(--sapNeutralBackground, #eef1f3);
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+.ui5PdfmeStudioDataPanel .ui5PdfmeFieldIncluded .sapMSLIInfo {
+  background: var(--sapSuccessBackground, #e7f5e9);
 }
 
 .ui5PdfmeStudioDesigner {
@@ -38,6 +134,240 @@
   height: 100%;
 }
 
+.ui5PdfmeStudioDesigner .pdfme-designer-bulk-update {
+  display: none !important;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-field-data-icon {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 1rem;
+  background: var(--sapContent_IconColor, #0854a0);
+  font-size: 0;
+  line-height: 0;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cellipse cx='12' cy='5' rx='8' ry='3' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cellipse cx='12' cy='5' rx='8' ry='3' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-list-view .lucide-lock {
+  color: transparent !important;
+  fill: transparent !important;
+  stroke: transparent !important;
+  background: var(--sapContent_IconColor, #0854a0);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z' fill='none' stroke='black' stroke-width='2'/%3E%3Ccircle cx='12' cy='12' r='2.5' fill='black'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z' fill='none' stroke='black' stroke-width='2'/%3E%3Ccircle cx='12' cy='12' r='2.5' fill='black'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-list-view li > div:not(:has(> .lucide-lock))::after {
+  content: "";
+  display: inline-block;
+  width: 0.9375rem;
+  height: 0.9375rem;
+  flex: 0 0 0.9375rem;
+  margin-inline-end: 0.5rem;
+  background: var(--sapContent_IconColor, #0854a0);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cellipse cx='12' cy='5' rx='8' ry='3' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cellipse cx='12' cy='5' rx='8' ry='3' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-list-view li > div.pdfme-field-fixed-position::after {
+  content: "";
+  display: inline-block;
+  width: 0.9375rem;
+  height: 0.9375rem;
+  flex: 0 0 0.9375rem;
+  margin-inline-end: 0.5rem;
+  background: var(--sapContent_IconColor, #0854a0);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 3h8l-1 6 3 3v2H6v-2l3-3zM12 14v7' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 3h8l-1 6 3 3v2H6v-2l3-3zM12 14v7' fill='none' stroke='black' stroke-width='2' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-list-view li > div.pdfme-field-repeat-on-every-page::after {
+  content: "";
+  display: inline-block;
+  width: 0.9375rem;
+  height: 0.9375rem;
+  flex: 0 0 0.9375rem;
+  margin-inline-end: 0.5rem;
+  background: var(--sapContent_IconColor, #0854a0);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='9' y='9' width='12' height='12' rx='2' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M15 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h1' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect x='9' y='9' width='12' height='12' rx='2' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M15 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h1' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-field-data-select .ant-select-prefix {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 1rem;
+  background: var(--sapContent_IconColor, #0854a0);
+  font-size: 0;
+  line-height: 0;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cellipse cx='12' cy='5' rx='8' ry='3' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cellipse cx='12' cy='5' rx='8' ry='3' fill='none' stroke='black' stroke-width='2'/%3E%3Cpath d='M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-left-sidebar {
+  box-sizing: border-box;
+  padding: 0.25rem !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  border-inline-end: 1px solid var(--sapGroup_ContentBorderColor, #d9d9d9);
+  background: var(--sapPageHeader_Background, #fff) !important;
+  scrollbar-color: var(--sapScrollBar_FaceColor, #89919a) transparent;
+  scrollbar-width: thin;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-left-sidebar::-webkit-scrollbar {
+  width: 0.25rem;
+  height: 0.25rem;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-left-sidebar::-webkit-scrollbar-thumb {
+  border-radius: 1rem;
+  background: var(--sapScrollBar_FaceColor, #89919a);
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-left-sidebar .ant-btn {
+  width: 2.1875rem !important;
+  height: 2.1875rem !important;
+  margin-block-start: 0.25rem !important;
+  padding: 0.25rem !important;
+  border-color: transparent !important;
+  border-radius: 0.5rem !important;
+  background: transparent !important;
+  color: var(--sapContent_IconColor, #0854a0) !important;
+  box-shadow: none !important;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-left-sidebar .ant-btn:hover {
+  border-color: var(--sapButton_Lite_Hover_BorderColor, transparent) !important;
+  background: var(--sapButton_Lite_Hover_Background, #eaecee) !important;
+  color: var(--sapContent_IconColor, #0854a0) !important;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-left-sidebar .ant-btn:active {
+  transform: translateY(1px);
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-left-sidebar .ant-btn:focus-visible {
+  outline: 0.125rem solid var(--sapContent_FocusColor, #000);
+  outline-offset: -0.125rem;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-plugin-signature {
+  font-size: 0 !important;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-plugin-signature > div {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.ui5PdfmeStudioDesigner .pdfme-designer-plugin-signature::after {
+  content: "";
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 20l4-1L19 8l-3-3L5 16l-1 4zm10-13l3 3' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 20l4-1L19 8l-3-3L5 16l-1 4zm10-13l3 3' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.ui5PdfmeBarcodeSource {
+  display: none !important;
+}
+
+.ui5PdfmeBarcodeGroupButton .ui5PdfmeBarcodeIcon {
+  display: block;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 3h7v7H3V3zm2 2v3h3V5H5zm9-2h7v7h-7V3zm2 2v3h3V5h-3zM3 14h7v7H3v-7zm2 2v3h3v-3H5zm9-2h3v3h-3v-3zm4 0h3v7h-3v-3h-2v3h-2v-3h3v-4z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M3 3h7v7H3V3zm2 2v3h3V5H5zm9-2h7v7h-7V3zm2 2v3h3V5h-3zM3 14h7v7H3v-7zm2 2v3h3v-3H5zm9-2h3v3h-3v-3zm4 0h3v7h-3v-3h-2v3h-2v-3h3v-4z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+.ui5PdfmeBarcodePopover {
+  position: fixed;
+  z-index: 10000;
+  width: 13rem;
+  padding: 0.375rem;
+  border: 1px solid var(--sapGroup_ContentBorderColor, #d9d9d9);
+  border-radius: var(--sapElement_BorderCornerRadius, 0.5rem);
+  background: var(--sapGroup_ContentBackground, #fff);
+  box-shadow: var(--sapContent_Shadow2, 0 0.5rem 2rem rgba(34, 53, 72, 0.2));
+  color: var(--sapTextColor, #32363a);
+  font-family: var(--sapFontFamily, Arial, sans-serif);
+}
+
+.ui5PdfmeBarcodePopover[hidden] {
+  display: none !important;
+}
+
+.ui5PdfmeBarcodePopoverTitle {
+  padding: 0.375rem 0.5rem 0.5rem;
+  color: var(--sapContent_LabelColor, #5b738b);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.ui5PdfmeBarcodeItem {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.375rem 0.5rem;
+  border: 0;
+  border-radius: 0.375rem;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  cursor: pointer;
+}
+
+.ui5PdfmeBarcodeItem:hover {
+  background: var(--sapList_Hover_Background, #f0f0f0);
+}
+
+.ui5PdfmeBarcodeItem:focus-visible {
+  outline: 0.125rem solid var(--sapContent_FocusColor, #000);
+  outline-offset: -0.125rem;
+}
+
+.ui5PdfmeBarcodePreview {
+  flex: 0 0 auto;
+  width: 2rem;
+  height: 1.375rem;
+  border: 1px solid var(--sapGroup_ContentBorderColor, #d9d9d9);
+  border-radius: 0.125rem;
+  background-color: #fff;
+}
+
+.ui5PdfmeBarcodePreview-linear {
+  background-image: repeating-linear-gradient(90deg, #223548 0 1px, transparent 1px 3px, #223548 3px 5px, transparent 5px 7px);
+}
+
+.ui5PdfmeBarcodePreview-matrix {
+  background-image:
+    linear-gradient(90deg, #223548 50%, transparent 50%),
+    linear-gradient(#223548 50%, transparent 50%);
+  background-size: 0.375rem 0.375rem;
+}
+
+.ui5PdfmeBarcodePreview-stacked {
+  background-image: repeating-linear-gradient(0deg, #223548 0 2px, transparent 2px 3px);
+}
+
 .ui5PdfmePreviewFrame {
   display: block;
   width: 100%;
@@ -47,16 +377,59 @@
   background: var(--sapBackgroundColor, #fff);
 }
 
+.ui5PdfmeTemplateCatalogDialog .sapMDialogSubHeader .sapMBarChild:first-child {
+  min-width: 14rem;
+  flex: 1 1 22rem;
+}
+
+.ui5PdfmeTemplateCatalogList .sapMLIB {
+  min-height: 4.25rem;
+}
+
+.ui5PdfmeTemplateSaveForm {
+  gap: 0.25rem;
+  padding: 1rem;
+}
+
+.ui5PdfmeTemplateSaveForm .sapMLabel:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
+.ui5PdfmeHelpDialog {
+  max-width: calc(100vw - 2rem) !important;
+}
+
+.ui5PdfmeHelpContent {
+  gap: 0.375rem;
+}
+
 @media (max-width: 50rem) {
-  .ui5PdfmeStudioWorkspace {
-    flex-direction: column;
+  .ui5PdfmeStudioDataPanel {
+    position: absolute;
+    inset: 0 auto 0 0;
+    z-index: 3;
+    width: min(20rem, 88%);
+    min-width: 0;
+    max-width: none;
+    box-shadow: 0.75rem 0 2rem rgba(34, 53, 72, 0.16);
+    transform: translateX(0);
+    transition: transform 0.2s ease, opacity 0.15s ease;
   }
 
-  .ui5PdfmeStudioDataPanel {
-    flex: 0 0 12rem;
-    width: 100%;
+  .ui5PdfmeStudioDataPanelHidden .ui5PdfmeStudioDataPanel {
+    width: min(20rem, 88%);
     max-width: none;
-    border-inline-end: 0;
-    border-block-end: 1px solid var(--sapGroup_ContentBorderColor, #d9d9d9);
+    transform: translateX(-105%);
+  }
+
+  [dir="rtl"] .ui5PdfmeStudioDataPanelHidden .ui5PdfmeStudioDataPanel {
+    transform: translateX(105%);
+  }
+
+  .ui5PdfmeStudioToolbar .sapMTitle {
+    max-width: 9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }

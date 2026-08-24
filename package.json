@@ -2,6 +2,10 @@
   "name": "ui5-pdfme",
   "version": "0.1.0",
   "description": "Visual PDF template studio for SAPUI5, OpenUI5, Fiori, React and JavaScript, powered by pdfme.",
+  "author": {
+    "name": "Jesús Franco Guzmán",
+    "url": "https://www.linkedin.com/in/jesus-franco-guzman/"
+  },
   "keywords": [
     "openui5",
     "sapui5",
@@ -46,9 +50,11 @@
   "scripts": {
     "prestart": "node scripts/patch-ui5-tooling-modules.cjs",
     "start": "ui5 serve --config ui5.dev.yaml --open /test-resources/ui5/pdfme/demokit/index.html",
+    "prestart:legacy": "npm run build",
     "start:legacy": "ui5 serve --config ui5.legacy.yaml --open /test-resources/ui5/pdfme/demokit/index.html",
     "prebuild": "node scripts/patch-ui5-tooling-modules.cjs",
     "build": "ui5 build --config ui5.dev.yaml --dest dist-v6 --clean-dest",
+    "build:pages": "npm run build && node scripts/build-pages.mjs",
     "build:legacy": "ui5 build --config ui5.legacy.yaml --dest .tmp-ui5-1.71-build --clean-dest",
     "docs:dev": "vite docs --host 127.0.0.1",
     "example:js": "vite examples/javascript --host 127.0.0.1",

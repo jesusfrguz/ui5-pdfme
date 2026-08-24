@@ -9,6 +9,7 @@ This folder gives coding agents deterministic recipes for applying `ui5-pdfme` i
 | React | [INSTALL_REACT.md](INSTALL_REACT.md) |
 | Build or modify a print template | [CREATE_TEMPLATE.md](CREATE_TEMPLATE.md) |
 | Connect JSON, REST, OData or calculated data | [DATA_INTEGRATION.md](DATA_INTEGRATION.md) |
+| List, load and persist templates | [TEMPLATE_REPOSITORIES.md](TEMPLATE_REPOSITORIES.md) |
 | Verify an implementation | [VALIDATION_CHECKLIST.md](VALIDATION_CHECKLIST.md) |
 
 An agent should first identify the host stack and the document being produced. It should then install one adapter, model data sources separately from field mappings, load or create a versioned template, and validate the final PDF with representative data.
