@@ -44,15 +44,51 @@
 
       <section id="screen">
         <span class="pill">Tour</span><h2>Explore the screen</h2>
-        <figure class="shot"><img src="../assets/images/javascript-studio.png" alt="Complete designer view"><figcaption>The layout becomes compact on narrow screens, but the operations remain the same.</figcaption></figure>
-        <table class="matrix"><thead><tr><th>Area</th><th>Purpose</th></tr></thead><tbody>
-          <tr><td>Templates</td><td>Search, filter, and open saved designs.</td></tr>
-          <tr><td>Data fields</td><td>Shows available values. Selecting one inserts it into the document.</td></tr>
-          <tr><td>Side palette</td><td>Adds static content such as text, images, tables, shapes, or dates. <em>Barcodes and QR</em> groups the available code formats.</td></tr>
-          <tr><td>Canvas</td><td>Represents the pages. Select, move, and resize elements here.</td></tr>
-          <tr><td>Field list and properties</td><td>Locates an element and changes its identifier, content, style, and behavior.</td></tr>
-          <tr><td>Top toolbar</td><td>Saves, previews, downloads, prints, opens help, or enters full screen.</td></tr>
-        </tbody></table>
+        <p class="lead">Select a numbered area in the image to discover what you can do there.</p>
+        <figure class="screen-tour screen-tour--javascript" data-screen-tour>
+          <div class="screen-tour-stage">
+            <img src="../assets/images/javascript-studio.png" alt="Editor with six interactive areas: templates, top toolbar, data fields, palette, canvas, and field list">
+            <button class="screen-hotspot screen-hotspot--templates" type="button" data-screen-zone="templates" aria-label="Area 1: Templates" aria-controls="screen-detail-templates" aria-pressed="false"><span aria-hidden="true">1</span></button>
+            <button class="screen-hotspot screen-hotspot--toolbar" type="button" data-screen-zone="toolbar" aria-label="Area 2: Top toolbar" aria-controls="screen-detail-toolbar" aria-pressed="false"><span aria-hidden="true">2</span></button>
+            <button class="screen-hotspot screen-hotspot--data" type="button" data-screen-zone="data" aria-label="Area 3: Data fields" aria-controls="screen-detail-data" aria-pressed="false"><span aria-hidden="true">3</span></button>
+            <button class="screen-hotspot screen-hotspot--palette" type="button" data-screen-zone="palette" aria-label="Area 4: Side palette" aria-controls="screen-detail-palette" aria-pressed="false"><span aria-hidden="true">4</span></button>
+            <button class="screen-hotspot screen-hotspot--canvas" type="button" data-screen-zone="canvas" aria-label="Area 5: Canvas" aria-controls="screen-detail-canvas" aria-pressed="true"><span aria-hidden="true">5</span></button>
+            <button class="screen-hotspot screen-hotspot--properties" type="button" data-screen-zone="properties" aria-label="Area 6: Field list and properties" aria-controls="screen-detail-properties" aria-pressed="false"><span aria-hidden="true">6</span></button>
+          </div>
+          <figcaption>Select an area directly on the screenshot or use the area buttons. The layout becomes compact on narrow screens, but the operations remain the same.</figcaption>
+          <div class="screen-tour-body">
+            <div class="screen-tour-controls" role="group" aria-label="Designer areas">
+              <button class="screen-zone-option" type="button" data-screen-zone="templates" aria-controls="screen-detail-templates" aria-pressed="false"><span>1</span>Templates</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="toolbar" aria-controls="screen-detail-toolbar" aria-pressed="false"><span>2</span>Top toolbar</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="data" aria-controls="screen-detail-data" aria-pressed="false"><span>3</span>Data fields</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="palette" aria-controls="screen-detail-palette" aria-pressed="false"><span>4</span>Side palette</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="canvas" aria-controls="screen-detail-canvas" aria-pressed="true"><span>5</span>Canvas</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="properties" aria-controls="screen-detail-properties" aria-pressed="false"><span>6</span>Field list and properties</button>
+            </div>
+            <div class="screen-tour-details" aria-live="polite">
+              <article class="screen-tour-panel" id="screen-detail-templates" data-screen-panel="templates"><span class="screen-tour-kicker">Area 1</span><h3>Templates</h3><p>Open the catalog to search, filter, and retrieve saved designs.</p><p class="screen-tour-tip"><strong>Use it when:</strong> you want to start from an existing template instead of the current design.</p></article>
+              <article class="screen-tour-panel" id="screen-detail-toolbar" data-screen-panel="toolbar"><span class="screen-tour-kicker">Area 2</span><h3>Top toolbar</h3><p>Save the template, preview, download, or print the PDF, and access help or full screen.</p><p class="screen-tour-tip"><strong>Tip:</strong> preview before downloading or printing to inspect the actual output.</p></article>
+              <article class="screen-tour-panel" id="screen-detail-data" data-screen-panel="data"><span class="screen-tour-kicker">Area 3</span><h3>Data fields</h3><p>Shows available values. Selecting a field inserts it into the document and connects it to application data.</p><p class="screen-tour-tip"><strong>Tip:</strong> use search and check whether the field is included or not included.</p></article>
+              <article class="screen-tour-panel" id="screen-detail-palette" data-screen-panel="palette"><span class="screen-tour-kicker">Area 4</span><h3>Side palette</h3><p>Adds static content such as text, images, tables, shapes, or dates. <em>Barcodes and QR</em> groups the available code formats.</p><p class="screen-tour-tip"><strong>Use it when:</strong> the content does not need to get its value from data.</p></article>
+              <article class="screen-tour-panel active" id="screen-detail-canvas" data-screen-panel="canvas"><span class="screen-tour-kicker">Area 5</span><h3>Canvas</h3><p>Represents the document pages. Select, move, and resize each element here.</p><p class="screen-tour-tip"><strong>Tip:</strong> select an element to see its settings and drag it to change its position.</p></article>
+              <article class="screen-tour-panel" id="screen-detail-properties" data-screen-panel="properties"><span class="screen-tour-kicker">Area 6</span><h3>Field list and properties</h3><p>Locates an element and changes its identifier, content, style, and behavior.</p><p class="screen-tour-tip"><strong>Tip:</strong> use a short, semantic, unique identifier for every field.</p></article>
+            </div>
+          </div>
+        </figure>
+        <div class="screen-reference-gallery" aria-label="Visual references for the designer">
+          <figure class="screen-reference-card">
+            <div class="screen-reference-crop screen-reference-crop--toolbar"><img src="../assets/images/javascript-studio.png" alt="Crop of the top toolbar with the Templates and PDF preview buttons"></div>
+            <figcaption><h3>Open and check</h3><p><strong>Templates</strong> opens the catalog. The same toolbar contains <strong>PDF preview</strong>, download, print, help, and full screen.</p></figcaption>
+          </figure>
+          <figure class="screen-reference-card">
+            <div class="screen-reference-crop screen-reference-crop--data"><img src="../assets/images/javascript-studio.png" alt="Crop of the Data fields panel and the side palette"></div>
+            <figcaption><h3>Add content</h3><p><strong>Data fields</strong> are on the left. Immediately to their right, the <strong>side palette</strong> creates static content.</p></figcaption>
+          </figure>
+          <figure class="screen-reference-card">
+            <div class="screen-reference-crop screen-reference-crop--editor"><img src="../assets/images/javascript-studio.png" alt="Crop of the central canvas and the Field List on the right"></div>
+            <figcaption><h3>Edit the design</h3><p>The <strong>canvas</strong> occupies the center. The <strong>Field List and properties</strong> are on the right to locate and configure each element.</p></figcaption>
+          </figure>
+        </div>
       </section>
 
       <section id="first-document">

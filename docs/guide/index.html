@@ -44,15 +44,51 @@
 
       <section id="screen">
         <span class="pill">Recorrido</span><h2>Conocer la pantalla</h2>
-        <figure class="shot"><img src="../assets/images/ui5-studio.png" alt="Vista completa del diseñador"><figcaption>La disposición puede compactarse en pantallas estrechas, pero las operaciones son las mismas.</figcaption></figure>
-        <table class="matrix"><thead><tr><th>Zona</th><th>Para qué sirve</th></tr></thead><tbody>
-          <tr><td>Plantillas</td><td>Busca, filtra y abre diseños guardados.</td></tr>
-          <tr><td>Campos de datos</td><td>Muestra los valores disponibles. Seleccionar uno lo inserta en el documento.</td></tr>
-          <tr><td>Paleta lateral</td><td>Añade contenido estático como texto, imagen, tabla, forma o fecha. <em>Códigos y QR</em> agrupa los formatos de código disponibles.</td></tr>
-          <tr><td>Lienzo</td><td>Representa las páginas. Aquí seleccionas, mueves y dimensionas los elementos.</td></tr>
-          <tr><td>Lista y propiedades</td><td>Permite localizar un elemento y cambiar su identificador, contenido, estilo y comportamiento.</td></tr>
-          <tr><td>Barra superior</td><td>Guarda, abre la vista previa, descarga, imprime, muestra la ayuda o entra en pantalla completa.</td></tr>
-        </tbody></table>
+        <p class="lead">Selecciona una zona numerada de la imagen para descubrir qué puedes hacer en ella.</p>
+        <figure class="screen-tour screen-tour--ui5" data-screen-tour>
+          <div class="screen-tour-stage">
+            <img src="../assets/images/ui5-studio.png" alt="Editor con seis zonas interactivas: plantillas, barra superior, campos de datos, paleta, lienzo y lista de campos">
+            <button class="screen-hotspot screen-hotspot--templates" type="button" data-screen-zone="templates" aria-label="Zona 1: Plantillas" aria-controls="screen-detail-templates" aria-pressed="false"><span aria-hidden="true">1</span></button>
+            <button class="screen-hotspot screen-hotspot--toolbar" type="button" data-screen-zone="toolbar" aria-label="Zona 2: Barra superior" aria-controls="screen-detail-toolbar" aria-pressed="false"><span aria-hidden="true">2</span></button>
+            <button class="screen-hotspot screen-hotspot--data" type="button" data-screen-zone="data" aria-label="Zona 3: Campos de datos" aria-controls="screen-detail-data" aria-pressed="false"><span aria-hidden="true">3</span></button>
+            <button class="screen-hotspot screen-hotspot--palette" type="button" data-screen-zone="palette" aria-label="Zona 4: Paleta lateral" aria-controls="screen-detail-palette" aria-pressed="false"><span aria-hidden="true">4</span></button>
+            <button class="screen-hotspot screen-hotspot--canvas" type="button" data-screen-zone="canvas" aria-label="Zona 5: Lienzo" aria-controls="screen-detail-canvas" aria-pressed="true"><span aria-hidden="true">5</span></button>
+            <button class="screen-hotspot screen-hotspot--properties" type="button" data-screen-zone="properties" aria-label="Zona 6: Lista y propiedades" aria-controls="screen-detail-properties" aria-pressed="false"><span aria-hidden="true">6</span></button>
+          </div>
+          <figcaption>Puedes pulsar directamente sobre la captura o usar los botones de zona. La disposición se compacta en pantallas estrechas, pero las operaciones son las mismas.</figcaption>
+          <div class="screen-tour-body">
+            <div class="screen-tour-controls" role="group" aria-label="Zonas del diseñador">
+              <button class="screen-zone-option" type="button" data-screen-zone="templates" aria-controls="screen-detail-templates" aria-pressed="false"><span>1</span>Plantillas</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="toolbar" aria-controls="screen-detail-toolbar" aria-pressed="false"><span>2</span>Barra superior</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="data" aria-controls="screen-detail-data" aria-pressed="false"><span>3</span>Campos de datos</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="palette" aria-controls="screen-detail-palette" aria-pressed="false"><span>4</span>Paleta lateral</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="canvas" aria-controls="screen-detail-canvas" aria-pressed="true"><span>5</span>Lienzo</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="properties" aria-controls="screen-detail-properties" aria-pressed="false"><span>6</span>Lista y propiedades</button>
+            </div>
+            <div class="screen-tour-details" aria-live="polite">
+              <article class="screen-tour-panel" id="screen-detail-templates" data-screen-panel="templates"><span class="screen-tour-kicker">Zona 1</span><h3>Plantillas</h3><p>Abre el catálogo para buscar, filtrar y recuperar diseños guardados.</p><p class="screen-tour-tip"><strong>Úsala cuando:</strong> quieras partir de una plantilla existente en lugar de comenzar con el diseño actual.</p></article>
+              <article class="screen-tour-panel" id="screen-detail-toolbar" data-screen-panel="toolbar"><span class="screen-tour-kicker">Zona 2</span><h3>Barra superior</h3><p>Guarda la plantilla, abre la vista previa, descarga o imprime el PDF y da acceso a la ayuda y a la pantalla completa.</p><p class="screen-tour-tip"><strong>Consejo:</strong> usa la vista previa antes de descargar o imprimir para comprobar el resultado real.</p></article>
+              <article class="screen-tour-panel" id="screen-detail-data" data-screen-panel="data"><span class="screen-tour-kicker">Zona 3</span><h3>Campos de datos</h3><p>Muestra los valores disponibles. Seleccionar un campo lo inserta en el documento y lo conecta con los datos de la aplicación.</p><p class="screen-tour-tip"><strong>Consejo:</strong> usa la búsqueda y revisa si el campo figura como incluido o no incluido.</p></article>
+              <article class="screen-tour-panel" id="screen-detail-palette" data-screen-panel="palette"><span class="screen-tour-kicker">Zona 4</span><h3>Paleta lateral</h3><p>Añade contenido estático como texto, imagen, tabla, forma o fecha. <em>Códigos y QR</em> agrupa los formatos de código disponibles.</p><p class="screen-tour-tip"><strong>Úsala cuando:</strong> el contenido no tenga que obtener su valor de los datos.</p></article>
+              <article class="screen-tour-panel active" id="screen-detail-canvas" data-screen-panel="canvas"><span class="screen-tour-kicker">Zona 5</span><h3>Lienzo</h3><p>Representa las páginas del documento. Aquí seleccionas, mueves y dimensionas cada elemento.</p><p class="screen-tour-tip"><strong>Consejo:</strong> selecciona un elemento para ver sus ajustes y arrástralo para cambiar su posición.</p></article>
+              <article class="screen-tour-panel" id="screen-detail-properties" data-screen-panel="properties"><span class="screen-tour-kicker">Zona 6</span><h3>Lista y propiedades</h3><p>Permite localizar un elemento y cambiar su identificador, contenido, estilo y comportamiento.</p><p class="screen-tour-tip"><strong>Consejo:</strong> usa un identificador corto, semántico y único para cada campo.</p></article>
+            </div>
+          </div>
+        </figure>
+        <div class="screen-reference-gallery" aria-label="Referencias visuales del diseñador">
+          <figure class="screen-reference-card">
+            <div class="screen-reference-crop screen-reference-crop--toolbar"><img src="../assets/images/ui5-studio.png" alt="Recorte de la barra superior con los botones Plantillas y Vista previa del PDF"></div>
+            <figcaption><h3>Abrir y comprobar</h3><p><strong>Plantillas</strong> abre el catálogo. En la misma barra encontrarás <strong>Vista previa del PDF</strong>, descargar, imprimir, ayuda y pantalla completa.</p></figcaption>
+          </figure>
+          <figure class="screen-reference-card">
+            <div class="screen-reference-crop screen-reference-crop--data"><img src="../assets/images/ui5-studio.png" alt="Recorte del panel Campos de datos y de la paleta lateral"></div>
+            <figcaption><h3>Añadir contenido</h3><p>Los <strong>Campos de datos</strong> están a la izquierda. Justo a su derecha, la <strong>paleta lateral</strong> crea contenido estático.</p></figcaption>
+          </figure>
+          <figure class="screen-reference-card">
+            <div class="screen-reference-crop screen-reference-crop--editor"><img src="../assets/images/ui5-studio.png" alt="Recorte del lienzo central y de la lista de campos de la derecha"></div>
+            <figcaption><h3>Editar el diseño</h3><p>El <strong>lienzo</strong> ocupa el centro. La <strong>lista de campos y propiedades</strong> está a la derecha para localizar y configurar cada elemento.</p></figcaption>
+          </figure>
+        </div>
       </section>
 
       <section id="first-document">

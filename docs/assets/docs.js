@@ -43,3 +43,48 @@ const observer = new IntersectionObserver((entries) => {
   links.forEach((link) => link.classList.toggle("active", link.hash === `#${visible.target.id}`));
 }, { rootMargin: "-15% 0px -65%", threshold: [0, .2, .6] });
 sections.forEach((section) => observer.observe(section));
+
+document.querySelectorAll("[data-screen-tour]").forEach((tour) => {
+  const triggers = [...tour.querySelectorAll("[data-screen-zone]")];
+  const options = [...tour.querySelectorAll(".screen-zone-option")];
+  const panels = [...tour.querySelectorAll("[data-screen-panel]")];
+
+  const activateZone = (zone) => {
+    triggers.forEach((trigger) =>
+      trigger.setAttribute(
+        "aria-pressed",
+        String(trigger.dataset.screenZone === zone),
+      ),
+    );
+    panels.forEach((panel) =>
+      panel.classList.toggle("active", panel.dataset.screenPanel === zone),
+    );
+  };
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("click", () =>
+      activateZone(trigger.dataset.screenZone),
+    );
+  });
+
+  options.forEach((option, index) => {
+    option.addEventListener("keydown", (event) => {
+      if (
+        !["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)
+      )
+        return;
+      event.preventDefault();
+      const direction =
+        event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 1;
+      const next =
+        options[(index + direction + options.length) % options.length];
+      next.focus();
+      activateZone(next.dataset.screenZone);
+    });
+  });
+
+  const selected = tour.querySelector(
+    '[data-screen-zone][aria-pressed="true"]',
+  );
+  activateZone(selected?.dataset.screenZone || options[0]?.dataset.screenZone);
+});
