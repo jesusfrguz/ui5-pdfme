@@ -1,6 +1,24 @@
+<div align="center">
+
 # ui5-pdfme
 
-Visual PDF template studio for SAPUI5, OpenUI5, Fiori, React and framework-neutral JavaScript. It combines the [pdfme](https://pdfme.com/) designer/generator with declarative JSON, REST, OData V2/V4 and calculated data sources.
+Visual PDF template studio for SAPUI5, OpenUI5, Fiori, React and framework-neutral JavaScript.
+
+[🇬🇧 English](README.md) · [🇪🇸 Español](README.es.md)
+
+[![CI](https://img.shields.io/github/actions/workflow/status/jesusfrguz/ui5-pdfme/ci.yml?branch=main&style=flat-square&logo=githubactions&logoColor=white&label=CI)](https://github.com/jesusfrguz/ui5-pdfme/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/jesusfrguz/ui5-pdfme?style=flat-square&logo=github&label=release)](https://github.com/jesusfrguz/ui5-pdfme/releases)
+[![License](https://img.shields.io/github/license/jesusfrguz/ui5-pdfme?style=flat-square&label=license)](LICENSE)
+[![Node.js](https://img.shields.io/badge/Node.js-%E2%89%A520-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES_modules-F7DF1E?style=flat-square&logo=javascript&logoColor=000)](https://developer.mozilla.org/docs/Web/JavaScript)
+[![React](https://img.shields.io/badge/React-%E2%89%A518-61DAFB?style=flat-square&logo=react&logoColor=000)](https://react.dev/)
+[![SAPUI5 / OpenUI5](https://img.shields.io/badge/SAPUI5_%2F_OpenUI5-%E2%89%A51.71-0A6ED1?style=flat-square&logo=sap&logoColor=white)](https://ui5.sap.com/)
+[![pdfme](https://img.shields.io/badge/pdfme-6.x-6C5CE7?style=flat-square)](https://pdfme.com/)
+
+</div>
+
+It combines the [pdfme](https://pdfme.com/) designer/generator with declarative JSON, REST, OData V2/V4 and calculated data sources.
 
 ![ui5-pdfme running in SAPUI5](docs/assets/images/ui5-studio.png)
 
