@@ -2,6 +2,7 @@ import { cp, mkdir, rm } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { build } from "vite";
+import { fingerprintPagesAssets } from "./fingerprint-pages-assets.mjs";
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const pagesDirectory = resolve(repositoryRoot, ".pages");
@@ -39,4 +40,6 @@ await cp(
   resolve(examplesDirectory, "ui5", "index.html")
 );
 
-console.log(`GitHub Pages artifact created at ${pagesDirectory}`);
+const fingerprintedAssets = await fingerprintPagesAssets(pagesDirectory);
+
+console.log(`GitHub Pages artifact created at ${pagesDirectory} with ${fingerprintedAssets.size} fingerprinted assets`);

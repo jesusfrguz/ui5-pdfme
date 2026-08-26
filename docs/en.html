@@ -395,7 +395,7 @@ npm run build
 npm run docs:dev
 npm run example:js
 npm run example:react</code></pre>
-        <p><code>npm run build</code> creates the precompiled UI5 artifact. Vite bundles the web entry points and their WASM resources. <code>npm run build:pages</code> assembles the documentation and the live UI5, JavaScript, and React demos in <code>.pages/</code>; the workflow deploys that static artifact.</p>
+        <p><code>npm run build</code> creates the precompiled UI5 artifact. Vite bundles the web entry points and their WASM resources. <code>npm run build:pages</code> assembles the documentation and the live UI5, JavaScript, and React demos in <code>.pages/</code>; the workflow deploys that static artifact. Documentation stylesheets and JavaScript receive content fingerprints so that every deployment invalidates stale cached versions.</p>
         <p>Test coverage includes concurrent/dependent resolution, cycles, fallbacks, OData V2/V4, mappings, tables, repetition, and final PDF creation.</p>
       </section>
 

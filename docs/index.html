@@ -395,7 +395,7 @@ npm run build
 npm run docs:dev
 npm run example:js
 npm run example:react</code></pre>
-        <p><code>npm run build</code> crea el artefacto UI5 precompilado. Vite empaqueta los puntos de entrada web y sus recursos WASM. <code>npm run build:pages</code> reúne la documentación y las demos funcionales de UI5, JavaScript y React en <code>.pages/</code>; el workflow publica ese artefacto estático.</p>
+        <p><code>npm run build</code> crea el artefacto UI5 precompilado. Vite empaqueta los puntos de entrada web y sus recursos WASM. <code>npm run build:pages</code> reúne la documentación y las demos funcionales de UI5, JavaScript y React en <code>.pages/</code>; el workflow publica ese artefacto estático. Las hojas de estilo y el JavaScript de la documentación reciben una huella de contenido para que cada despliegue invalide versiones antiguas almacenadas en caché.</p>
         <p>Pruebas cubiertas: resolución concurrente/dependiente, ciclos, fallbacks, OData V2/V4, mapeos, tablas, repetición y creación de un PDF final.</p>
       </section>
 
