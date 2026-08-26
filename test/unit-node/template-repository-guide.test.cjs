@@ -6,17 +6,19 @@ const test = require("node:test");
 const root = path.resolve(__dirname, "../..");
 const read = (relativePath) => fs.readFileSync(path.join(root, relativePath), "utf8");
 const sectionIds = (html) => [...html.matchAll(/<section id="([^"]+)"/g)].map((match) => match[1]);
+const englishCatalog = (page) => JSON.parse(read(`docs/i18n/en/${page}.json`));
+const localizedEnglish = (page, htmlPath) => `${read(htmlPath)}\n${Object.values(englishCatalog(page).translations).join("\n")}`;
 
 test("published repository guide is bilingual and covers every provider", () => {
   const spanish = read("docs/repositories/index.html");
-  const english = read("docs/repositories/en.html");
+  const english = localizedEnglish("repositories", "docs/repositories/index.html");
   const sections = ["field-contract", "memory", "local-storage", "rest", "odata", "function", "api", "security", "validate"];
 
-  assert.match(spanish, /<html lang="es">/);
-  assert.match(english, /<html lang="en">/);
+  assert.match(spanish, /<html lang="es" data-i18n-page="repositories">/);
+  assert.equal(englishCatalog("repositories").locale, "en");
   assert.deepEqual(sectionIds(english), sectionIds(spanish));
-  assert.match(spanish, /hreflang="en" href="en\.html"/);
-  assert.match(english, /hreflang="es" href="index\.html"/);
+  assert.match(spanish, /hreflang="en" href="\?lang=en"/);
+  assert.match(spanish, /hreflang="es" href="\?lang=es"/);
 
   for (const html of [spanish, english]) {
     for (const id of sections) assert.ok(html.includes(`<section id="${id}">`), `missing repository guide section: ${id}`);
@@ -37,14 +39,14 @@ test("published repository guide is bilingual and covers every provider", () => 
 
 test("repository guide links to the bilingual SAP backend chooser", () => {
   assert.match(read("docs/repositories/index.html"), /href="\.\.\/sap\/index\.html"/);
-  assert.match(read("docs/repositories/en.html"), /href="\.\.\/sap\/en\.html"/);
+  assert.match(localizedEnglish("repositories", "docs/repositories/index.html"), /href="\.\.\/sap\/\?lang=en"/);
   assert.match(read("docs/index.html"), /href="sap\/"/);
-  assert.match(read("docs/en.html"), /href="sap\/en\.html"/);
+  assert.match(read("docs/assets/docs.js"), /normalizeLegacyEnglishUrl/);
 });
 
 test("REST repository documentation links to the Node and Docker examples", () => {
   const spanish = read("docs/repositories/index.html");
-  const english = read("docs/repositories/en.html");
+  const english = localizedEnglish("repositories", "docs/repositories/index.html");
 
   for (const html of [spanish, english]) {
     const restSection = html.match(/<section id="rest">([\s\S]*?)<\/section>/)?.[1] || "";
@@ -61,12 +63,10 @@ test("REST repository documentation links to the Node and Docker examples", () =
 test("published documentation links to the repository guide inside docs", () => {
   const links = [
     ["docs/index.html", "href=\"repositories/\""],
-    ["docs/en.html", "href=\"repositories/en.html\""],
-    ["docs/guide/index.html", "href=\"../repositories/\""],
-    ["docs/guide/en.html", "href=\"../repositories/en.html\""]
+    ["docs/guide/index.html", "href=\"../repositories/\""]
   ];
 
   for (const [file, href] of links) assert.ok(read(file).includes(href), `${file} does not link the published repository guide`);
   assert.doesNotMatch(read("docs/index.html"), /\.\.\/agents\/TEMPLATE_REPOSITORIES\.md/);
-  assert.doesNotMatch(read("docs/en.html"), /\.\.\/agents\/TEMPLATE_REPOSITORIES\.md/);
+  assert.match(read("docs/assets/docs.js"), /target\.searchParams\.set\("lang", language\)/);
 });

@@ -174,7 +174,7 @@ Web events are prefixed with `pdfme:`. `WebPdfTemplateStudio` emits `pdfme:templ
 
 ## Documentation
 
-- [User guide in Spanish](docs/guide/index.html) · [English](docs/guide/en.html)
+- [User guide in Spanish](docs/guide/index.html?lang=es) · [English](docs/guide/index.html?lang=en)
 - [Technical and functional web documentation](https://jesusfrguz.github.io/ui5-pdfme/)
 - [AI/agent instructions](AGENTS.md)
 - [SAPUI5/OpenUI5/Fiori recipe](agents/INSTALL_UI5.md)
@@ -182,8 +182,8 @@ Web events are prefixed with `pdfme:`. `WebPdfTemplateStudio` emits `pdfme:templ
 - [React recipe](agents/INSTALL_REACT.md)
 - [Template creation](agents/CREATE_TEMPLATE.md)
 - [Data and OData integration](agents/DATA_INTEGRATION.md)
-- [Template catalog and repositories guide](docs/repositories/en.html)
-- [SAP backend chooser: RAP, CAP, CDS, and SEGW](docs/sap/en.html)
+- [Template catalog and repositories guide](docs/repositories/index.html?lang=en)
+- [SAP backend chooser: RAP, CAP, CDS, and SEGW](docs/sap/index.html?lang=en)
 - [Deferred generation manual for CAP, Docker, Node, Fiori, BTP, and ABAP](docs/deferred/index.html)
 - [Runnable deferred-generation examples](examples/deferred/README.md)
 - [Template repository integration recipe for agents](agents/TEMPLATE_REPOSITORIES.md)

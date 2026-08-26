@@ -1,0 +1,17 @@
+{
+  "defaultLanguage": "es",
+  "languages": [
+    {
+      "code": "es",
+      "label": "ES",
+      "name": "Español",
+      "pages": ["home", "guide", "repositories", "sap", "deferred"]
+    },
+    {
+      "code": "en",
+      "label": "EN",
+      "name": "English",
+      "pages": ["home", "guide", "repositories", "sap"]
+    }
+  ]
+}

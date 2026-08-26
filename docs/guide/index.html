@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-i18n-page="guide">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Jesús Franco Guzmán">
-  <meta name="description" content="Guía de uso de ui5-pdfme para diseñar, comprobar, guardar e imprimir plantillas PDF.">
-  <title>ui5-pdfme · Guía de uso</title>
-  <link rel="alternate" hreflang="es" href="index.html">
-  <link rel="alternate" hreflang="en" href="en.html">
-  <link rel="alternate" hreflang="x-default" href="index.html">
+  <meta name="description" content="Guía de uso de ui5-pdfme para diseñar, comprobar, guardar e imprimir plantillas PDF." data-i18n-attrs="content:meta.description">
+  <title data-i18n="meta.title">ui5-pdfme · Guía de uso</title>
+  <link rel="alternate" hreflang="es" href="?lang=es">
+  <link rel="alternate" hreflang="en" href="?lang=en">
+  <link rel="alternate" hreflang="x-default" href="?lang=es">
   <link rel="stylesheet" href="../assets/styles.css">
   <link rel="stylesheet" href="../assets/language.css">
   <link rel="stylesheet" href="../assets/video.css">
@@ -16,184 +16,184 @@
 <body>
   <header class="topbar">
     <a class="brand" href="#top"><span class="mark">PDF</span> ui5-pdfme</a>
-    <button class="menu" aria-label="Abrir navegación">Menú</button>
-    <nav aria-label="Navegación principal"><a href="../">Documentación</a><a href="#first-document">Primer documento</a><a href="#fields">Campos</a><a href="#templates">Plantillas</a><a href="../examples/">Demos</a></nav>
-    <div class="language-switch" role="group" aria-label="Idioma"><a href="index.html" lang="es" hreflang="es" aria-current="page" data-language="es">ES</a><a href="en.html" lang="en" hreflang="en" data-language="en">EN</a></div>
+    <button class="menu" aria-label="Abrir navegación" data-i18n-attrs="aria-label:header.attr-aria-label.1" data-i18n="header.button.1">Menú</button>
+    <nav aria-label="Navegación principal" data-i18n-attrs="aria-label:header.attr-aria-label.2"><a href="../" data-i18n="header.a.1">Documentación</a><a href="#first-document" data-i18n="header.a.2">Primer documento</a><a href="#fields" data-i18n="header.a.3">Campos</a><a href="#templates" data-i18n="header.a.4">Plantillas</a><a href="../examples/">Demos</a></nav>
+    <div class="language-switch" role="group" aria-label="Idioma" data-i18n-attrs="aria-label:header.attr-aria-label.3"><a href="?lang=es" lang="es" hreflang="es" aria-current="page" data-language="es">ES</a><a href="?lang=en" lang="en" hreflang="en" data-language="en">EN</a></div>
   </header>
 
   <div class="hero" id="top"><div class="hero-inner">
     <div>
-      <span class="eyebrow">Guía funcional</span>
-      <h1>De los datos<br>al PDF final.</h1>
-      <p>Aprende a abrir una plantilla, insertar contenido, comprobar el resultado y guardar el diseño sin necesidad de conocer su integración técnica.</p>
-      <div class="actions"><a class="button" href="#first-document">Crear el primer documento</a><a class="button secondary" href="#screen">Conocer la pantalla</a></div>
+      <span class="eyebrow" data-i18n="hero.span.1">Guía funcional</span>
+      <h1 data-i18n="hero.h1.1">De los datos<br>al PDF final.</h1>
+      <p data-i18n="hero.p.1">Aprende a abrir una plantilla, insertar contenido, comprobar el resultado y guardar el diseño sin necesidad de conocer su integración técnica.</p>
+      <div class="actions"><a class="button" href="#first-document" data-i18n="hero.a.1">Crear el primer documento</a><a class="button secondary" href="#screen" data-i18n="hero.a.2">Conocer la pantalla</a></div>
     </div>
     <figure class="hero-shot guide-video" data-guide-video data-video-language="es" data-video-es="../assets/video/ui5-pdfme-guide-es.mp4" data-video-en="../assets/video/ui5-pdfme-guide-en.mp4" data-captions-es="../assets/video/ui5-pdfme-guide-es.vtt" data-captions-en="../assets/video/ui5-pdfme-guide-en.vtt">
-      <video controls playsinline preload="metadata" poster="../assets/video/ui5-pdfme-guide-poster.jpg" aria-label="Vídeo explicativo del funcionamiento de ui5-pdfme">
+      <video controls playsinline preload="metadata" poster="../assets/video/ui5-pdfme-guide-poster.jpg" aria-label="Vídeo explicativo del funcionamiento de ui5-pdfme" data-i18n-attrs="aria-label:hero.attr-aria-label.1">
         <source src="../assets/video/ui5-pdfme-guide-es.mp4" type="video/mp4">
-        <track kind="captions" src="../assets/video/ui5-pdfme-guide-es.vtt" srclang="es" label="Español">
+        <track kind="captions" src="../assets/video/ui5-pdfme-guide-es.vtt" srclang="es" label="Español" data-i18n-attrs="label:hero.attr-label.1">
       </video>
-      <figcaption class="guide-video-controls">
+      <figcaption class="guide-video-controls" data-i18n="hero.figcaption.1">
         <span class="guide-video-status" data-video-status aria-live="polite">Audio: Español (España) · Subtítulos desactivados</span>
         <span class="guide-video-actions"><span class="guide-video-group" role="group" aria-label="Idioma del audio"><button type="button" data-video-language="es" aria-pressed="true">ES</button><button type="button" data-video-language="en" aria-pressed="false">EN</button></span><button type="button" data-video-captions aria-pressed="false">CC Subtítulos</button></span>
       </figcaption>
-      <noscript><p><a href="../assets/video/ui5-pdfme-guide-es.mp4">Reproducir el vídeo en español</a> · <a href="../assets/video/ui5-pdfme-guide-en.mp4">Play the video in English</a></p></noscript>
+      <noscript><p data-i18n="hero.p.2"><a href="../assets/video/ui5-pdfme-guide-es.mp4">Reproducir el vídeo en español</a> · <a href="../assets/video/ui5-pdfme-guide-en.mp4">Play the video in English</a></p></noscript>
     </figure>
   </div></div>
 
   <div class="shell">
-    <aside class="side" aria-label="Contenido">
-      <p class="side-label">Guía de uso</p>
-      <a href="#purpose">Qué puedes hacer</a><a href="#screen">La pantalla</a><a href="#first-document">Primer documento</a><a href="#fields">Campos y datos</a><a href="#advanced">Contenido avanzado</a><a href="#templates">Guardar plantillas</a><a href="#validate">Comprobar el PDF</a><a href="#troubleshooting">Problemas comunes</a><a href="#glossary">Glosario</a>
-      <p class="side-label">Guías específicas</p>
-      <a href="../">Diseño y PDF inmediato</a><a href="../repositories/">Catálogo y repositorios</a><a class="side-sub" href="../sap/">↳ Implementarlo en SAP/OData</a><a href="../deferred/">Generación diferida</a>
+    <aside class="side" aria-label="Contenido" data-i18n-attrs="aria-label:page.attr-aria-label.1">
+      <p class="side-label" data-i18n="sidebar.p.1">Guía de uso</p>
+      <a href="#purpose" data-i18n="sidebar.a.1">Qué puedes hacer</a><a href="#screen" data-i18n="sidebar.a.2">La pantalla</a><a href="#first-document" data-i18n="sidebar.a.3">Primer documento</a><a href="#fields" data-i18n="sidebar.a.4">Campos y datos</a><a href="#advanced" data-i18n="sidebar.a.5">Contenido avanzado</a><a href="#templates" data-i18n="sidebar.a.6">Guardar plantillas</a><a href="#validate" data-i18n="sidebar.a.7">Comprobar el PDF</a><a href="#troubleshooting" data-i18n="sidebar.a.8">Problemas comunes</a><a href="#glossary" data-i18n="sidebar.a.9">Glosario</a>
+      <p class="side-label" data-i18n="sidebar.p.2">Guías específicas</p>
+      <a href="../" data-i18n="sidebar.a.10">Diseño y PDF inmediato</a><a href="../repositories/" data-i18n="sidebar.a.11">Catálogo y repositorios</a><a class="side-sub" href="../sap/" data-i18n="sidebar.a.12">↳ Implementarlo en SAP/OData</a><a href="../deferred/" data-i18n="sidebar.a.13">Generación diferida</a>
     </aside>
     <main class="content">
       <section id="purpose">
-        <span class="pill">Objetivo</span><h2>Qué puedes hacer</h2>
-        <p class="lead">ui5-pdfme combina un diseño visual con campos proporcionados por la aplicación. El resultado es una plantilla reutilizable que puede generar muchos documentos con datos diferentes.</p>
-        <div class="grid"><article class="card"><h3>Diseñar</h3><p>Añade textos, tablas, imágenes, firmas, formas, fechas y códigos; colócalos y ajusta sus propiedades.</p></article><article class="card"><h3>Conectar</h3><p>Inserta campos del panel de datos para que el documento se rellene automáticamente.</p></article><article class="card"><h3>Entregar</h3><p>Comprueba el PDF, guarda la plantilla y descarga o imprime el documento final.</p></article></div>
-        <div class="callout"><strong>Importante:</strong> una plantilla guarda el diseño, no las credenciales ni los permisos. La aplicación decide qué datos y repositorios puede utilizar cada persona.</div>
+        <span class="pill" data-i18n="purpose.span.1">Objetivo</span><h2 data-i18n="purpose.h2.1">Qué puedes hacer</h2>
+        <p class="lead" data-i18n="purpose.p.1">ui5-pdfme combina un diseño visual con campos proporcionados por la aplicación. El resultado es una plantilla reutilizable que puede generar muchos documentos con datos diferentes.</p>
+        <div class="grid"><article class="card"><h3 data-i18n="purpose.h3.1">Diseñar</h3><p data-i18n="purpose.p.2">Añade textos, tablas, imágenes, firmas, formas, fechas y códigos; colócalos y ajusta sus propiedades.</p></article><article class="card"><h3 data-i18n="purpose.h3.2">Conectar</h3><p data-i18n="purpose.p.3">Inserta campos del panel de datos para que el documento se rellene automáticamente.</p></article><article class="card"><h3 data-i18n="purpose.h3.3">Entregar</h3><p data-i18n="purpose.p.4">Comprueba el PDF, guarda la plantilla y descarga o imprime el documento final.</p></article></div>
+        <div class="callout" data-i18n="purpose.div.1"><strong>Importante:</strong> una plantilla guarda el diseño, no las credenciales ni los permisos. La aplicación decide qué datos y repositorios puede utilizar cada persona.</div>
       </section>
 
       <section id="screen">
-        <span class="pill">Recorrido</span><h2>Conocer la pantalla</h2>
-        <p class="lead">Selecciona una zona numerada de la imagen para descubrir qué puedes hacer en ella.</p>
+        <span class="pill" data-i18n="screen.span.1">Recorrido</span><h2 data-i18n="screen.h2.1">Conocer la pantalla</h2>
+        <p class="lead" data-i18n="screen.p.1">Selecciona una zona numerada de la imagen para descubrir qué puedes hacer en ella.</p>
         <figure class="screen-tour screen-tour--ui5" data-screen-tour>
           <div class="screen-tour-stage">
-            <img src="../assets/images/ui5-studio.png" alt="Editor con seis zonas interactivas: plantillas, barra superior, campos de datos, paleta, lienzo y lista de campos">
-            <button class="screen-hotspot screen-hotspot--templates" type="button" data-screen-zone="templates" aria-label="Zona 1: Plantillas" aria-controls="screen-detail-templates" aria-pressed="false"><span aria-hidden="true">1</span></button>
-            <button class="screen-hotspot screen-hotspot--toolbar" type="button" data-screen-zone="toolbar" aria-label="Zona 2: Barra superior" aria-controls="screen-detail-toolbar" aria-pressed="false"><span aria-hidden="true">2</span></button>
-            <button class="screen-hotspot screen-hotspot--data" type="button" data-screen-zone="data" aria-label="Zona 3: Campos de datos" aria-controls="screen-detail-data" aria-pressed="false"><span aria-hidden="true">3</span></button>
-            <button class="screen-hotspot screen-hotspot--palette" type="button" data-screen-zone="palette" aria-label="Zona 4: Paleta lateral" aria-controls="screen-detail-palette" aria-pressed="false"><span aria-hidden="true">4</span></button>
-            <button class="screen-hotspot screen-hotspot--canvas" type="button" data-screen-zone="canvas" aria-label="Zona 5: Lienzo" aria-controls="screen-detail-canvas" aria-pressed="true"><span aria-hidden="true">5</span></button>
-            <button class="screen-hotspot screen-hotspot--properties" type="button" data-screen-zone="properties" aria-label="Zona 6: Lista y propiedades" aria-controls="screen-detail-properties" aria-pressed="false"><span aria-hidden="true">6</span></button>
+            <img src="../assets/images/ui5-studio.png" alt="Editor con seis zonas interactivas: plantillas, barra superior, campos de datos, paleta, lienzo y lista de campos" data-i18n-attrs="alt:screen.attr-alt.1">
+            <button class="screen-hotspot screen-hotspot--templates" type="button" data-screen-zone="templates" aria-label="Zona 1: Plantillas" aria-controls="screen-detail-templates" aria-pressed="false" data-i18n-attrs="aria-label:screen.attr-aria-label.1"><span aria-hidden="true">1</span></button>
+            <button class="screen-hotspot screen-hotspot--toolbar" type="button" data-screen-zone="toolbar" aria-label="Zona 2: Barra superior" aria-controls="screen-detail-toolbar" aria-pressed="false" data-i18n-attrs="aria-label:screen.attr-aria-label.2"><span aria-hidden="true">2</span></button>
+            <button class="screen-hotspot screen-hotspot--data" type="button" data-screen-zone="data" aria-label="Zona 3: Campos de datos" aria-controls="screen-detail-data" aria-pressed="false" data-i18n-attrs="aria-label:screen.attr-aria-label.3"><span aria-hidden="true">3</span></button>
+            <button class="screen-hotspot screen-hotspot--palette" type="button" data-screen-zone="palette" aria-label="Zona 4: Paleta lateral" aria-controls="screen-detail-palette" aria-pressed="false" data-i18n-attrs="aria-label:screen.attr-aria-label.4"><span aria-hidden="true">4</span></button>
+            <button class="screen-hotspot screen-hotspot--canvas" type="button" data-screen-zone="canvas" aria-label="Zona 5: Lienzo" aria-controls="screen-detail-canvas" aria-pressed="true" data-i18n-attrs="aria-label:screen.attr-aria-label.5"><span aria-hidden="true">5</span></button>
+            <button class="screen-hotspot screen-hotspot--properties" type="button" data-screen-zone="properties" aria-label="Zona 6: Lista y propiedades" aria-controls="screen-detail-properties" aria-pressed="false" data-i18n-attrs="aria-label:screen.attr-aria-label.6"><span aria-hidden="true">6</span></button>
           </div>
-          <figcaption>Puedes pulsar directamente sobre la captura o usar los botones de zona. La disposición se compacta en pantallas estrechas, pero las operaciones son las mismas.</figcaption>
+          <figcaption data-i18n="screen.figcaption.1">Puedes pulsar directamente sobre la captura o usar los botones de zona. La disposición se compacta en pantallas estrechas, pero las operaciones son las mismas.</figcaption>
           <div class="screen-tour-body">
-            <div class="screen-tour-controls" role="group" aria-label="Zonas del diseñador">
-              <button class="screen-zone-option" type="button" data-screen-zone="templates" aria-controls="screen-detail-templates" aria-pressed="false"><span>1</span>Plantillas</button>
-              <button class="screen-zone-option" type="button" data-screen-zone="toolbar" aria-controls="screen-detail-toolbar" aria-pressed="false"><span>2</span>Barra superior</button>
-              <button class="screen-zone-option" type="button" data-screen-zone="data" aria-controls="screen-detail-data" aria-pressed="false"><span>3</span>Campos de datos</button>
-              <button class="screen-zone-option" type="button" data-screen-zone="palette" aria-controls="screen-detail-palette" aria-pressed="false"><span>4</span>Paleta lateral</button>
-              <button class="screen-zone-option" type="button" data-screen-zone="canvas" aria-controls="screen-detail-canvas" aria-pressed="true"><span>5</span>Lienzo</button>
-              <button class="screen-zone-option" type="button" data-screen-zone="properties" aria-controls="screen-detail-properties" aria-pressed="false"><span>6</span>Lista y propiedades</button>
+            <div class="screen-tour-controls" role="group" aria-label="Zonas del diseñador" data-i18n-attrs="aria-label:screen.attr-aria-label.7">
+              <button class="screen-zone-option" type="button" data-screen-zone="templates" aria-controls="screen-detail-templates" aria-pressed="false" data-i18n="screen.button.1"><span>1</span>Plantillas</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="toolbar" aria-controls="screen-detail-toolbar" aria-pressed="false" data-i18n="screen.button.2"><span>2</span>Barra superior</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="data" aria-controls="screen-detail-data" aria-pressed="false" data-i18n="screen.button.3"><span>3</span>Campos de datos</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="palette" aria-controls="screen-detail-palette" aria-pressed="false" data-i18n="screen.button.4"><span>4</span>Paleta lateral</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="canvas" aria-controls="screen-detail-canvas" aria-pressed="true" data-i18n="screen.button.5"><span>5</span>Lienzo</button>
+              <button class="screen-zone-option" type="button" data-screen-zone="properties" aria-controls="screen-detail-properties" aria-pressed="false" data-i18n="screen.button.6"><span>6</span>Lista y propiedades</button>
             </div>
             <div class="screen-tour-details" aria-live="polite">
-              <article class="screen-tour-panel" id="screen-detail-templates" data-screen-panel="templates"><span class="screen-tour-kicker">Zona 1</span><h3>Plantillas</h3><p>Abre el catálogo para buscar, filtrar y recuperar diseños guardados.</p><p class="screen-tour-tip"><strong>Úsala cuando:</strong> quieras partir de una plantilla existente en lugar de comenzar con el diseño actual.</p></article>
-              <article class="screen-tour-panel" id="screen-detail-toolbar" data-screen-panel="toolbar"><span class="screen-tour-kicker">Zona 2</span><h3>Barra superior</h3><p>Guarda la plantilla, abre la vista previa, descarga o imprime el PDF y da acceso a la ayuda y a la pantalla completa.</p><p class="screen-tour-tip"><strong>Consejo:</strong> usa la vista previa antes de descargar o imprimir para comprobar el resultado real.</p></article>
-              <article class="screen-tour-panel" id="screen-detail-data" data-screen-panel="data"><span class="screen-tour-kicker">Zona 3</span><h3>Campos de datos</h3><p>Muestra los valores disponibles. Seleccionar un campo lo inserta en el documento y lo conecta con los datos de la aplicación.</p><p class="screen-tour-tip"><strong>Consejo:</strong> usa la búsqueda y revisa si el campo figura como incluido o no incluido.</p></article>
-              <article class="screen-tour-panel" id="screen-detail-palette" data-screen-panel="palette"><span class="screen-tour-kicker">Zona 4</span><h3>Paleta lateral</h3><p>Añade contenido estático como texto, imagen, tabla, forma o fecha. <em>Códigos y QR</em> agrupa los formatos de código disponibles.</p><p class="screen-tour-tip"><strong>Úsala cuando:</strong> el contenido no tenga que obtener su valor de los datos.</p></article>
-              <article class="screen-tour-panel active" id="screen-detail-canvas" data-screen-panel="canvas"><span class="screen-tour-kicker">Zona 5</span><h3>Lienzo</h3><p>Representa las páginas del documento. Aquí seleccionas, mueves y dimensionas cada elemento.</p><p class="screen-tour-tip"><strong>Consejo:</strong> selecciona un elemento para ver sus ajustes y arrástralo para cambiar su posición.</p></article>
-              <article class="screen-tour-panel" id="screen-detail-properties" data-screen-panel="properties"><span class="screen-tour-kicker">Zona 6</span><h3>Lista y propiedades</h3><p>Permite localizar un elemento y cambiar su identificador, contenido, estilo y comportamiento.</p><p class="screen-tour-tip"><strong>Consejo:</strong> usa un identificador corto, semántico y único para cada campo.</p></article>
+              <article class="screen-tour-panel" id="screen-detail-templates" data-screen-panel="templates"><span class="screen-tour-kicker" data-i18n="screen.span.2">Zona 1</span><h3 data-i18n="screen.h3.1">Plantillas</h3><p data-i18n="screen.p.2">Abre el catálogo para buscar, filtrar y recuperar diseños guardados.</p><p class="screen-tour-tip" data-i18n="screen.p.3"><strong>Úsala cuando:</strong> quieras partir de una plantilla existente en lugar de comenzar con el diseño actual.</p></article>
+              <article class="screen-tour-panel" id="screen-detail-toolbar" data-screen-panel="toolbar"><span class="screen-tour-kicker" data-i18n="screen.span.3">Zona 2</span><h3 data-i18n="screen.h3.2">Barra superior</h3><p data-i18n="screen.p.4">Guarda la plantilla, abre la vista previa, descarga o imprime el PDF y da acceso a la ayuda y a la pantalla completa.</p><p class="screen-tour-tip" data-i18n="screen.p.5"><strong>Consejo:</strong> usa la vista previa antes de descargar o imprimir para comprobar el resultado real.</p></article>
+              <article class="screen-tour-panel" id="screen-detail-data" data-screen-panel="data"><span class="screen-tour-kicker" data-i18n="screen.span.4">Zona 3</span><h3 data-i18n="screen.h3.3">Campos de datos</h3><p data-i18n="screen.p.6">Muestra los valores disponibles. Seleccionar un campo lo inserta en el documento y lo conecta con los datos de la aplicación.</p><p class="screen-tour-tip" data-i18n="screen.p.7"><strong>Consejo:</strong> usa la búsqueda y revisa si el campo figura como incluido o no incluido.</p></article>
+              <article class="screen-tour-panel" id="screen-detail-palette" data-screen-panel="palette"><span class="screen-tour-kicker" data-i18n="screen.span.5">Zona 4</span><h3 data-i18n="screen.h3.4">Paleta lateral</h3><p data-i18n="screen.p.8">Añade contenido estático como texto, imagen, tabla, forma o fecha. <em>Códigos y QR</em> agrupa los formatos de código disponibles.</p><p class="screen-tour-tip" data-i18n="screen.p.9"><strong>Úsala cuando:</strong> el contenido no tenga que obtener su valor de los datos.</p></article>
+              <article class="screen-tour-panel active" id="screen-detail-canvas" data-screen-panel="canvas"><span class="screen-tour-kicker" data-i18n="screen.span.6">Zona 5</span><h3 data-i18n="screen.h3.5">Lienzo</h3><p data-i18n="screen.p.10">Representa las páginas del documento. Aquí seleccionas, mueves y dimensionas cada elemento.</p><p class="screen-tour-tip" data-i18n="screen.p.11"><strong>Consejo:</strong> selecciona un elemento para ver sus ajustes y arrástralo para cambiar su posición.</p></article>
+              <article class="screen-tour-panel" id="screen-detail-properties" data-screen-panel="properties"><span class="screen-tour-kicker" data-i18n="screen.span.7">Zona 6</span><h3 data-i18n="screen.h3.6">Lista y propiedades</h3><p data-i18n="screen.p.12">Permite localizar un elemento y cambiar su identificador, contenido, estilo y comportamiento.</p><p class="screen-tour-tip" data-i18n="screen.p.13"><strong>Consejo:</strong> usa un identificador corto, semántico y único para cada campo.</p></article>
             </div>
           </div>
         </figure>
-        <div class="screen-reference-gallery" aria-label="Referencias visuales del diseñador">
+        <div class="screen-reference-gallery" aria-label="Referencias visuales del diseñador" data-i18n-attrs="aria-label:screen.attr-aria-label.8">
           <figure class="screen-reference-card">
-            <div class="screen-reference-crop screen-reference-crop--toolbar"><img src="../assets/images/ui5-studio.png" alt="Recorte de la barra superior con los botones Plantillas y Vista previa del PDF"></div>
-            <figcaption><h3>Abrir y comprobar</h3><p><strong>Plantillas</strong> abre el catálogo. En la misma barra encontrarás <strong>Vista previa del PDF</strong>, descargar, imprimir, ayuda y pantalla completa.</p></figcaption>
+            <div class="screen-reference-crop screen-reference-crop--toolbar"><img src="../assets/images/ui5-studio.png" alt="Recorte de la barra superior con los botones Plantillas y Vista previa del PDF" data-i18n-attrs="alt:screen.attr-alt.2"></div>
+            <figcaption data-i18n="screen.figcaption.2"><h3>Abrir y comprobar</h3><p><strong>Plantillas</strong> abre el catálogo. En la misma barra encontrarás <strong>Vista previa del PDF</strong>, descargar, imprimir, ayuda y pantalla completa.</p></figcaption>
           </figure>
           <figure class="screen-reference-card">
-            <div class="screen-reference-crop screen-reference-crop--data"><img src="../assets/images/ui5-studio.png" alt="Recorte del panel Campos de datos y de la paleta lateral"></div>
-            <figcaption><h3>Añadir contenido</h3><p>Los <strong>Campos de datos</strong> están a la izquierda. Justo a su derecha, la <strong>paleta lateral</strong> crea contenido estático.</p></figcaption>
+            <div class="screen-reference-crop screen-reference-crop--data"><img src="../assets/images/ui5-studio.png" alt="Recorte del panel Campos de datos y de la paleta lateral" data-i18n-attrs="alt:screen.attr-alt.3"></div>
+            <figcaption data-i18n="screen.figcaption.3"><h3>Añadir contenido</h3><p>Los <strong>Campos de datos</strong> están a la izquierda. Justo a su derecha, la <strong>paleta lateral</strong> crea contenido estático.</p></figcaption>
           </figure>
           <figure class="screen-reference-card">
-            <div class="screen-reference-crop screen-reference-crop--editor"><img src="../assets/images/ui5-studio.png" alt="Recorte del lienzo central y de la lista de campos de la derecha"></div>
-            <figcaption><h3>Editar el diseño</h3><p>El <strong>lienzo</strong> ocupa el centro. La <strong>lista de campos y propiedades</strong> está a la derecha para localizar y configurar cada elemento.</p></figcaption>
+            <div class="screen-reference-crop screen-reference-crop--editor"><img src="../assets/images/ui5-studio.png" alt="Recorte del lienzo central y de la lista de campos de la derecha" data-i18n-attrs="alt:screen.attr-alt.4"></div>
+            <figcaption data-i18n="screen.figcaption.4"><h3>Editar el diseño</h3><p>El <strong>lienzo</strong> ocupa el centro. La <strong>lista de campos y propiedades</strong> está a la derecha para localizar y configurar cada elemento.</p></figcaption>
           </figure>
         </div>
       </section>
 
       <section id="first-document">
-        <span class="pill">5 minutos</span><h2>Crear el primer documento</h2>
+        <span class="pill" data-i18n="first-document.span.1">5 minutos</span><h2 data-i18n="first-document.h2.1">Crear el primer documento</h2>
         <ol>
-          <li><strong>Abre una plantilla.</strong> Pulsa <em>Plantillas</em>, usa los filtros si es necesario y selecciona <em>Abrir</em>. Si no hay catálogo, trabaja con el diseño que ha preparado la aplicación.</li>
-          <li><strong>Añade contenido.</strong> Selecciona un campo del panel izquierdo para conectarlo a datos, o elige un tipo en la paleta para crear contenido estático.</li>
-          <li><strong>Colócalo.</strong> Arrastra el elemento en el lienzo y usa sus tiradores para cambiar el tamaño.</li>
-          <li><strong>Configúralo.</strong> Selecciona el elemento y revisa sus propiedades. Usa un identificador corto, semántico y único.</li>
-          <li><strong>Comprueba el resultado.</strong> Pulsa <em>Vista previa del PDF</em>. Corrige el diseño hasta que los datos se lean correctamente.</li>
-          <li><strong>Guarda.</strong> Indica nombre, descripción, etiquetas, estado y repositorio cuando sea la primera vez.</li>
+          <li data-i18n="first-document.li.1"><strong>Abre una plantilla.</strong> Pulsa <em>Plantillas</em>, usa los filtros si es necesario y selecciona <em>Abrir</em>. Si no hay catálogo, trabaja con el diseño que ha preparado la aplicación.</li>
+          <li data-i18n="first-document.li.2"><strong>Añade contenido.</strong> Selecciona un campo del panel izquierdo para conectarlo a datos, o elige un tipo en la paleta para crear contenido estático.</li>
+          <li data-i18n="first-document.li.3"><strong>Colócalo.</strong> Arrastra el elemento en el lienzo y usa sus tiradores para cambiar el tamaño.</li>
+          <li data-i18n="first-document.li.4"><strong>Configúralo.</strong> Selecciona el elemento y revisa sus propiedades. Usa un identificador corto, semántico y único.</li>
+          <li data-i18n="first-document.li.5"><strong>Comprueba el resultado.</strong> Pulsa <em>Vista previa del PDF</em>. Corrige el diseño hasta que los datos se lean correctamente.</li>
+          <li data-i18n="first-document.li.6"><strong>Guarda.</strong> Indica nombre, descripción, etiquetas, estado y repositorio cuando sea la primera vez.</li>
         </ol>
       </section>
 
       <section id="fields">
-        <span class="pill">Concepto clave</span><h2>Campos estáticos y conectados</h2>
-        <table class="matrix"><thead><tr><th>Tipo</th><th>Cuándo utilizarlo</th><th>Comportamiento</th></tr></thead><tbody>
-          <tr><td>Estático</td><td>Títulos, etiquetas, instrucciones, líneas y elementos decorativos.</td><td>Conserva el contenido escrito en la plantilla y muestra un ojo en la lista. Si se repite en todas las páginas, muestra además el icono de páginas superpuestas. <strong>Valor desde datos</strong> permanece desactivado.</td></tr>
-          <tr><td>Conectado</td><td>Cliente, fecha, importe, dirección, artículos y cualquier valor que cambie.</td><td>Recibe un valor de la aplicación. Muestra el icono de base de datos y <strong>Valor desde datos</strong> está activado.</td></tr>
+        <span class="pill" data-i18n="fields.span.1">Concepto clave</span><h2 data-i18n="fields.h2.1">Campos estáticos y conectados</h2>
+        <table class="matrix"><thead><tr><th data-i18n="fields.th.1">Tipo</th><th data-i18n="fields.th.2">Cuándo utilizarlo</th><th data-i18n="fields.th.3">Comportamiento</th></tr></thead><tbody>
+          <tr><td data-i18n="fields.td.1">Estático</td><td data-i18n="fields.td.2">Títulos, etiquetas, instrucciones, líneas y elementos decorativos.</td><td data-i18n="fields.td.3">Conserva el contenido escrito en la plantilla y muestra un ojo en la lista. Si se repite en todas las páginas, muestra además el icono de páginas superpuestas. <strong>Valor desde datos</strong> permanece desactivado.</td></tr>
+          <tr><td data-i18n="fields.td.4">Conectado</td><td data-i18n="fields.td.5">Cliente, fecha, importe, dirección, artículos y cualquier valor que cambie.</td><td data-i18n="fields.td.6">Recibe un valor de la aplicación. Muestra el icono de base de datos y <strong>Valor desde datos</strong> está activado.</td></tr>
         </tbody></table>
-        <h3>Identificador del campo</h3>
-        <p>Es la clave estable que relaciona el diseño con los datos. Debe ser única en toda la plantilla. No uses el texto traducido que ve el destinatario: son preferibles nombres como <code>customerName</code>, <code>invoiceDate</code> o <code>items</code>.</p>
-        <h3>Etiqueta y valor en un solo campo Text</h3>
-        <p>En un Text conectado, activa <strong>Mostrar etiqueta</strong> y edita <strong>Texto de la etiqueta</strong> para representar un campo compacto como <code>Subtotal: 125,50 €</code>. La etiqueta se ve en el layout y se incluye en la vista previa y en el PDF final. En un Text estático, el flag permanece marcado y deshabilitado porque el contenido de la plantilla ya es su texto visible.</p>
-        <h3>Panel de datos</h3>
+        <h3 data-i18n="fields.h3.1">Identificador del campo</h3>
+        <p data-i18n="fields.p.1">Es la clave estable que relaciona el diseño con los datos. Debe ser única en toda la plantilla. No uses el texto traducido que ve el destinatario: son preferibles nombres como <code>customerName</code>, <code>invoiceDate</code> o <code>items</code>.</p>
+        <h3 data-i18n="fields.h3.2">Etiqueta y valor en un solo campo Text</h3>
+        <p data-i18n="fields.p.2">En un Text conectado, activa <strong>Mostrar etiqueta</strong> y edita <strong>Texto de la etiqueta</strong> para representar un campo compacto como <code>Subtotal: 125,50 €</code>. La etiqueta se ve en el layout y se incluye en la vista previa y en el PDF final. En un Text estático, el flag permanece marcado y deshabilitado porque el contenido de la plantilla ya es su texto visible.</p>
+        <h3 data-i18n="fields.h3.3">Panel de datos</h3>
         <ul>
-          <li>Usa la búsqueda para localizar un campo por su ruta o valor de ejemplo.</li>
-          <li><strong>Incluido</strong> indica que el diseño ya utiliza ese dato; no significa necesariamente que esté visible en la página actual.</li>
-          <li><strong>No incluido</strong> indica que todavía no existe un elemento que utilice ese dato.</li>
-          <li>Pulsa actualizar si la aplicación ha cambiado los datos de ejemplo.</li>
+          <li data-i18n="fields.li.1">Usa la búsqueda para localizar un campo por su ruta o valor de ejemplo.</li>
+          <li data-i18n="fields.li.2"><strong>Incluido</strong> indica que el diseño ya utiliza ese dato; no significa necesariamente que esté visible en la página actual.</li>
+          <li data-i18n="fields.li.3"><strong>No incluido</strong> indica que todavía no existe un elemento que utilice ese dato.</li>
+          <li data-i18n="fields.li.4">Pulsa actualizar si la aplicación ha cambiado los datos de ejemplo.</li>
         </ul>
       </section>
 
       <section id="advanced">
-        <span class="pill">Diseños reales</span><h2>Contenido avanzado</h2>
-        <h3>Tablas</h3><p>Inserta el campo que representa la colección completa, no solamente una propiedad de la primera fila. Ajusta cabeceras, anchos y altura con ejemplos sin filas, con pocas filas y con muchas filas.</p>
-        <h3>Texto con varias variables</h3><p>Utilízalo para frases que combinan texto fijo y varios valores, por ejemplo un resumen con número de factura, cliente y total. Mantén cada variable disponible en los datos.</p>
-        <h3>Imágenes, firmas y códigos</h3><p>Reserva espacio suficiente y comprueba la calidad en el PDF generado. En <strong>Códigos y QR</strong>, elige QR, Code 128, EAN-13, Data Matrix o PDF417. Verifica cada código con un lector real antes de publicar la plantilla.</p>
-        <h3>Varias páginas</h3><p>Para una cabecera o un pie estático, o para un campo Text conectado a datos, activa <strong>Posición fija no desplazable</strong>. El elemento conservará sus coordenadas y quedará fuera del flujo cuando crezcan tablas o textos. Después puedes activar opcionalmente <strong>Repetir en todas las páginas</strong>; el valor resuelto del Text también se repetirá. Si no lo haces, se dibujará solo en su página original. Al generar, el borde del elemento repetido amplía automáticamente el margen superior o inferior más cercano para que el contenido que salta de página no se superponga; el margen configurado sigue siendo el mínimo. En textos estáticos repetidos puedes utilizar <code>{currentPage}</code> y <code>{totalPages}</code>. Estas opciones no se muestran para campos conectados que no sean Text ni cuando el fondo es un PDF importado.</p>
+        <span class="pill" data-i18n="advanced.span.1">Diseños reales</span><h2 data-i18n="advanced.h2.1">Contenido avanzado</h2>
+        <h3 data-i18n="advanced.h3.1">Tablas</h3><p data-i18n="advanced.p.1">Inserta el campo que representa la colección completa, no solamente una propiedad de la primera fila. Ajusta cabeceras, anchos y altura con ejemplos sin filas, con pocas filas y con muchas filas.</p>
+        <h3 data-i18n="advanced.h3.2">Texto con varias variables</h3><p data-i18n="advanced.p.2">Utilízalo para frases que combinan texto fijo y varios valores, por ejemplo un resumen con número de factura, cliente y total. Mantén cada variable disponible en los datos.</p>
+        <h3 data-i18n="advanced.h3.3">Imágenes, firmas y códigos</h3><p data-i18n="advanced.p.3">Reserva espacio suficiente y comprueba la calidad en el PDF generado. En <strong>Códigos y QR</strong>, elige QR, Code 128, EAN-13, Data Matrix o PDF417. Verifica cada código con un lector real antes de publicar la plantilla.</p>
+        <h3 data-i18n="advanced.h3.4">Varias páginas</h3><p data-i18n="advanced.p.4">Para una cabecera o un pie estático, o para un campo Text conectado a datos, activa <strong>Posición fija no desplazable</strong>. El elemento conservará sus coordenadas y quedará fuera del flujo cuando crezcan tablas o textos. Después puedes activar opcionalmente <strong>Repetir en todas las páginas</strong>; el valor resuelto del Text también se repetirá. Si no lo haces, se dibujará solo en su página original. Al generar, el borde del elemento repetido amplía automáticamente el margen superior o inferior más cercano para que el contenido que salta de página no se superponga; el margen configurado sigue siendo el mínimo. En textos estáticos repetidos puedes utilizar <code>{currentPage}</code> y <code>{totalPages}</code>. Estas opciones no se muestran para campos conectados que no sean Text ni cuando el fondo es un PDF importado.</p>
       </section>
 
       <section id="templates">
-        <span class="pill">Ciclo de vida</span><h2>Guardar y recuperar plantillas</h2>
-        <p>La primera vez, <em>Guardar plantilla</em> solicita metadatos. Las siguientes guardadas actualizan el registro abierto, salvo que la aplicación ofrezca una operación específica para crear otra versión.</p>
-        <table class="matrix"><thead><tr><th>Dato</th><th>Recomendación</th></tr></thead><tbody>
-          <tr><td>Nombre</td><td>Describe el documento y, si procede, el país o idioma.</td></tr>
-          <tr><td>Descripción</td><td>Indica finalidad, destinatario y particularidades relevantes.</td></tr>
-          <tr><td>Etiquetas</td><td>Usa términos consistentes para facilitar la búsqueda.</td></tr>
-          <tr><td>Borrador</td><td>Diseño en preparación o pendiente de revisión.</td></tr>
-          <tr><td>Publicada</td><td>Versión aprobada para uso operativo.</td></tr>
-          <tr><td>Archivada</td><td>Diseño conservado como histórico, pero no recomendado para nuevos documentos.</td></tr>
+        <span class="pill" data-i18n="templates.span.1">Ciclo de vida</span><h2 data-i18n="templates.h2.1">Guardar y recuperar plantillas</h2>
+        <p data-i18n="templates.p.1">La primera vez, <em>Guardar plantilla</em> solicita metadatos. Las siguientes guardadas actualizan el registro abierto, salvo que la aplicación ofrezca una operación específica para crear otra versión.</p>
+        <table class="matrix"><thead><tr><th data-i18n="templates.th.1">Dato</th><th data-i18n="templates.th.2">Recomendación</th></tr></thead><tbody>
+          <tr><td data-i18n="templates.td.1">Nombre</td><td data-i18n="templates.td.2">Describe el documento y, si procede, el país o idioma.</td></tr>
+          <tr><td data-i18n="templates.td.3">Descripción</td><td data-i18n="templates.td.4">Indica finalidad, destinatario y particularidades relevantes.</td></tr>
+          <tr><td data-i18n="templates.td.5">Etiquetas</td><td data-i18n="templates.td.6">Usa términos consistentes para facilitar la búsqueda.</td></tr>
+          <tr><td data-i18n="templates.td.7">Borrador</td><td data-i18n="templates.td.8">Diseño en preparación o pendiente de revisión.</td></tr>
+          <tr><td data-i18n="templates.td.9">Publicada</td><td data-i18n="templates.td.10">Versión aprobada para uso operativo.</td></tr>
+          <tr><td data-i18n="templates.td.11">Archivada</td><td data-i18n="templates.td.12">Diseño conservado como histórico, pero no recomendado para nuevos documentos.</td></tr>
         </tbody></table>
-        <div class="callout">Cambiar el estado no sustituye una aprobación. Los permisos, revisiones y versiones disponibles dependen del sistema donde está integrado el editor.</div>
-        <p>Para configurar dónde se listan y guardan los diseños, consulta la guía técnica <a href="../repositories/">Catálogo y repositorios de plantillas</a>.</p>
+        <div class="callout" data-i18n="templates.div.1">Cambiar el estado no sustituye una aprobación. Los permisos, revisiones y versiones disponibles dependen del sistema donde está integrado el editor.</div>
+        <p data-i18n="templates.p.2">Para configurar dónde se listan y guardan los diseños, consulta la guía técnica <a href="../repositories/">Catálogo y repositorios de plantillas</a>.</p>
       </section>
 
       <section id="validate">
-        <span class="pill">Antes de publicar</span><h2>Comprobar el PDF</h2>
+        <span class="pill" data-i18n="validate.span.1">Antes de publicar</span><h2 data-i18n="validate.h2.1">Comprobar el PDF</h2>
         <ul>
-          <li>Actualiza los datos y abre la vista previa.</li>
-          <li>Comprueba valores vacíos, textos muy largos y caracteres especiales.</li>
-          <li>Prueba tablas sin filas, con una fila y con muchas filas.</li>
-          <li>Revisa saltos de página, márgenes y contenido fuera del área imprimible.</li>
-          <li>Verifica idioma, fechas, zona horaria, moneda y fuentes.</li>
-          <li>Descarga un PDF y ábrelo fuera del editor.</li>
-          <li>Realiza una impresión de prueba cuando el tamaño físico sea importante.</li>
+          <li data-i18n="validate.li.1">Actualiza los datos y abre la vista previa.</li>
+          <li data-i18n="validate.li.2">Comprueba valores vacíos, textos muy largos y caracteres especiales.</li>
+          <li data-i18n="validate.li.3">Prueba tablas sin filas, con una fila y con muchas filas.</li>
+          <li data-i18n="validate.li.4">Revisa saltos de página, márgenes y contenido fuera del área imprimible.</li>
+          <li data-i18n="validate.li.5">Verifica idioma, fechas, zona horaria, moneda y fuentes.</li>
+          <li data-i18n="validate.li.6">Descarga un PDF y ábrelo fuera del editor.</li>
+          <li data-i18n="validate.li.7">Realiza una impresión de prueba cuando el tamaño físico sea importante.</li>
         </ul>
-        <p>Los navegadores muestran su propio diálogo de impresión. El editor no puede imprimir de forma silenciosa.</p>
+        <p data-i18n="validate.p.1">Los navegadores muestran su propio diálogo de impresión. El editor no puede imprimir de forma silenciosa.</p>
       </section>
 
       <section id="troubleshooting">
-        <span class="pill">Ayuda</span><h2>Problemas comunes</h2>
-        <table class="matrix"><thead><tr><th>Problema</th><th>Qué hacer</th></tr></thead><tbody>
-          <tr><td>No aparecen campos de datos</td><td>Pulsa actualizar. Si sigue vacío, la aplicación todavía no ha proporcionado datos o no tienes acceso; contacta con el responsable funcional.</td></tr>
-          <tr><td>Un campo queda vacío en el PDF</td><td>Comprueba que está conectado, que su identificador corresponde a una opción disponible y que el dato de ejemplo tiene valor.</td></tr>
-          <tr><td>No se acepta un identificador</td><td>Elige una opción disponible para un campo conectado o utiliza un nombre único para un campo estático.</td></tr>
-          <tr><td>No aparecen las opciones de posición fija</td><td>Selecciona un elemento estático o un Text conectado. Estas opciones no están disponibles para otros campos conectados ni para fondos PDF importados.</td></tr>
-          <tr><td>La tabla desborda</td><td>Aumenta su espacio, reduce columnas o texto y prueba con más filas. Revisa también la página siguiente.</td></tr>
-          <tr><td>No puedo guardar o publicar</td><td>Revisa el repositorio y el estado seleccionados. La aplicación puede limitar estas operaciones según tus permisos.</td></tr>
-          <tr><td>No aparece la impresión</td><td>Permite que el PDF termine de generarse y revisa si el navegador ha bloqueado el diálogo o la nueva ventana.</td></tr>
+        <span class="pill" data-i18n="troubleshooting.span.1">Ayuda</span><h2 data-i18n="troubleshooting.h2.1">Problemas comunes</h2>
+        <table class="matrix"><thead><tr><th data-i18n="troubleshooting.th.1">Problema</th><th data-i18n="troubleshooting.th.2">Qué hacer</th></tr></thead><tbody>
+          <tr><td data-i18n="troubleshooting.td.1">No aparecen campos de datos</td><td data-i18n="troubleshooting.td.2">Pulsa actualizar. Si sigue vacío, la aplicación todavía no ha proporcionado datos o no tienes acceso; contacta con el responsable funcional.</td></tr>
+          <tr><td data-i18n="troubleshooting.td.3">Un campo queda vacío en el PDF</td><td data-i18n="troubleshooting.td.4">Comprueba que está conectado, que su identificador corresponde a una opción disponible y que el dato de ejemplo tiene valor.</td></tr>
+          <tr><td data-i18n="troubleshooting.td.5">No se acepta un identificador</td><td data-i18n="troubleshooting.td.6">Elige una opción disponible para un campo conectado o utiliza un nombre único para un campo estático.</td></tr>
+          <tr><td data-i18n="troubleshooting.td.7">No aparecen las opciones de posición fija</td><td data-i18n="troubleshooting.td.8">Selecciona un elemento estático o un Text conectado. Estas opciones no están disponibles para otros campos conectados ni para fondos PDF importados.</td></tr>
+          <tr><td data-i18n="troubleshooting.td.9">La tabla desborda</td><td data-i18n="troubleshooting.td.10">Aumenta su espacio, reduce columnas o texto y prueba con más filas. Revisa también la página siguiente.</td></tr>
+          <tr><td data-i18n="troubleshooting.td.11">No puedo guardar o publicar</td><td data-i18n="troubleshooting.td.12">Revisa el repositorio y el estado seleccionados. La aplicación puede limitar estas operaciones según tus permisos.</td></tr>
+          <tr><td data-i18n="troubleshooting.td.13">No aparece la impresión</td><td data-i18n="troubleshooting.td.14">Permite que el PDF termine de generarse y revisa si el navegador ha bloqueado el diálogo o la nueva ventana.</td></tr>
         </tbody></table>
-        <p>Para fallos de integración, consulta los <a href="../#troubleshooting">problemas técnicos</a>.</p>
+        <p data-i18n="troubleshooting.p.1">Para fallos de integración, consulta los <a href="../#troubleshooting">problemas técnicos</a>.</p>
       </section>
 
       <section id="glossary">
-        <span class="pill">Referencia rápida</span><h2>Glosario</h2>
-        <table class="matrix"><tbody><tr><th>Plantilla</th><td>Diseño reutilizable del documento.</td></tr><tr><th>Campo</th><td>Elemento colocado en una página.</td></tr><tr><th>Campo conectado</th><td>Elemento cuyo valor procede de los datos de la aplicación.</td></tr><tr><th>Identificador</th><td>Nombre estable y único que relaciona un campo con su valor.</td></tr><tr><th>Repositorio</th><td>Origen donde se buscan y guardan plantillas.</td></tr><tr><th>Vista previa</th><td>PDF generado para comprobar el resultado antes de descargar o imprimir.</td></tr></tbody></table>
+        <span class="pill" data-i18n="glossary.span.1">Referencia rápida</span><h2 data-i18n="glossary.h2.1">Glosario</h2>
+        <table class="matrix"><tbody><tr><th data-i18n="glossary.th.1">Plantilla</th><td data-i18n="glossary.td.1">Diseño reutilizable del documento.</td></tr><tr><th data-i18n="glossary.th.2">Campo</th><td data-i18n="glossary.td.2">Elemento colocado en una página.</td></tr><tr><th data-i18n="glossary.th.3">Campo conectado</th><td data-i18n="glossary.td.3">Elemento cuyo valor procede de los datos de la aplicación.</td></tr><tr><th data-i18n="glossary.th.4">Identificador</th><td data-i18n="glossary.td.4">Nombre estable y único que relaciona un campo con su valor.</td></tr><tr><th data-i18n="glossary.th.5">Repositorio</th><td data-i18n="glossary.td.5">Origen donde se buscan y guardan plantillas.</td></tr><tr><th data-i18n="glossary.th.6">Vista previa</th><td data-i18n="glossary.td.6">PDF generado para comprobar el resultado antes de descargar o imprimir.</td></tr></tbody></table>
       </section>
     </main>
   </div>
-  <footer class="footer">ui5-pdfme · <a href="../">Documentación técnica</a> · <a href="../examples/">Demos funcionales</a> · Apache-2.0</footer>
+  <footer class="footer" data-i18n="page.footer.1">ui5-pdfme · <a href="../">Documentación técnica</a> · <a href="../examples/">Demos funcionales</a> · Apache-2.0</footer>
   <script type="module" src="../assets/docs.js"></script>
 </body>
 </html>

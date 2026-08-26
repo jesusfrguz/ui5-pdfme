@@ -343,9 +343,8 @@ export function resolveStudioTitle({ title, templateName, record, fallback }) {
 
 export function resolveHelpUrl(language, configuredUrl) {
   if (configuredUrl) return String(configuredUrl);
-  return language === "es"
-    ? "https://jesusfrguz.github.io/ui5-pdfme/guide/"
-    : "https://jesusfrguz.github.io/ui5-pdfme/guide/en.html";
+  const locale = language === "es" ? "es" : "en";
+  return `https://jesusfrguz.github.io/ui5-pdfme/guide/?lang=${locale}`;
 }
 
 export function createDefaultFieldMappings(template, configuredFields = {}) {

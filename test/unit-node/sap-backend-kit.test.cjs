@@ -9,7 +9,8 @@ const sectionIds = (html) => [...html.matchAll(/<section id="([^"]+)"/g)].map((m
 
 test("SAP backend chooser is bilingual and offers every supported route", () => {
   const spanish = read("docs/sap/index.html");
-  const english = read("docs/sap/en.html");
+  const englishCatalog = JSON.parse(read("docs/i18n/en/sap.json"));
+  const english = `${spanish}\n${Object.values(englishCatalog.translations).join("\n")}`;
   const expectedSections = [
     "choose", "contract", "rap", "cap", "segw", "classic-cds", "rest",
     "installer", "packages", "client", "downloads", "validate"
@@ -17,8 +18,8 @@ test("SAP backend chooser is bilingual and offers every supported route", () => 
 
   assert.deepEqual(sectionIds(spanish), expectedSections);
   assert.deepEqual(sectionIds(english), expectedSections);
-  assert.match(spanish, /<html lang="es">/);
-  assert.match(english, /<html lang="en">/);
+  assert.match(spanish, /<html lang="es" data-i18n-page="sap">/);
+  assert.equal(englishCatalog.locale, "en");
 
   for (const html of [spanish, english]) {
     for (const term of ["RAP", "CAP", "SEGW", "CDS", "REST", "OData V4", "OData V2"]) {

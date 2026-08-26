@@ -1,0 +1,12 @@
+{
+  "locale": "es",
+  "labels": {
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "captions": "Subtítulos",
+    "captionsOn": "Subtítulos activados",
+    "captionsOff": "Subtítulos desactivados",
+    "audioEs": "Español (España)",
+    "audioEn": "Inglés"
+  }
+}

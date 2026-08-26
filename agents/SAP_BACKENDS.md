@@ -1,6 +1,6 @@
 # SAP backend selection
 
-Read [TEMPLATE_REPOSITORIES.md](TEMPLATE_REPOSITORIES.md) first. The bilingual implementation guide is available in [Spanish](../docs/sap/index.html) and [English](../docs/sap/en.html); source/download artifacts are under [`examples/backend/sap`](../examples/backend/sap) and [`docs/downloads/sap`](../docs/downloads/sap).
+Read [TEMPLATE_REPOSITORIES.md](TEMPLATE_REPOSITORIES.md) first. The localized implementation guide is available in [Spanish](../docs/sap/index.html?lang=es) and [English](../docs/sap/index.html?lang=en); source/download artifacts are under [`examples/backend/sap`](../examples/backend/sap) and [`docs/downloads/sap`](../docs/downloads/sap).
 
 ## Decision
 

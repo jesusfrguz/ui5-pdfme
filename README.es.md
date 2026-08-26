@@ -174,7 +174,7 @@ Los eventos web llevan el prefijo `pdfme:`. `WebPdfTemplateStudio` emite `pdfme:
 
 ## Documentación
 
-- [Guía de usuario en español](docs/guide/index.html) · [Inglés](docs/guide/en.html)
+- [Guía de usuario en español](docs/guide/index.html?lang=es) · [Inglés](docs/guide/index.html?lang=en)
 - [Documentación web técnica y funcional](https://jesusfrguz.github.io/ui5-pdfme/)
 - [Instrucciones para agentes de IA](AGENTS.md)
 - [Receta para SAPUI5/OpenUI5/Fiori](agents/INSTALL_UI5.md)

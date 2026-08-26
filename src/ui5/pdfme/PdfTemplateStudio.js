@@ -40,9 +40,8 @@ sap.ui.define([
   }
 
   function defaultHelpUrl(language) {
-    return language === "es"
-      ? "https://jesusfrguz.github.io/ui5-pdfme/guide/"
-      : "https://jesusfrguz.github.io/ui5-pdfme/guide/en.html";
+    var locale = language === "es" ? "es" : "en";
+    return "https://jesusfrguz.github.io/ui5-pdfme/guide/?lang=" + locale;
   }
 
   function canonicalDataPath(path) {

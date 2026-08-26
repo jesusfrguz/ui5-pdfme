@@ -1,6 +1,6 @@
 # Template catalog and persistence
 
-The bilingual web guide is available in [Spanish](../docs/repositories/index.html) and [English](../docs/repositories/en.html).
+The localized web guide is available in [Spanish](../docs/repositories/index.html?lang=es) and [English](../docs/repositories/index.html?lang=en).
 
 ## Choose a repository
 

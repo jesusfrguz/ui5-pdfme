@@ -8,8 +8,8 @@ import { resolveHelpUrl } from "../../src-web/studio.mjs";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
 test("help URLs use the matching official guide and allow host overrides", () => {
-  assert.equal(resolveHelpUrl("es"), "https://jesusfrguz.github.io/ui5-pdfme/guide/");
-  assert.equal(resolveHelpUrl("en"), "https://jesusfrguz.github.io/ui5-pdfme/guide/en.html");
+  assert.equal(resolveHelpUrl("es"), "https://jesusfrguz.github.io/ui5-pdfme/guide/?lang=es");
+  assert.equal(resolveHelpUrl("en"), "https://jesusfrguz.github.io/ui5-pdfme/guide/?lang=en");
   assert.equal(resolveHelpUrl("es", "/help/pdf-templates"), "/help/pdf-templates");
 });
 
@@ -34,17 +34,18 @@ test("web and UI5 adapters expose the same help surface", async () => {
 });
 
 test("the bilingual user guide covers the complete functional workflow", async () => {
-  const [spanish, english] = await Promise.all([
+  const [spanish, englishCatalog] = await Promise.all([
     readFile(resolve(root, "docs/guide/index.html"), "utf8"),
-    readFile(resolve(root, "docs/guide/en.html"), "utf8")
+    readFile(resolve(root, "docs/i18n/en/guide.json"), "utf8")
   ]);
+  const english = `${spanish}\n${Object.values(JSON.parse(englishCatalog).translations).join("\n")}`;
 
   for (const section of ["screen", "first-document", "fields", "templates", "validate", "troubleshooting", "glossary"]) {
     assert.match(spanish, new RegExp(`id="${section}"`));
     assert.match(english, new RegExp(`id="${section}"`));
   }
-  assert.match(spanish, /hreflang="en" href="en\.html"/);
-  assert.match(english, /hreflang="es" href="index\.html"/);
+  assert.match(spanish, /hreflang="en" href="\?lang=en"/);
+  assert.match(spanish, /hreflang="es" href="\?lang=es"/);
   assert.match(spanish, /Valor desde datos/);
   assert.match(english, /Value from data/);
   assert.match(spanish, /QR, Code 128, EAN-13, Data Matrix o PDF417/);
@@ -54,23 +55,20 @@ test("the bilingual user guide covers the complete functional workflow", async (
 });
 
 test("the guide header exposes bilingual video, selectable captions, and valid media assets", async () => {
-  const [spanish, english, spanishCaptions, englishCaptions, spanishVideo, englishVideo] = await Promise.all([
+  const [guide, spanishCaptions, englishCaptions, spanishVideo, englishVideo] = await Promise.all([
     readFile(resolve(root, "docs/guide/index.html"), "utf8"),
-    readFile(resolve(root, "docs/guide/en.html"), "utf8"),
     readFile(resolve(root, "docs/assets/video/ui5-pdfme-guide-es.vtt"), "utf8"),
     readFile(resolve(root, "docs/assets/video/ui5-pdfme-guide-en.vtt"), "utf8"),
     stat(resolve(root, "docs/assets/video/ui5-pdfme-guide-es.mp4")),
     stat(resolve(root, "docs/assets/video/ui5-pdfme-guide-en.mp4"))
   ]);
 
-  for (const guide of [spanish, english]) {
-    assert.match(guide, /data-guide-video/);
-    assert.match(guide, /ui5-pdfme-guide-es\.mp4/);
-    assert.match(guide, /ui5-pdfme-guide-en\.mp4/);
-    assert.match(guide, /data-video-captions[^>]+aria-pressed="false"/);
-    assert.match(guide, /kind="captions"/);
-    assert.doesNotMatch(guide, /kind="captions"[^>]+default/);
-  }
+  assert.match(guide, /data-guide-video/);
+  assert.match(guide, /ui5-pdfme-guide-es\.mp4/);
+  assert.match(guide, /ui5-pdfme-guide-en\.mp4/);
+  assert.match(guide, /data-video-captions[^>]+aria-pressed="false"/);
+  assert.match(guide, /kind="captions"/);
+  assert.doesNotMatch(guide, /kind="captions"[^>]+default/);
   assert.match(spanishCaptions, /^WEBVTT\s/m);
   assert.match(englishCaptions, /^WEBVTT\s/m);
   assert.ok(spanishVideo.size > 100_000);

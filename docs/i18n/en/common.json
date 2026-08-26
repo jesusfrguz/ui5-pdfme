@@ -1,0 +1,12 @@
+{
+  "locale": "en",
+  "labels": {
+    "copy": "Copy",
+    "copied": "Copied",
+    "captions": "Captions",
+    "captionsOn": "Captions on",
+    "captionsOff": "Captions off",
+    "audioEs": "Spanish (Spain)",
+    "audioEn": "English"
+  }
+}

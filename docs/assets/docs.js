@@ -1,26 +1,134 @@
-const language = document.documentElement.lang === "en" ? "en" : "es";
-const labels = language === "en"
-  ? { copy: "Copy", copied: "Copied", captions: "Captions", captionsOn: "Captions on", captionsOff: "Captions off", audioEs: "Spanish (Spain)", audioEn: "English" }
-  : { copy: "Copiar", copied: "Copiado", captions: "Subtítulos", captionsOn: "Subtítulos activados", captionsOff: "Subtítulos desactivados", audioEs: "Español (España)", audioEn: "Inglés" };
+const localeRoot = new URL("../i18n/", import.meta.url);
+const docsRoot = new URL("../", import.meta.url);
+const page = document.documentElement.dataset.i18nPage || "deferred";
+const requestedLanguage = new URLSearchParams(window.location.search).get("lang");
 const preferredLanguage = localStorage.getItem("ui5-pdfme-docs-language");
+const fallbackManifest = {
+  defaultLanguage: "es",
+  languages: [{ code: "es", label: "ES", name: "Español", pages: [page] }]
+};
+const fallbackLabels = {
+  copy: "Copiar",
+  copied: "Copiado",
+  captions: "Subtítulos",
+  captionsOn: "Subtítulos activados",
+  captionsOff: "Subtítulos desactivados",
+  audioEs: "Español (España)",
+  audioEn: "Inglés"
+};
 
-if (preferredLanguage && preferredLanguage !== language) {
-  const target = new URL(preferredLanguage === "en" ? "en.html" : "index.html", window.location.href);
-  target.hash = window.location.hash;
-  window.location.replace(target);
+async function loadJson(relativePath) {
+  const response = await fetch(new URL(relativePath, localeRoot), { cache: "no-cache" });
+  if (!response.ok) throw new Error(`Unable to load ${relativePath}: HTTP ${response.status}`);
+  return response.json();
 }
 
-document.querySelector(".menu")?.addEventListener("click", () => document.querySelector(".topbar nav")?.classList.toggle("open"));
-
-document.querySelectorAll("[data-language]").forEach((link) => {
-  link.addEventListener("click", (event) => {
-    event.preventDefault();
-    localStorage.setItem("ui5-pdfme-docs-language", link.dataset.language);
-    const target = new URL(link.href, window.location.href);
-    target.hash = window.location.hash;
-    window.location.assign(target);
+function applyTranslations(translations) {
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const value = translations[element.dataset.i18n];
+    if (typeof value === "string") element.innerHTML = value;
   });
-});
+
+  document.querySelectorAll("[data-i18n-attrs]").forEach((element) => {
+    element.dataset.i18nAttrs.split(",").forEach((binding) => {
+      const separator = binding.indexOf(":");
+      const attribute = binding.slice(0, separator);
+      const key = binding.slice(separator + 1);
+      const value = translations[key];
+      if (attribute && typeof value === "string") element.setAttribute(attribute, value);
+    });
+  });
+}
+
+function normalizeLegacyEnglishUrl(target) {
+  if (target.pathname.endsWith("/en.html")) {
+    target.pathname = target.pathname.slice(0, -"en.html".length);
+  }
+}
+
+function isDocumentationRoute(target) {
+  if (target.origin !== docsRoot.origin || !target.pathname.startsWith(docsRoot.pathname)) return false;
+  const relativePath = target.pathname.slice(docsRoot.pathname.length);
+  if (/^(?:assets|downloads|examples)(?:\/|$)/.test(relativePath)) return false;
+  return !/\.[^/]+$/.test(relativePath) || relativePath.endsWith(".html");
+}
+
+function localizeDocumentationLinks(language) {
+  document.querySelectorAll("a[href]").forEach((link) => {
+    const rawHref = link.getAttribute("href");
+    if (!rawHref || rawHref.startsWith("#") || link.hasAttribute("data-language")) return;
+    const target = new URL(rawHref, window.location.href);
+    normalizeLegacyEnglishUrl(target);
+    if (!isDocumentationRoute(target)) return;
+    target.searchParams.set("lang", language);
+    link.href = target.href;
+  });
+}
+
+function renderLanguageSwitch(manifest, language) {
+  const languageSwitch = document.querySelector(".language-switch");
+  if (!languageSwitch) return;
+  const languages = manifest.languages.filter((candidate) => candidate.pages.includes(page));
+  languageSwitch.replaceChildren(...languages.map((candidate) => {
+    const link = document.createElement("a");
+    const target = new URL(window.location.href);
+    target.searchParams.set("lang", candidate.code);
+    target.hash = window.location.hash;
+    link.href = target.href;
+    link.lang = candidate.code;
+    link.hreflang = candidate.code;
+    link.dataset.language = candidate.code;
+    link.textContent = candidate.label;
+    link.title = candidate.name;
+    if (candidate.code === language) link.setAttribute("aria-current", "page");
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      localStorage.setItem("ui5-pdfme-docs-language", candidate.code);
+      const currentTarget = new URL(link.href);
+      currentTarget.hash = window.location.hash;
+      window.location.assign(currentTarget);
+    });
+    return link;
+  }));
+}
+
+async function initializeI18n() {
+  let manifest = fallbackManifest;
+  try {
+    manifest = await loadJson("manifest.json");
+  } catch (error) {
+    console.warn("Documentation language manifest could not be loaded; using Spanish.", error);
+  }
+
+  const candidateLanguage = requestedLanguage || preferredLanguage || manifest.defaultLanguage;
+  const candidate = manifest.languages.find((item) => item.code === candidateLanguage && item.pages.includes(page));
+  const language = candidate?.code || manifest.defaultLanguage;
+  let labels = fallbackLabels;
+
+  try {
+    const common = await loadJson(`${language}/common.json`);
+    labels = common.labels;
+    if (language !== manifest.defaultLanguage) {
+      const catalog = await loadJson(`${language}/${page}.json`);
+      applyTranslations(catalog.translations);
+    }
+  } catch (error) {
+    console.warn(`Documentation translations for ${language}/${page} could not be loaded; using Spanish.`, error);
+    return { language: manifest.defaultLanguage, labels: fallbackLabels, manifest };
+  }
+
+  return { language, labels, manifest };
+}
+
+const { language, labels, manifest } = await initializeI18n();
+document.documentElement.lang = language;
+const currentUrl = new URL(window.location.href);
+currentUrl.searchParams.set("lang", language);
+window.history.replaceState(null, "", currentUrl);
+renderLanguageSwitch(manifest, language);
+localizeDocumentationLinks(language);
+
+document.querySelector(".menu")?.addEventListener("click", () => document.querySelector(".topbar nav")?.classList.toggle("open"));
 
 document.querySelectorAll("pre").forEach((block) => {
   const button = document.createElement("button");
@@ -42,7 +150,7 @@ document.querySelectorAll("[data-guide-video]").forEach((player) => {
   const status = player.querySelector("[data-video-status]");
   const languageButtons = [...player.querySelectorAll("[data-video-language]")];
   const captionsButton = player.querySelector("[data-video-captions]");
-  let activeLanguage = player.dataset.videoLanguage || language;
+  let activeLanguage = language === "en" ? "en" : "es";
   let captionsEnabled = captionsButton?.getAttribute("aria-pressed") !== "false";
 
   if (!video || !source || !track) return;
@@ -72,6 +180,12 @@ document.querySelectorAll("[data-guide-video]").forEach((player) => {
     track.replaceWith(nextTrack);
     track = nextTrack;
   };
+
+  player.dataset.videoLanguage = activeLanguage;
+  source.src = player.dataset[`video${activeLanguage === "es" ? "Es" : "En"}`];
+  replaceTrack();
+  languageButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.videoLanguage === activeLanguage)));
+  video.load();
 
   languageButtons.forEach((button) => {
     button.addEventListener("click", () => {
