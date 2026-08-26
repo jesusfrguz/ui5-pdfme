@@ -1,0 +1,25 @@
+services:
+  pdf-worker:
+    environment:
+      DATABASE_URL: postgresql://pdfme:${POSTGRES_PASSWORD:-change-me}@postgres:5432/pdfme
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: pdfme
+      POSTGRES_USER: pdfme
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pdfme -d pdfme"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  postgres-data:

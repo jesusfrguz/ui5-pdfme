@@ -33,3 +33,7 @@ studio.setTemplateRepositories([{
 ```
 
 Assign `TemplateViewer` for read-only catalog access and `TemplateEditor` for create/update. Add tenant/owner restrictions appropriate to the host application before production use.
+
+## SAP ABAP / Gateway chooser
+
+Use [`sap/README.md`](sap/README.md) to choose RAP OData V4, classic CDS auto-exposure, or SAP Gateway/SEGW OData V2. It includes the exact DDIC/OData field contract, package and transport boundaries, an optional dry-run XCO installer, an importable SEGW EDMX, and an optional supported Gateway activation report.

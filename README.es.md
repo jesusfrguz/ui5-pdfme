@@ -41,10 +41,10 @@ Combina el diseñador y generador de [pdfme](https://pdfme.com/) con fuentes de 
 npm install ui5-pdfme
 ```
 
-Hasta que el paquete se publique en npm, instala la versión precompilada desde GitHub Releases, que incluye la distribución UI5:
+Hasta que el paquete se publique en npm, instala la última versión precompilada desde GitHub Releases, que incluye la distribución UI5:
 
 ```bash
-npm install https://github.com/jesusfrguz/ui5-pdfme/releases/download/v0.1.0/ui5-pdfme-0.1.0.tgz
+npm install $(node -e "fetch('https://api.github.com/repos/jesusfrguz/ui5-pdfme/releases/latest').then(r => r.json()).then(r => console.log(r.assets.find(a => a.name.endsWith('.tgz')).browser_download_url))")
 ```
 
 Para el desarrollo se requiere Node.js 20 o posterior. Las aplicaciones de navegador deben usar un empaquetador moderno compatible con ESM y WASM, como Vite.
@@ -168,9 +168,9 @@ La barra de herramientas incluye un diálogo bilingüe de ayuda rápida. Configu
 
 Los campos estáticos y los campos de texto enlazados a datos ofrecen **Posición fija sin desplazamiento** (`fixedPosition: true`). Esta opción mantiene el elemento en sus coordenadas absolutas y fuera del flujo de contenido dinámico. Al activarla aparece la opción **Repetir en cada página** (`repeatOnEveryPage: true`). El esquema guardado sigue siendo seleccionable en el diseñador; la vista previa y la generación materializan el contenido fijo, incluido su valor resuelto, sin modificar la plantilla guardada. Durante la generación, los campos fijos repetidos amplían automáticamente el límite `basePdf.padding` superior o inferior más cercano, para que el contenido dinámico que pasa a otra página no se solape con ellos; el padding configurado sigue siendo el mínimo. El texto estático repetido admite `{currentPage}` y `{totalPages}`.
 
-`templateRepositories` acepta fuentes `memory`, `localStorage`, `rest`, `odata` y `function`. La acción Plantillas de la barra de herramientas abre el catálogo visual, desde el que se puede empezar con una plantilla A4 en blanco, cargar un PDF existente como `basePdf` de pdfme o buscar y filtrar los repositorios configurados. La creación y la importación siguen disponibles sin repositorio; para persistir los cambios sí se necesita uno. La paginación REST/OData se recorre automáticamente. Las definiciones de fuentes de datos almacenadas se excluyen de forma predeterminada y requieren activar expresamente `persistDataSources` y `applyStoredDataSources`.
+`templateRepositories` acepta fuentes `memory`, `localStorage`, `rest`, `odata` y `function`. La acción Plantillas de la barra de herramientas abre el catálogo visual, desde el que se puede empezar con una plantilla A4 en blanco, cargar un PDF existente como `basePdf` de pdfme o buscar y filtrar los repositorios configurados. La creación y la importación siguen disponibles sin repositorio; para persistir los cambios sí se necesita uno. En Web, REST/OData sigue los enlaces hasta `maxPages`; OData V4 de UI5 usa `pageSize` y `maxRecords`. Las definiciones de fuentes de datos almacenadas se excluyen de forma predeterminada y requieren activar expresamente `persistDataSources` y `applyStoredDataSources`.
 
-Los eventos web llevan el prefijo `pdfme:` (`pdfme:templateSave`, `pdfme:templatesListed`, `pdfme:templateLoaded`, `pdfme:templateSaved`, `pdfme:dataResolved`, `pdfme:generated`, `pdfme:error`). El control UI5 expone los eventos nativos equivalentes.
+Los eventos web llevan el prefijo `pdfme:`. `WebPdfTemplateStudio` emite `pdfme:templateSave`, `pdfme:templateLoaded`, `pdfme:templateSaved`, `pdfme:dataResolved`, `pdfme:generated` y `pdfme:error`; `WebTemplateCatalog` emite `pdfme:templatesListed` y `pdfme:templateOpen` en su propia raíz. El control UI5 expone los eventos nativos equivalentes del ciclo de vida.
 
 ## Documentación
 
@@ -182,7 +182,11 @@ Los eventos web llevan el prefijo `pdfme:` (`pdfme:templateSave`, `pdfme:templat
 - [Receta para React](agents/INSTALL_REACT.md)
 - [Creación de plantillas](agents/CREATE_TEMPLATE.md)
 - [Integración de datos y OData](agents/DATA_INTEGRATION.md)
-- [Catálogo y repositorios de plantillas](agents/TEMPLATE_REPOSITORIES.md)
+- [Guía de catálogo y repositorios de plantillas](docs/repositories/index.html)
+- [Selector de backends SAP: RAP, CAP, CDS y SEGW](docs/sap/index.html)
+- [Manual de generación diferida para CAP, Docker, Node, Fiori, BTP y ABAP](docs/deferred/index.html)
+- [Código ejecutable de generación diferida](examples/deferred/README.md)
+- [Receta de integración de repositorios para agentes](agents/TEMPLATE_REPOSITORIES.md)
 - [Lista de validación](agents/VALIDATION_CHECKLIST.md)
 
 ## Desarrollo

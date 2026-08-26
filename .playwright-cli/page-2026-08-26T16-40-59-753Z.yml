@@ -1,0 +1,944 @@
+- generic [active] [ref=f4e1]:
+  - banner [ref=f4e2]:
+    - link "PDF ui5-pdfme" [ref=f4e3] [cursor=pointer]:
+      - /url: "#top"
+      - generic [ref=f4e4]: PDF
+      - text: ui5-pdfme
+    - navigation "Navegación principal" [ref=f4e5]:
+      - link "Integrar" [ref=f4e6] [cursor=pointer]:
+        - /url: "#quickstart"
+      - link "Guía de uso" [ref=f4e7] [cursor=pointer]:
+        - /url: guide/
+      - link "Qué guía necesito" [ref=f4e8] [cursor=pointer]:
+        - /url: "#choose-guide"
+      - link "Demos" [ref=f4e9] [cursor=pointer]:
+        - /url: examples/
+      - link "Repositorios" [ref=f4e10] [cursor=pointer]:
+        - /url: repositories/
+      - link "Backend SAP" [ref=f4e11] [cursor=pointer]:
+        - /url: sap/
+      - link "Diferida" [ref=f4e12] [cursor=pointer]:
+        - /url: deferred/
+      - link "GitHub" [ref=f4e13] [cursor=pointer]:
+        - /url: https://github.com/jesusfrguz/ui5-pdfme
+    - group "Idioma" [ref=f4e14]:
+      - link "ES" [ref=f4e15] [cursor=pointer]:
+        - /url: index.html
+      - link "EN" [ref=f4e16] [cursor=pointer]:
+        - /url: en.html
+  - generic [ref=f4e18]:
+    - generic [ref=f4e19]:
+      - generic [ref=f4e20]: SAPUI5 · OpenUI5 · Fiori · React · JavaScript · Docker
+      - heading "Diseña una vez. Imprime con cualquier dato." [level=1] [ref=f4e21]: Diseña una vez.Imprime con cualquier dato.
+      - paragraph [ref=f4e22]: Editor visual de formularios PDF con plantillas JSON, múltiples fuentes, OData V2/V4, tablas, variables, vista previa, descarga e impresión.
+      - generic [ref=f4e23]:
+        - link "Probar demos" [ref=f4e24] [cursor=pointer]:
+          - /url: examples/
+        - link "Guía de uso" [ref=f4e25] [cursor=pointer]:
+          - /url: guide/
+        - link "Integrar" [ref=f4e26] [cursor=pointer]:
+          - /url: "#quickstart"
+    - figure [ref=f4e27]:
+      - img "Editor visual ui5-pdfme ejecutándose en SAPUI5" [ref=f4e28]
+  - generic [ref=f4e29]:
+    - complementary "Contenido" [ref=f4e30]:
+      - paragraph [ref=f4e31]: En esta página
+      - link "Visión general" [ref=f4e32] [cursor=pointer]:
+        - /url: "#overview"
+      - link "Mapa de conceptos" [ref=f4e33] [cursor=pointer]:
+        - /url: "#choose-guide"
+      - link "Inicio rápido" [ref=f4e34] [cursor=pointer]:
+        - /url: "#quickstart"
+      - link "Arquitectura" [ref=f4e35] [cursor=pointer]:
+        - /url: "#architecture"
+      - link "Plataformas" [ref=f4e36] [cursor=pointer]:
+        - /url: "#platforms"
+      - link "Datos y OData" [ref=f4e37] [cursor=pointer]:
+        - /url: "#data"
+      - link "Mapeos" [ref=f4e38] [cursor=pointer]:
+        - /url: "#mapping"
+      - link "Plantillas" [ref=f4e39] [cursor=pointer]:
+        - /url: "#templates"
+      - link "API y eventos" [ref=f4e40] [cursor=pointer]:
+        - /url: "#api"
+      - link "Resumen de repositorios" [ref=f4e41] [cursor=pointer]:
+        - /url: "#persistence"
+      - link "Resumen de Docker" [ref=f4e42] [cursor=pointer]:
+        - /url: "#docker"
+      - link "Seguridad" [ref=f4e43] [cursor=pointer]:
+        - /url: "#security"
+      - link "Build y despliegue" [ref=f4e44] [cursor=pointer]:
+        - /url: "#deploy"
+      - link "Agentes de IA" [ref=f4e45] [cursor=pointer]:
+        - /url: "#ai"
+      - link "Problemas comunes" [ref=f4e46] [cursor=pointer]:
+        - /url: "#troubleshooting"
+      - paragraph [ref=f4e47]: Guías específicas
+      - link "Catálogo y repositorios" [ref=f4e48] [cursor=pointer]:
+        - /url: repositories/
+      - link "Backends SAP/OData" [ref=f4e49] [cursor=pointer]:
+        - /url: sap/
+      - link "Generación diferida" [ref=f4e50] [cursor=pointer]:
+        - /url: deferred/
+    - main [ref=f4e51]:
+      - generic [ref=f4e52]:
+        - text: Funcional
+        - heading "Qué resuelve" [level=2] [ref=f4e53]
+        - paragraph [ref=f4e54]: Permite que un usuario construya visualmente facturas, pedidos, etiquetas, certificados o cualquier formulario de impresión y que la aplicación rellene el diseño con datos reales sin acoplarlo al backend.
+        - generic [ref=f4e55]:
+          - article [ref=f4e56]:
+            - heading "Diseño visual" [level=3] [ref=f4e57]
+            - paragraph [ref=f4e58]: Textos, tablas, listas, imágenes, firmas, SVG, formas, fechas, selectores y códigos de barras.
+          - article [ref=f4e59]:
+            - heading "Datos combinados" [level=3] [ref=f4e60]
+            - paragraph [ref=f4e61]: JSON, REST, funciones, OData V2/V4 y modelos UI5 con dependencias y valores alternativos.
+          - article [ref=f4e62]:
+            - heading "Salida real" [level=3] [ref=f4e63]
+            - paragraph [ref=f4e64]: Plantilla versionable, vista previa PDF, descarga, impresión y bytes reutilizables por la aplicación.
+        - table [ref=f4e65]:
+          - rowgroup [ref=f4e66]:
+            - row [ref=f4e67]:
+              - columnheader "Capacidad" [ref=f4e68]
+              - columnheader "Resultado" [ref=f4e69]
+          - rowgroup [ref=f4e70]:
+            - row [ref=f4e71]:
+              - cell "Variables" [ref=f4e72]
+              - cell "Un campo del esquema recibe un valor por ruta o plantilla de texto." [ref=f4e73]
+            - row [ref=f4e74]:
+              - cell "Tablas dinámicas" [ref=f4e75]
+              - cell "Una colección se transforma en la matriz JSON que espera pdfme." [ref=f4e76]
+            - row [ref=f4e77]:
+              - cell "Varios documentos" [ref=f4e78]
+              - cell [ref=f4e79]:
+                - code [ref=f4e80]: mapping.repeat
+                - text: genera un input por registro.
+            - row [ref=f4e81]:
+              - cell "Extensión" [ref=f4e82]
+              - cell "Proveedores, loaders, formatters y plugins de esquema registrables." [ref=f4e83]
+      - generic [ref=f4e84]:
+        - text: Mapa de conceptos
+        - heading "Qué guía necesitas" [level=2] [ref=f4e85]
+        - paragraph [ref=f4e86]: Son piezas que pueden combinarse, pero resuelven decisiones diferentes. La portada documenta el motor y sus adaptadores; las otras guías profundizan en almacenamiento, backend SAP o ejecución asíncrona.
+        - generic [ref=f4e87]:
+          - article [ref=f4e88]:
+            - generic [ref=f4e89]: Esta página · uso base
+            - heading "Integración y API" [level=3] [ref=f4e90]
+            - paragraph [ref=f4e91]: “Quiero integrar el editor y generar el PDF durante la interacción actual.”
+            - paragraph [ref=f4e92]: Explica adaptadores JavaScript, React y UI5, fuentes de datos, mapeos, plantillas, eventos y generación inmediata.
+            - paragraph [ref=f4e93]:
+              - strong [ref=f4e94]: "No decide:"
+              - text: dónde persistir el catálogo ni cómo ejecutar trabajos en segundo plano.
+            - link "Continuar en esta página" [ref=f4e95] [cursor=pointer]:
+              - /url: "#quickstart"
+              - text: Continuar en esta página ↓
+          - article [ref=f4e96]:
+            - generic [ref=f4e97]: Guía específica · persistencia
+            - heading "Catálogo y repositorios" [level=3] [ref=f4e98]
+            - paragraph [ref=f4e99]: “Quiero listar, guardar, versionar y publicar definiciones de plantilla.”
+            - paragraph [ref=f4e100]:
+              - text: Define cómo almacenar
+              - code [ref=f4e101]: template
+              - text: ","
+              - code [ref=f4e102]: mapping
+              - text: y metadatos en memoria, navegador, REST, OData o un proveedor propio.
+            - paragraph [ref=f4e103]:
+              - strong [ref=f4e104]: "No almacena:"
+              - text: el ciclo de trabajos ni sustituye al motor que renderiza el PDF final.
+            - link "Abrir repositorios" [ref=f4e105] [cursor=pointer]:
+              - /url: repositories/
+              - text: Abrir repositorios →
+          - article [ref=f4e106]:
+            - generic [ref=f4e107]: Guía específica · backend
+            - heading "Backends SAP/OData" [level=3] [ref=f4e108]
+            - paragraph [ref=f4e109]: “Necesito elegir cómo exponer el repositorio desde mi landscape SAP.”
+            - paragraph [ref=f4e110]: Compara RAP, CAP, CDS clásico y SEGW, con su contrato OData, instalación y encaje por versión de SAP.
+            - paragraph [ref=f4e111]:
+              - strong [ref=f4e112]: "No es:"
+              - text: otro adaptador visual ni un sinónimo de generación diferida.
+            - link "Elegir backend SAP" [ref=f4e113] [cursor=pointer]:
+              - /url: sap/
+              - text: Elegir backend SAP →
+          - article [ref=f4e114]:
+            - generic [ref=f4e115]: Guía específica · procesamiento
+            - heading "Generación diferida" [level=3] [ref=f4e116]
+            - paragraph [ref=f4e117]: “El PDF debe generarse después, con cola, reintentos, agenda o worker.”
+            - paragraph [ref=f4e118]: Describe el trabajo asíncrono desde la solicitud y el estado hasta el render, la descarga y la retención; incluye despliegue Docker.
+            - paragraph [ref=f4e119]:
+              - strong [ref=f4e120]: "No es necesaria:"
+              - text: para vista previa, descarga o impresión inmediata en el navegador.
+            - link "Abrir generación diferida" [ref=f4e121] [cursor=pointer]:
+              - /url: deferred/
+              - text: Abrir generación diferida →
+        - generic "Ejemplo de combinación entre conceptos" [ref=f4e122]:
+          - generic [ref=f4e123]: Aplicación UI5/web
+          - generic [ref=f4e124]: →
+          - generic [ref=f4e125]: Repositorio de plantillas
+          - generic [ref=f4e126]: →
+          - generic [ref=f4e127]: Trabajo diferido
+          - generic [ref=f4e128]: →
+          - generic [ref=f4e129]: Worker genera PDF
+        - paragraph [ref=f4e130]:
+          - strong [ref=f4e131]: "Combinación habitual:"
+          - text: un backend SAP puede implementar el repositorio OData; más tarde, un worker diferido consume una versión inmutable de esa plantilla. También puedes usar cada pieza por separado.
+      - generic [ref=f4e132]:
+        - text: 5 minutos
+        - heading "Inicio rápido" [level=2] [ref=f4e133]
+        - paragraph [ref=f4e134]: Instala el paquete y escoge el adaptador. Los tres consumen el mismo contrato de plantilla, fuentes y mapeo.
+        - generic [ref=f4e135]:
+          - code [ref=f4e136]: "# Cuando esté publicado en npm npm install ui5-pdfme # Release precompilada actual, incluida la distribución UI5 npm install https://github.com/jesusfrguz/ui5-pdfme/releases/download/v0.1.0/ui5-pdfme-0.1.0.tgz"
+          - button "Copiar" [ref=f4e137] [cursor=pointer]
+        - heading "JavaScript" [level=3] [ref=f4e138]
+        - generic [ref=f4e139]:
+          - code [ref=f4e140]: "import { WebPdfTemplateStudio } from \"ui5-pdfme\"; const studio = new WebPdfTemplateStudio(\"#studio\", { template, dataSources: [{ id: \"order\", type: \"rest\", url: \"/api/orders/5001\" }], mapping: { fields: { customer: \"order.customerName\" } }, language: \"es\", filename: \"pedido.pdf\" });"
+          - button "Copiar" [ref=f4e141] [cursor=pointer]
+        - heading "React" [level=3] [ref=f4e142]
+        - generic [ref=f4e143]:
+          - code [ref=f4e144]: "import { PdfTemplateStudio } from \"ui5-pdfme/react\"; <PdfTemplateStudio ref={studioRef} template={template} dataSources={dataSources} mapping={mapping} language=\"es\" />"
+          - button "Copiar" [ref=f4e145] [cursor=pointer]
+        - heading "SAPUI5 / OpenUI5" [level=3] [ref=f4e146]
+        - generic [ref=f4e147]:
+          - code [ref=f4e148]: <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:pdf="ui5.pdfme"> <pdf:PdfTemplateStudio id="printStudio" height="48rem" /> </mvc:View>
+          - button "Copiar" [ref=f4e149] [cursor=pointer]
+      - generic [ref=f4e150]:
+        - text: Técnico
+        - heading "Arquitectura" [level=2] [ref=f4e151]
+        - generic "Flujo de arquitectura" [ref=f4e152]:
+          - generic [ref=f4e153]: JSON / REST / OData / función
+          - generic [ref=f4e154]: →
+          - generic [ref=f4e155]: DataResolver
+          - generic [ref=f4e156]: →
+          - generic [ref=f4e157]: MappingEngine
+          - generic [ref=f4e158]: →
+          - generic [ref=f4e159]: pdfme
+          - generic [ref=f4e160]: →
+          - generic [ref=f4e161]: PDF
+        - paragraph [ref=f4e162]:
+          - strong [ref=f4e163]: DataResolver
+          - text: obtiene fuentes independientes en paralelo y respeta
+          - code [ref=f4e164]: dependsOn
+          - text: .
+          - strong [ref=f4e165]: MappingEngine
+          - text: convierte rutas declarativas a inputs de pdfme. Los adaptadores solo gestionan lifecycle, eventos y presentación.
+        - table [ref=f4e166]:
+          - rowgroup [ref=f4e167]:
+            - row [ref=f4e168]:
+              - columnheader "Capa" [ref=f4e169]
+              - columnheader "JavaScript/React" [ref=f4e170]
+              - columnheader "UI5/Fiori" [ref=f4e171]
+          - rowgroup [ref=f4e172]:
+            - row [ref=f4e173]:
+              - cell "Editor" [ref=f4e174]
+              - cell [ref=f4e175]:
+                - code [ref=f4e176]: WebPdfTemplateStudio
+              - cell [ref=f4e177]:
+                - code [ref=f4e178]: ui5.pdfme.PdfTemplateStudio
+            - row [ref=f4e179]:
+              - cell "Datos web" [ref=f4e180]
+              - cell "fetch JSON/REST/OData" [ref=f4e181]
+              - cell "Modelos UI5 V2/V4/JSON" [ref=f4e182]
+            - row [ref=f4e183]:
+              - cell "Generación" [ref=f4e184]
+              - cell "@pdfme/generator" [ref=f4e185]
+              - cell "@pdfme/generator empaquetado como recurso UI5" [ref=f4e186]
+            - row [ref=f4e187]:
+              - cell "Plantilla" [ref=f4e188]
+              - cell "Mismo JSON pdfme y mismos nombres de campo" [ref=f4e189]
+      - generic [ref=f4e190]:
+        - text: Ejemplos reales
+        - heading "Plataformas" [level=2] [ref=f4e191]
+        - heading "SAPUI5, OpenUI5 y Fiori" [level=3] [ref=f4e192]
+        - paragraph [ref=f4e193]:
+          - text: Control nativo, temas Fiori, eventos UI5 y acceso a modelos propagados. Declara
+          - code [ref=f4e194]: ui5.pdfme
+          - text: en las dependencias del manifest.
+          - link "Abrir demo funcional" [ref=f4e195] [cursor=pointer]:
+            - /url: examples/ui5/
+          - text: .
+        - 'figure "Demo SAPUI5: tres fuentes, tabla dinámica, formatos es-ES y vista previa PDF." [ref=f4e196]':
+          - img "Editor de facturas en SAPUI5" [ref=f4e197]
+        - heading "JavaScript sin framework" [level=3] [ref=f4e199]
+        - paragraph [ref=f4e200]:
+          - text: Clase ESM utilizable con Vite u otro bundler moderno. Expone eventos DOM
+          - code [ref=f4e201]: pdfme:*
+          - text: .
+          - link "Abrir demo funcional" [ref=f4e202] [cursor=pointer]:
+            - /url: examples/javascript/
+          - text: .
+        - figure "El mismo motor ejecutándose en una web app JavaScript." [ref=f4e203]:
+          - img "Editor ui5-pdfme en JavaScript" [ref=f4e204]
+        - heading "React" [level=3] [ref=f4e206]
+        - paragraph [ref=f4e207]:
+          - text: Componente declarativo con un ref imperativo al estudio para registrar extensiones o generar documentos.
+          - link "Abrir demo funcional" [ref=f4e208] [cursor=pointer]:
+            - /url: examples/react/
+          - text: .
+        - 'figure "Adaptador React: mismo contrato de datos y plantilla, lifecycle gestionado por React." [ref=f4e209]':
+          - img "Editor ui5-pdfme en React" [ref=f4e210]
+      - generic [ref=f4e212]:
+        - text: Integración
+        - heading "Datos y OData" [level=2] [ref=f4e213]
+        - generic [ref=f4e214]:
+          - code [ref=f4e215]: "const dataSources = [ { id: \"order\", type: \"rest\", url: \"/api/orders/5001\" }, { id: \"brand\", type: \"json\", data: { company: \"Example S.L.\" } }, { id: \"totals\", type: \"function\", loader: \"totals\", dependsOn: [\"order\"] }, { id: \"products\", type: \"odata\", url: \"/odata/v4/Products?$top=50\" } ];"
+          - button "Copiar" [ref=f4e216] [cursor=pointer]
+        - paragraph [ref=f4e217]:
+          - text: En web, OData usa HTTP y normaliza respuestas V2 (
+          - code [ref=f4e218]: d.results
+          - text: ) y V4 (
+          - code [ref=f4e219]: value
+          - text: ). En UI5, usa preferentemente el proveedor
+          - code [ref=f4e220]: odata
+          - text: con
+          - code [ref=f4e221]: modelName
+          - text: "y"
+          - code [ref=f4e222]: path
+          - text: ; así conserva destinos, batch, autenticación y CSRF del modelo de la aplicación.
+        - generic [ref=f4e223]:
+          - strong [ref=f4e224]: "Dependencias:"
+          - text: una fuente calculada puede leer
+          - code [ref=f4e225]: context.data.order
+          - text: si declara
+          - code [ref=f4e226]: "dependsOn: [\"order\"]"
+          - text: . Los ciclos se rechazan.
+        - generic [ref=f4e227]:
+          - code [ref=f4e228]: "studio.registerLoader(\"totals\", (_source, context) => ({ total: context.data.order.items.reduce((sum, item) => sum + item.amount, 0) }));"
+          - button "Copiar" [ref=f4e229] [cursor=pointer]
+      - generic [ref=f4e230]:
+        - text: Declarativo
+        - heading "Mapeos y formatos" [level=2] [ref=f4e231]
+        - generic [ref=f4e232]:
+          - code [ref=f4e233]: "const mapping = { fields: { customer: \"order.customer.name\", reference: { path: \"order.reference\", defaultValue: \"—\" }, header: { template: \"Pedido {order.number} · {brand.company}\" }, total: { path: \"totals.total\", formatter: \"number\", options: { locale: \"es-ES\", style: \"currency\", currency: \"EUR\" } }, items: { path: \"order.items\", formatter: \"table\", options: { columns: [\"description\", \"quantity\", \"amount\"] } } } };"
+          - button "Copiar" [ref=f4e234] [cursor=pointer]
+        - paragraph [ref=f4e235]:
+          - text: "Formatters incluidos:"
+          - code [ref=f4e236]: raw
+          - text: ","
+          - code [ref=f4e237]: json
+          - text: ","
+          - code [ref=f4e238]: join
+          - text: ","
+          - code [ref=f4e239]: number
+          - text: ","
+          - code [ref=f4e240]: date
+          - text: "y"
+          - code [ref=f4e241]: table
+          - text: . Los custom formatters se registran por nombre y deben ser deterministas.
+      - generic [ref=f4e242]:
+        - text: Diseño
+        - heading "Plantillas" [level=2] [ref=f4e243]
+        - paragraph [ref=f4e244]: "Una plantilla es la definición reutilizable del documento: describe las páginas y la posición, tamaño y estilo de cada elemento. Los datos de una factura, pedido o etiqueta no se guardan dentro del diseño; llegan por separado y el mapeo decide qué valor ocupa cada campo."
+        - heading "Anatomía de una plantilla" [level=3] [ref=f4e245]
+        - table [ref=f4e246]:
+          - rowgroup [ref=f4e247]:
+            - row [ref=f4e248]:
+              - columnheader "Parte" [ref=f4e249]
+              - columnheader "Responsabilidad y ejemplo" [ref=f4e250]
+          - rowgroup [ref=f4e251]:
+            - row [ref=f4e252]:
+              - cell [ref=f4e253]:
+                - code [ref=f4e254]: basePdf
+              - cell "Define el tamaño, los márgenes y el fondo; por ejemplo, A4 de 210 × 297 mm con 12 mm de margen. Puede ser una página en blanco o un PDF importado." [ref=f4e255]
+            - row [ref=f4e256]:
+              - cell [ref=f4e257]:
+                - code [ref=f4e258]: schemas
+              - cell "Contiene un array por página y, dentro de cada uno, los campos que se dibujarán. La primera posición representa la página 1." [ref=f4e259]
+            - row [ref=f4e260]:
+              - cell "Schema" [ref=f4e261]
+              - cell "Describe un campo —por ejemplo un texto, una tabla, una imagen o un código QR— mediante su identificador, tipo, posición, dimensiones, contenido inicial y estilo." [ref=f4e262]
+            - row [ref=f4e263]:
+              - cell [ref=f4e264]:
+                - code [ref=f4e265]: mapping.fields
+              - cell [ref=f4e266]:
+                - text: Conecta el
+                - code [ref=f4e267]: name
+                - text: del schema con una ruta de datos, una plantilla de texto o un formatter registrado; por ejemplo,
+                - code [ref=f4e268]: "customer: \"order.customer\""
+                - text: .
+        - generic [ref=f4e269]:
+          - strong [ref=f4e270]: "Contrato principal:"
+          - text: el
+          - code [ref=f4e271]: name
+          - text: de cada schema debe ser único y estable en todas las páginas. Es la clave que une el diseño con
+          - code [ref=f4e272]: mapping.fields
+          - text: ; no uses como identificador una etiqueta traducida que pueda cambiar.
+        - 'heading "Ejemplo: factura con texto, tabla y pie repetido" [level=3] [ref=f4e273]'
+        - generic [ref=f4e274]:
+          - code [ref=f4e275]: "const template = { basePdf: { width: 210, height: 297, padding: [12, 12, 25, 12] }, schemas: [[ { name: \"title\", type: \"text\", position: { x: 20, y: 18 }, width: 90, height: 12, content: \"FACTURA\", readOnly: true, fontSize: 22 }, { name: \"customer\", type: \"text\", position: { x: 20, y: 42 }, width: 130, height: 10, content: \"Cliente\", showLabel: true, label: \"Cliente\" }, { name: \"items\", type: \"table\", position: { x: 20, y: 68 }, width: 170, height: 70, content: \"[]\", head: [\"Concepto\", \"Cantidad\", \"Precio\"] }, { name: \"total\", type: \"text\", position: { x: 120, y: 150 }, width: 70, height: 10, content: \"0,00 €\", showLabel: true, label: \"Total\", alignment: \"right\" }, { name: \"footer\", type: \"text\", position: { x: 20, y: 278 }, width: 170, height: 6, content: \"Página {currentPage} de {totalPages}\", readOnly: true, fixedPosition: true, repeatOnEveryPage: true, alignment: \"center\" } ]] }; const mapping = { fields: { customer: \"order.customer\", items: { path: \"order.items\", formatter: \"table\", options: { columns: [\"description\", \"quantity\", \"price\"] } }, total: { path: \"order.total\", formatter: \"number\", options: { locale: \"es-ES\", style: \"currency\", currency: \"EUR\" } } } };"
+          - button "Copiar" [ref=f4e276] [cursor=pointer]
+        - paragraph [ref=f4e277]:
+          - text: Con datos como
+          - code [ref=f4e278]: "{ order: { customer: \"Acme S.L.\", items: [...], total: 1234.5 } }"
+          - text: ", el título y el pie permanecen estáticos, mientras que"
+          - code [ref=f4e279]: customer
+          - text: ","
+          - code [ref=f4e280]: items
+          - text: "y"
+          - code [ref=f4e281]: total
+          - text: se resuelven para cada PDF. El formatter
+          - code [ref=f4e282]: table
+          - text: transforma la colección en filas y
+          - code [ref=f4e283]: number
+          - text: produce, por ejemplo,
+          - code [ref=f4e284]: 1234,50 €
+          - text: según la configuración regional.
+        - heading "Campos estáticos y campos conectados" [level=3] [ref=f4e285]
+        - table [ref=f4e286]:
+          - rowgroup [ref=f4e287]:
+            - row [ref=f4e288]:
+              - columnheader "Tipo" [ref=f4e289]
+              - columnheader "Definición y uso" [ref=f4e290]
+          - rowgroup [ref=f4e291]:
+            - row [ref=f4e292]:
+              - cell "Estático" [ref=f4e293]
+              - cell [ref=f4e294]:
+                - text: Conserva su
+                - code [ref=f4e295]: content
+                - text: y no tiene entrada en
+                - code [ref=f4e296]: mapping.fields
+                - text: . Úsalo para títulos, instrucciones, logotipos y textos legales.
+            - row [ref=f4e297]:
+              - cell "Conectado" [ref=f4e298]
+              - cell [ref=f4e299]:
+                - text: Su
+                - code [ref=f4e300]: name
+                - text: aparece en
+                - code [ref=f4e301]: mapping.fields
+                - text: . El diseñador muestra
+                - strong [ref=f4e302]: Valor desde datos
+                - text: y permite elegir una ruta disponible. Úsalo para cliente, fecha, importe, dirección o cualquier valor que cambie.
+            - row [ref=f4e303]:
+              - cell "Colección" [ref=f4e304]
+              - cell [ref=f4e305]:
+                - text: Usa un schema de tabla y el formatter
+                - code [ref=f4e306]: table
+                - text: con el orden explícito de sus columnas. Es adecuado para líneas de pedido, movimientos o listados.
+            - row [ref=f4e307]:
+              - cell "Fijo y repetido" [ref=f4e308]
+              - cell [ref=f4e309]:
+                - text: Activa
+                - code [ref=f4e310]: fixedPosition
+                - text: y, opcionalmente,
+                - code [ref=f4e311]: repeatOnEveryPage
+                - text: . Es útil para cabeceras, pies y datos Text que deben conservar su posición; los textos estáticos repetidos admiten
+                - code [ref=f4e312]: "{currentPage}"
+                - text: "y"
+                - code [ref=f4e313]: "{totalPages}"
+                - text: .
+        - heading "Tres formas de empezar" [level=3] [ref=f4e314]
+        - generic [ref=f4e315]:
+          - article [ref=f4e316]:
+            - heading "Plantilla en blanco" [level=3] [ref=f4e317]
+            - paragraph [ref=f4e318]: Crea una página A4 vacía. Es la opción más sencilla cuando el documento nace en el diseñador.
+          - article [ref=f4e319]:
+            - heading "Cargar PDF" [level=3] [ref=f4e320]
+            - paragraph [ref=f4e321]: Convierte todas las páginas de un PDF local en el fondo del diseño y permite colocar campos encima. El archivo debe ser un PDF válido.
+          - article [ref=f4e322]:
+            - heading "Abrir del catálogo" [level=3] [ref=f4e323]
+            - paragraph [ref=f4e324]: Recupera una plantilla guardada. La búsqueda incluye nombre, descripción y etiquetas; también puedes filtrar por estado y repositorio.
+        - paragraph [ref=f4e325]: El panel de datos permite insertar campos y tablas a partir de muestras resueltas. Los campos añadidos desde la paleta empiezan como estáticos; los insertados desde el panel de datos quedan conectados automáticamente. Antes de guardar, genera una vista previa con valores vacíos, textos largos y tablas con pocas y muchas filas.
+        - heading "Guardar, localizar y versionar" [level=3] [ref=f4e326]
+        - generic [ref=f4e327]:
+          - code [ref=f4e328]: "await studio.saveTemplateRecord({ name: \"Factura de venta · España\", description: \"Factura A4 en español con IVA y pie legal\", tags: [\"ventas\", \"factura\", \"es\"], status: \"draft\", version: \"3\", metadata: { dataContractVersion: \"2\", language: \"es\" } }); const published = await studio.listTemplates({ search: \"factura\", status: \"published\" }); await studio.loadTemplate(\"invoice-es-v3\", { repositoryId: \"backend\" });"
+          - button "Copiar" [ref=f4e329] [cursor=pointer]
+        - paragraph [ref=f4e330]: "La primera guardada solicita los metadatos; las siguientes actualizan el registro activo. En producción, guarda juntos la plantilla y su mapeo, y registra además versión del contrato de datos, idioma, autor, estado y fecha. Trata una versión publicada como inmutable: crea otra versión para modificarla y conserva la anterior para reimpresiones históricas."
+        - generic [ref=f4e331]:
+          - strong [ref=f4e332]: "Seguridad:"
+          - text: no incluyas credenciales, cookies, tokens ni payloads privados en una plantilla. Las fuentes de datos almacenadas se excluyen de forma predeterminada y su aplicación requiere una configuración explícita.
+        - paragraph [ref=f4e333]:
+          - text: Consulta el flujo visual en la
+          - link "guía de uso" [ref=f4e334] [cursor=pointer]:
+            - /url: guide/
+          - text: y la configuración de memoria,
+          - code [ref=f4e335]: localStorage
+          - text: ", REST, OData o funciones en la guía"
+          - link "Catálogo y repositorios de plantillas" [ref=f4e336] [cursor=pointer]:
+            - /url: repositories/
+          - text: .
+      - generic [ref=f4e337]:
+        - text: Referencia
+        - heading "API y eventos" [level=2] [ref=f4e338]
+        - paragraph [ref=f4e339]:
+          - text: "La instancia del estudio coordina cuatro operaciones: resolver datos, convertirlos en inputs de pdfme, editar o persistir la plantilla y producir el PDF. JavaScript y React usan"
+          - code [ref=f4e340]: WebPdfTemplateStudio
+          - text: ; el control UI5 ofrece los mismos conceptos mediante métodos y eventos nativos.
+        - heading "Ciclo recomendado" [level=3] [ref=f4e341]
+        - generic [ref=f4e342]:
+          - code [ref=f4e343]: "const studio = new WebPdfTemplateStudio(\"#studio\", { template, dataSources, mapping, autoResolve: false, filename: \"factura-5001.pdf\" }); // Registra extensiones antes de resolver las fuentes que las utilizan. studio .registerLoader(\"totals\", totalsLoader) .registerFormatter(\"vat\", vatFormatter); const data = await studio.refreshData(); // Datos agrupados por id de fuente. const inputs = studio.getInputs(); // Un objeto por PDF/documento. const bytes = await studio.generate(); // Uint8Array con el PDF final. console.info(data.order, inputs.length, bytes.byteLength); studio.destroy(); // Al desmontar una integración JavaScript sin framework."
+          - button "Copiar" [ref=f4e344] [cursor=pointer]
+        - paragraph [ref=f4e345]:
+          - code [ref=f4e346]: generate()
+          - text: resuelve los datos automáticamente si todavía no existen inputs. En procesos controlados suele ser preferible llamar antes a
+          - code [ref=f4e347]: refreshData()
+          - text: ": así puedes inspeccionar o validar"
+          - code [ref=f4e348]: data
+          - text: e
+          - code [ref=f4e349]: inputs
+          - text: antes de generar. Las promesas rechazan con el error original; escucha también
+          - code [ref=f4e350]: pdfme:error
+          - text: para observabilidad, pero conserva
+          - code [ref=f4e351]: try/catch
+          - text: donde la aplicación deba recuperarse.
+        - heading "Configuración, datos y extensiones" [level=3] [ref=f4e352]
+        - table [ref=f4e353]:
+          - rowgroup [ref=f4e354]:
+            - row [ref=f4e355]:
+              - columnheader "Método" [ref=f4e356]
+              - columnheader "Resultado" [ref=f4e357]
+              - columnheader "Uso" [ref=f4e358]
+          - rowgroup [ref=f4e359]:
+            - row [ref=f4e360]:
+              - cell [ref=f4e361]:
+                - code [ref=f4e362]: configure(partial)
+              - cell "La propia instancia." [ref=f4e363]
+              - cell [ref=f4e364]:
+                - text: Combina una configuración parcial con la actual. Una nueva plantilla actualiza el diseñador; nuevas fuentes vuelven a resolverse cuando
+                - code [ref=f4e365]: autoResolve
+                - text: está activo.
+            - row [ref=f4e366]:
+              - cell [ref=f4e367]:
+                - code [ref=f4e368]: refreshData()
+              - cell [ref=f4e369]:
+                - code [ref=f4e370]: Promise<object>
+              - cell [ref=f4e371]:
+                - text: Ejecuta las fuentes, respeta sus dependencias, recalcula los inputs y emite
+                - code [ref=f4e372]: dataResolved
+                - text: .
+            - row [ref=f4e373]:
+              - cell [ref=f4e374]:
+                - code [ref=f4e375]: getResolvedData()
+              - cell [ref=f4e376]:
+                - code [ref=f4e377]: object | null
+              - cell [ref=f4e378]:
+                - text: Devuelve la última fotografía de datos, agrupada por el
+                - code [ref=f4e379]: id
+                - text: de cada fuente.
+            - row [ref=f4e380]:
+              - cell [ref=f4e381]:
+                - code [ref=f4e382]: getInputs()
+              - cell [ref=f4e383]:
+                - code [ref=f4e384]: object[] | null
+              - cell [ref=f4e385]:
+                - text: Devuelve los inputs ya mapeados. Puede contener varios elementos cuando se usa
+                - code [ref=f4e386]: mapping.repeat
+                - text: .
+            - row [ref=f4e387]:
+              - cell [ref=f4e388]:
+                - code [ref=f4e389]: registerDataProvider(type, provider)
+              - cell "La propia instancia." [ref=f4e390]
+              - cell [ref=f4e391]:
+                - text: Añade un tipo de fuente. Úsalo antes de resolver una fuente con ese
+                - code [ref=f4e392]: type
+                - text: .
+            - row [ref=f4e393]:
+              - cell [ref=f4e394]:
+                - code [ref=f4e395]: registerLoader(name, loader)
+              - cell "La propia instancia." [ref=f4e396]
+              - cell [ref=f4e397]:
+                - text: Registra una función referenciada por una fuente de tipo
+                - code [ref=f4e398]: function
+                - text: .
+            - row [ref=f4e399]:
+              - cell [ref=f4e400]:
+                - code [ref=f4e401]: registerFormatter(name, formatter)
+              - cell "La propia instancia." [ref=f4e402]
+              - cell [ref=f4e403]:
+                - text: Registra una transformación referenciada desde
+                - code [ref=f4e404]: mapping.fields
+                - text: .
+        - heading "Plantilla, catálogo y PDF" [level=3] [ref=f4e405]
+        - table [ref=f4e406]:
+          - rowgroup [ref=f4e407]:
+            - row [ref=f4e408]:
+              - columnheader "Método" [ref=f4e409]
+              - columnheader "Resultado" [ref=f4e410]
+              - columnheader "Uso" [ref=f4e411]
+          - rowgroup [ref=f4e412]:
+            - row [ref=f4e413]:
+              - cell [ref=f4e414]:
+                - code [ref=f4e415]: getTemplate()
+              - cell "Plantilla pdfme actual." [ref=f4e416]
+              - cell "Lee el diseño más reciente, incluidos los cambios todavía no persistidos." [ref=f4e417]
+            - row [ref=f4e418]:
+              - cell [ref=f4e419]:
+                - code [ref=f4e420]: startBlankTemplate()
+              - cell "Nueva plantilla A4." [ref=f4e421]
+              - cell "Descarta el registro activo e inicia un diseño en blanco." [ref=f4e422]
+            - row [ref=f4e423]:
+              - cell [ref=f4e424]:
+                - code [ref=f4e425]: importPdfTemplate(file)
+              - cell [ref=f4e426]:
+                - code [ref=f4e427]: Promise<template>
+              - cell [ref=f4e428]:
+                - text: Usa todas las páginas de un
+                - code [ref=f4e429]: File
+                - text: ","
+                - code [ref=f4e430]: Blob
+                - text: o bytes PDF como fondo.
+            - row [ref=f4e431]:
+              - cell [ref=f4e432]:
+                - code [ref=f4e433]: listTemplates(query)
+              - cell [ref=f4e434]:
+                - code [ref=f4e435]: Promise<record[]>
+              - cell [ref=f4e436]:
+                - text: Busca por texto, estado o
+                - code [ref=f4e437]: repositoryId
+                - text: . Requiere al menos un repositorio configurado.
+            - row [ref=f4e438]:
+              - cell [ref=f4e439]:
+                - code [ref=f4e440]: getTemplateRecord(id, options)
+              - cell [ref=f4e441]:
+                - code [ref=f4e442]: Promise<record>
+              - cell "Obtiene un registro completo sin cargarlo en el diseñador." [ref=f4e443]
+            - row [ref=f4e444]:
+              - cell [ref=f4e445]:
+                - code [ref=f4e446]: loadTemplate(idOrRecord, options)
+              - cell [ref=f4e447]:
+                - code [ref=f4e448]: Promise<record>
+              - cell [ref=f4e449]:
+                - text: Carga plantilla y mapeo; las fuentes almacenadas solo se aplican con
+                - code [ref=f4e450]: "applyStoredDataSources: true"
+                - text: .
+            - row [ref=f4e451]:
+              - cell [ref=f4e452]:
+                - code [ref=f4e453]: saveTemplateRecord(metadata, options)
+              - cell [ref=f4e454]:
+                - code [ref=f4e455]: Promise<record>
+              - cell "Crea o actualiza el registro activo y emite la confirmación de persistencia." [ref=f4e456]
+            - row [ref=f4e457]:
+              - cell [ref=f4e458]:
+                - code [ref=f4e459]: openTemplateCatalog()
+              - cell "Catálogo visual." [ref=f4e460]
+              - cell "Abre búsqueda, filtros, creación en blanco e importación de PDF." [ref=f4e461]
+            - row [ref=f4e462]:
+              - cell [ref=f4e463]:
+                - code [ref=f4e464]: generate()
+              - cell [ref=f4e465]:
+                - code [ref=f4e466]: Promise<Uint8Array>
+              - cell "Valida la plantilla, prepara campos fijos y genera el PDF sin abrir interfaz adicional." [ref=f4e467]
+            - row [ref=f4e468]:
+              - cell [ref=f4e469]:
+                - code [ref=f4e470]: preview()
+                - text: ","
+                - code [ref=f4e471]: download()
+                - text: ","
+                - code [ref=f4e472]: print()
+              - cell [ref=f4e473]:
+                - code [ref=f4e474]: Promise<Uint8Array>
+              - cell "Generan y después muestran, descargan o envían al diálogo de impresión. La impresión silenciosa no está disponible en un navegador estándar." [ref=f4e475]
+            - row [ref=f4e476]:
+              - cell [ref=f4e477]:
+                - code [ref=f4e478]: openHelp()
+              - cell "Diálogo de ayuda." [ref=f4e479]
+              - cell "Abre la guía rápida y expone la URL del manual configurado." [ref=f4e480]
+        - heading "Escuchar eventos en JavaScript y React" [level=3] [ref=f4e481]
+        - paragraph [ref=f4e482]:
+          - text: En JavaScript, los eventos son
+          - code [ref=f4e483]: CustomEvent
+          - text: despachados sobre el elemento raíz y su payload está en
+          - code [ref=f4e484]: event.detail
+          - text: . La misma información puede recibirse con callbacks de configuración
+          - code [ref=f4e485]: onNombreDelEvento
+          - text: ; React utiliza estos callbacks y una
+          - code [ref=f4e486]: ref
+          - text: para llamar a la API imperativa.
+        - generic [ref=f4e487]:
+          - code [ref=f4e488]: "const host = document.querySelector(\"#studio\"); host.addEventListener(\"pdfme:dataResolved\", ({ detail }) => { console.info(\"Documentos preparados\", detail.inputs.length); }); host.addEventListener(\"pdfme:generated\", ({ detail }) => { console.info(\"PDF generado\", detail.bytes.byteLength, detail.blob.type); }); host.addEventListener(\"pdfme:error\", ({ detail }) => { reportError(detail.operation, detail.error); }); // Alternativa válida en JavaScript y como props del adaptador React: studio.configure({ onTemplateSaved: ({ record }) => console.info(record.id), onError: ({ operation, error }) => reportError(operation, error) });"
+          - button "Copiar" [ref=f4e489] [cursor=pointer]
+        - heading "Escuchar eventos en UI5" [level=3] [ref=f4e490]
+        - paragraph [ref=f4e491]:
+          - text: UI5 no usa
+          - code [ref=f4e492]: event.detail
+          - text: ": registra el handler con"
+          - code [ref=f4e493]: attach<Evento>
+          - text: o en la vista XML y lee cada valor con
+          - code [ref=f4e494]: getParameter()
+          - text: .
+        - generic [ref=f4e495]:
+          - code [ref=f4e496]: "const studio = this.byId(\"printStudio\"); studio.attachDataResolved((event) => { const inputs = event.getParameter(\"inputs\"); MessageToast.show(`${inputs.length} documento(s) preparado(s)`); }); studio.attachGenerated((event) => { const blob = event.getParameter(\"blob\"); console.info(\"PDF\", blob.size, blob.type); }); studio.attachError((event) => { const operation = event.getParameter(\"operation\"); const error = event.getParameter(\"error\"); this.handlePdfError(operation, error); });"
+          - button "Copiar" [ref=f4e497] [cursor=pointer]
+        - heading "Referencia de eventos" [level=3] [ref=f4e498]
+        - table [ref=f4e499]:
+          - rowgroup [ref=f4e500]:
+            - row [ref=f4e501]:
+              - columnheader "Evento web" [ref=f4e502]
+              - columnheader "Evento UI5" [ref=f4e503]
+              - columnheader "Payload" [ref=f4e504]
+              - columnheader "Cuándo se emite" [ref=f4e505]
+          - rowgroup [ref=f4e506]:
+            - row [ref=f4e507]:
+              - cell [ref=f4e508]:
+                - code [ref=f4e509]: pdfme:templateChange
+              - cell [ref=f4e510]:
+                - code [ref=f4e511]: templateChange
+              - cell [ref=f4e512]:
+                - code [ref=f4e513]: template
+              - cell "Después de modificar el diseño. Puede ser frecuente; evita persistir en cada cambio." [ref=f4e514]
+            - row [ref=f4e515]:
+              - cell [ref=f4e516]:
+                - code [ref=f4e517]: pdfme:templateSave
+              - cell [ref=f4e518]:
+                - code [ref=f4e519]: templateSave
+              - cell [ref=f4e520]:
+                - code [ref=f4e521]: template
+              - cell "Cuando el diseñador entrega la plantilla mediante su acción Guardar. No confirma escritura en un repositorio." [ref=f4e522]
+            - row [ref=f4e523]:
+              - cell [ref=f4e524]:
+                - code [ref=f4e525]: pdfme:fieldInsert
+              - cell [ref=f4e526]:
+                - code [ref=f4e527]: fieldInsert
+              - cell [ref=f4e528]:
+                - code [ref=f4e529]: fieldName
+                - text: ","
+                - code [ref=f4e530]: path
+              - cell "Después de insertar desde el panel de datos un campo conectado." [ref=f4e531]
+            - row [ref=f4e532]:
+              - cell [ref=f4e533]:
+                - code [ref=f4e534]: pdfme:templatesListed
+              - cell [ref=f4e535]:
+                - code [ref=f4e536]: templatesListed
+              - cell [ref=f4e537]:
+                - code [ref=f4e538]: templates
+                - text: ; Web también incluye
+                - code [ref=f4e539]: query
+              - cell [ref=f4e540]:
+                - text: Cuando el catálogo visual termina de listar. En Web lo emite la raíz de
+                - code [ref=f4e541]: WebTemplateCatalog
+                - text: .
+            - row [ref=f4e542]:
+              - cell [ref=f4e543]:
+                - code [ref=f4e544]: pdfme:templateLoaded
+              - cell [ref=f4e545]:
+                - code [ref=f4e546]: templateLoaded
+              - cell [ref=f4e547]:
+                - code [ref=f4e548]: record
+              - cell "Después de aplicar al diseñador el registro solicitado." [ref=f4e549]
+            - row [ref=f4e550]:
+              - cell [ref=f4e551]:
+                - code [ref=f4e552]: pdfme:templateSaved
+              - cell [ref=f4e553]:
+                - code [ref=f4e554]: templatePersisted
+              - cell [ref=f4e555]:
+                - code [ref=f4e556]: record
+              - cell "Solo después de que el repositorio confirma el guardado." [ref=f4e557]
+            - row [ref=f4e558]:
+              - cell [ref=f4e559]:
+                - code [ref=f4e560]: pdfme:dataResolved
+              - cell [ref=f4e561]:
+                - code [ref=f4e562]: dataResolved
+              - cell [ref=f4e563]:
+                - code [ref=f4e564]: data
+                - text: ","
+                - code [ref=f4e565]: inputs
+              - cell "Después de resolver todas las fuentes y completar el mapeo." [ref=f4e566]
+            - row [ref=f4e567]:
+              - cell [ref=f4e568]:
+                - code [ref=f4e569]: pdfme:generated
+              - cell [ref=f4e570]:
+                - code [ref=f4e571]: generated
+              - cell [ref=f4e572]:
+                - code [ref=f4e573]: bytes
+                - text: ","
+                - code [ref=f4e574]: blob
+              - cell "Después de cada generación correcta, incluidas vista previa, descarga e impresión." [ref=f4e575]
+            - row [ref=f4e576]:
+              - cell [ref=f4e577]:
+                - code [ref=f4e578]: pdfme:help
+              - cell [ref=f4e579]:
+                - code [ref=f4e580]: help
+              - cell [ref=f4e581]:
+                - code [ref=f4e582]: url
+              - cell "Al abrir el diálogo de ayuda." [ref=f4e583]
+            - row [ref=f4e584]:
+              - cell [ref=f4e585]:
+                - code [ref=f4e586]: pdfme:error
+              - cell [ref=f4e587]:
+                - code [ref=f4e588]: error
+              - cell [ref=f4e589]:
+                - code [ref=f4e590]: operation
+                - text: ","
+                - code [ref=f4e591]: error
+              - cell "Cuando falla una operación controlada como resolver, generar, importar, listar o guardar." [ref=f4e592]
+        - generic [ref=f4e593]:
+          - strong [ref=f4e594]: "Guardar no es persistir:"
+          - text: usa
+          - code [ref=f4e595]: templateSave
+          - text: para obtener el diseño desde el editor y
+          - code [ref=f4e596]: templateSaved
+          - text: /
+          - code [ref=f4e597]: templatePersisted
+          - text: para confirmar que el backend o almacenamiento local lo aceptó. Para auditoría, registra el identificador y la versión de
+          - code [ref=f4e598]: record
+          - text: ", nunca datos personales ni el contenido completo del PDF."
+      - generic [ref=f4e599]:
+        - text: Resumen en esta página
+        - heading "Repositorios de plantillas" [level=2] [ref=f4e600]
+        - paragraph [ref=f4e601]: Un repositorio persiste definiciones reutilizables de plantilla; no es la cola de generación ni el almacén de los PDF producidos. El catálogo visual permite buscar esas definiciones y abrirlas en el editor.
+        - paragraph [ref=f4e602]:
+          - text: Los adaptadores incluidos son
+          - code [ref=f4e603]: memory
+          - text: ","
+          - code [ref=f4e604]: localStorage
+          - text: ","
+          - code [ref=f4e605]: rest
+          - text: ","
+          - code [ref=f4e606]: odata
+          - text: "y"
+          - code [ref=f4e607]: function
+          - text: .
+        - generic [ref=f4e608]:
+          - code [ref=f4e609]: "templateRepositories: [{ id: \"browser\", type: \"localStorage\", storageKey: \"my-app.templates\" }, { id: \"backend\", type: \"rest\", url: \"/api/templates\" }]"
+          - button "Copiar" [ref=f4e610] [cursor=pointer]
+        - paragraph [ref=f4e611]:
+          - text: En Web, REST usa GET de colección/detalle y POST/PUT. OData V4 usa POST/PATCH; al indicar
+          - code [ref=f4e612]: "odataVersion: 2"
+          - text: ", el proveedor cambia filtros, count y actualización a la semántica V2. Ambos siguen enlaces de paginación hasta"
+          - code [ref=f4e613]: maxPages
+          - text: . En Fiori se puede indicar
+          - code [ref=f4e614]: modelName
+          - text: "y"
+          - code [ref=f4e615]: path
+          - text: para conservar destinos, batch y CSRF. Se incluyen ejemplos para Node, PostgreSQL y CAP/OData.
+        - paragraph [ref=f4e616]:
+          - link [ref=f4e617] [cursor=pointer]:
+            - /url: repositories/
+            - strong [ref=f4e618]: Abrir la guía completa de catálogo y repositorios
+          - text: . Si el repositorio será OData sobre SAP, usa además el
+          - link "selector RAP/CAP/CDS/SEGW" [ref=f4e619] [cursor=pointer]:
+            - /url: sap/
+          - text: .
+        - generic [ref=f4e620]: Publicar debe ser una operación autorizada. Mantén versiones inmutables para que una reimpresión histórica use exactamente el diseño aprobado.
+      - generic [ref=f4e621]:
+        - text: Resumen en esta página
+        - heading "Docker para generación diferida" [level=2] [ref=f4e622]
+        - paragraph [ref=f4e623]: Docker es una forma de desplegar el ejemplo de API y worker; no es un requisito del editor ni otro tipo de repositorio. El patrón diferido también puede desplegarse con CAP, Node u otra infraestructura.
+        - paragraph [ref=f4e624]:
+          - text: La imagen de ejemplo se ejecuta sin privilegios de root, publica el puerto
+          - code [ref=f4e625]: "3001"
+          - text: ", ofrece la comprobación"
+          - code [ref=f4e626]: /health
+          - text: y conserva los PDF generados en un volumen.
+        - generic [ref=f4e627]:
+          - article [ref=f4e628]:
+            - heading "Prueba local en memoria" [level=3] [ref=f4e629]
+            - paragraph [ref=f4e630]: Inicia el servicio con la cola y las plantillas en memoria. Este modo pierde el estado al reiniciar y no debe escalarse.
+            - generic [ref=f4e631]:
+              - code [ref=f4e632]: cd examples/deferred/docker docker compose up --build
+              - button "Copiar" [ref=f4e633] [cursor=pointer]
+          - article [ref=f4e634]:
+            - heading "PostgreSQL persistente" [level=3] [ref=f4e635]
+            - paragraph [ref=f4e636]: Añade una base de datos y volúmenes duraderos para plantillas, trabajos y PDF. Es el modo adecuado para réplicas y despliegues reales.
+            - generic [ref=f4e637]:
+              - code [ref=f4e638]: docker compose -f compose.yaml -f compose.postgres.yaml up --build
+              - button "Copiar" [ref=f4e639] [cursor=pointer]
+        - generic [ref=f4e640]:
+          - strong [ref=f4e641]: "Antes de exponer el servicio:"
+          - text: copia
+          - code [ref=f4e642]: .env.example
+          - text: a
+          - code [ref=f4e643]: .env
+          - text: ", sustituye"
+          - code [ref=f4e644]: API_TOKEN
+          - text: "y"
+          - code [ref=f4e645]: POSTGRES_PASSWORD
+          - text: ", limita"
+          - code [ref=f4e646]: CORS_ORIGIN
+          - text: y usa OAuth/XSUAA, mTLS o un gateway en producción.
+        - paragraph [ref=f4e647]:
+          - link "Consulta el manual completo de Docker y generación diferida" [ref=f4e648] [cursor=pointer]:
+            - /url: deferred/#docker
+          - text: o
+          - link "abre el Dockerfile y las configuraciones Compose en GitHub" [ref=f4e649] [cursor=pointer]:
+            - /url: https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/deferred/docker
+          - text: .
+      - generic [ref=f4e650]:
+        - text: Producción
+        - heading "Seguridad" [level=2] [ref=f4e651]
+        - list [ref=f4e652]:
+          - listitem [ref=f4e653]: No guardes tokens, cookies o credenciales en una plantilla o fuente.
+          - listitem [ref=f4e654]: Limita orígenes, rutas y tamaño de colecciones permitidos por el backend.
+          - listitem [ref=f4e655]: La visibilidad de un campo no sustituye la autorización del servicio.
+          - listitem [ref=f4e656]: Trata textos remotos como no confiables; las vistas previas usan APIs de texto.
+          - listitem [ref=f4e657]: Valida y versiona template/mapping antes de publicar.
+          - listitem [ref=f4e658]: La impresión silenciosa no está permitida por navegadores estándar; requiere infraestructura controlada.
+      - generic [ref=f4e659]:
+        - text: Entrega
+        - heading "Build, pruebas y GitHub Pages" [level=2] [ref=f4e660]
+        - generic [ref=f4e661]:
+          - code [ref=f4e662]: npm ci npm test npm run build npm run docs:dev npm run example:js npm run example:react
+          - button "Copiar" [ref=f4e663] [cursor=pointer]
+        - paragraph [ref=f4e664]:
+          - code [ref=f4e665]: npm run build
+          - text: crea el artefacto UI5 precompilado. Vite empaqueta los puntos de entrada web y sus recursos WASM.
+          - code [ref=f4e666]: npm run build:pages
+          - text: reúne la documentación y las demos funcionales de UI5, JavaScript y React en
+          - code [ref=f4e667]: .pages/
+          - text: ; el workflow publica ese artefacto estático.
+        - paragraph [ref=f4e668]: "Pruebas cubiertas: resolución concurrente/dependiente, ciclos, fallbacks, OData V2/V4, mapeos, tablas, repetición y creación de un PDF final."
+      - generic [ref=f4e669]:
+        - text: Automatización
+        - heading "Agentes de IA" [level=2] [ref=f4e670]
+        - paragraph [ref=f4e671]:
+          - text: El repositorio incluye
+          - code [ref=f4e672]: AGENTS.md
+          - text: y recetas especializadas para que un agente instale la librería, conecte datos, cree plantillas y ejecute una validación consistente.
+        - paragraph [ref=f4e673]:
+          - link "Contrato principal para agentes" [ref=f4e674] [cursor=pointer]:
+            - /url: ../AGENTS.md
+          - text: ·
+          - link "Índice de recetas" [ref=f4e675] [cursor=pointer]:
+            - /url: ../agents/README.md
+          - text: ·
+          - link "Creación de plantillas" [ref=f4e676] [cursor=pointer]:
+            - /url: ../agents/CREATE_TEMPLATE.md
+          - text: ·
+          - link "Checklist" [ref=f4e677] [cursor=pointer]:
+            - /url: ../agents/VALIDATION_CHECKLIST.md
+      - generic [ref=f4e678]:
+        - text: Ayuda
+        - heading "Problemas comunes" [level=2] [ref=f4e679]
+        - table [ref=f4e680]:
+          - rowgroup [ref=f4e681]:
+            - row [ref=f4e682]:
+              - columnheader "Síntoma" [ref=f4e683]
+              - columnheader "Comprobación" [ref=f4e684]
+          - rowgroup [ref=f4e685]:
+            - row [ref=f4e686]:
+              - cell "Panel sin datos" [ref=f4e687]
+              - cell [ref=f4e688]:
+                - text: Registra loaders antes de
+                - code [ref=f4e689]: refreshData
+                - text: ; revisa IDs y
+                - code [ref=f4e690]: dependsOn
+                - text: .
+            - row [ref=f4e691]:
+              - cell "Campo vacío" [ref=f4e692]
+              - cell [ref=f4e693]:
+                - text: El nombre del esquema debe coincidir con la clave en
+                - code [ref=f4e694]: mapping.fields
+                - text: .
+            - row [ref=f4e695]:
+              - cell "OData devuelve objeto inesperado" [ref=f4e696]
+              - cell [ref=f4e697]:
+                - text: Distingue entidad/colección y verifica V2
+                - code [ref=f4e698]: d.results
+                - text: o V4
+                - code [ref=f4e699]: value
+                - text: .
+            - row [ref=f4e700]:
+              - cell "WASM no encontrado" [ref=f4e701]
+              - cell "Usa un bundler moderno y conserva URLs de assets/base path." [ref=f4e702]
+            - row [ref=f4e703]:
+              - cell "UI5 no carga la librería" [ref=f4e704]
+              - cell [ref=f4e705]:
+                - text: Declara
+                - code [ref=f4e706]: ui5.pdfme
+                - text: en el manifest y comprueba el grafo npm/UI5.
+            - row [ref=f4e707]:
+              - cell "Tabla desborda" [ref=f4e708]
+              - cell "Prueba datasets grandes y usa una base flexible con márgenes adecuados." [ref=f4e709]
+  - contentinfo [ref=f4e710]:
+    - text: "ui5-pdfme · Autor:"
+    - link "Jesús Franco Guzmán" [ref=f4e711] [cursor=pointer]:
+      - /url: https://www.linkedin.com/in/jesus-franco-guzman/
+    - text: · Apache-2.0 · Potenciado por
+    - link "pdfme" [ref=f4e712] [cursor=pointer]:
+      - /url: https://pdfme.com/

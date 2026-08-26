@@ -1,0 +1,303 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "ui5-pdfme template repository REST API",
+    "version": "1.0.0",
+    "description": "Reference REST contract for listing, retrieving, creating, and updating ui5-pdfme template records. REST exposes version as a normalized positive decimal string; the corresponding OData and database field is Int32. JSON template payloads have no intrinsic character length, while the reference service limits a complete request payload to 5,000,000 characters."
+  },
+  "x-operational-max-payload-characters": 5000000,
+  "x-odata-profile": {
+    "versionProperty": "Version",
+    "versionType": "Edm.Int32",
+    "properties": {
+      "ID": "Edm.String(128), key, not nullable",
+      "Name": "Edm.String(160), not nullable",
+      "Description": "Edm.String(1024), not nullable",
+      "Tags": "Edm.String(4096), JSON array, not nullable",
+      "Status": "Edm.String(20), not nullable",
+      "Version": "Edm.Int32, not nullable",
+      "CreatedAt": "Edm.DateTimeOffset, precision 7, computed",
+      "UpdatedAt": "Edm.DateTimeOffset, precision 7, computed/ETag",
+      "TemplateJson": "Edm.String(max), JSON text, not nullable",
+      "MappingJson": "Edm.String(max), JSON text, nullable",
+      "MetadataJson": "Edm.String(max), JSON text, not nullable",
+      "DataSourcesJson": "Edm.String(max), JSON text, nullable"
+    },
+    "jsonProperties": {
+      "tags": "Tags",
+      "template": "TemplateJson",
+      "mapping": "MappingJson",
+      "metadata": "MetadataJson",
+      "dataSources": "DataSourcesJson"
+    },
+    "jsonEncoding": "JSON text in unbounded Edm.String properties"
+  },
+  "paths": {
+    "/api/templates": {
+      "get": {
+        "operationId": "listTemplates",
+        "summary": "List template summaries",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "draft",
+                "published",
+                "archived"
+              ]
+            }
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "description": "Comma-separated tags.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "top",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Template summaries and paging information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateListResponse"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      },
+      "post": {
+        "operationId": "createTemplate",
+        "summary": "Create a template record",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TemplateSaveInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created template record.",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/headers/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateRecord"
+                }
+              }
+            }
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    },
+    "/api/templates/{id}": {
+      "parameters": [
+        {
+          "$ref": "#/components/parameters/TemplateId"
+        }
+      ],
+      "get": {
+        "operationId": "getTemplate",
+        "summary": "Get a complete template record",
+        "responses": {
+          "200": {
+            "description": "Complete template record.",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/headers/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateRecord"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateTemplate",
+        "summary": "Replace a template record",
+        "parameters": [
+          {
+            "name": "If-Match",
+            "in": "header",
+            "required": false,
+            "description": "Previously returned version ETag for optimistic concurrency.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TemplateSaveInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated template record.",
+            "headers": {
+              "ETag": {
+                "$ref": "#/components/headers/ETag"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TemplateRecord"
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/Error"
+          },
+          "412": {
+            "$ref": "#/components/responses/Error"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TemplateSummary": {
+        "$ref": "./template-record.schema.json#/$defs/templateSummary"
+      },
+      "TemplateRecord": {
+        "$ref": "./template-record.schema.json#/$defs/templateRecord"
+      },
+      "TemplateSaveInput": {
+        "$ref": "./template-record.schema.json#/$defs/templateSaveInput"
+      },
+      "TemplateListResponse": {
+        "type": "object",
+        "required": [
+          "items"
+        ],
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TemplateSummary"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "next": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Relative or absolute next-page URL."
+          }
+        },
+        "additionalProperties": false
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "parameters": {
+      "TemplateId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "$ref": "./template-record.schema.json#/$defs/identifier"
+        }
+      }
+    },
+    "headers": {
+      "ETag": {
+        "description": "Quoted persisted version used for optimistic concurrency.",
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "responses": {
+      "Error": {
+        "description": "Repository request failed.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      }
+    }
+  }
+}

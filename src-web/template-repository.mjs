@@ -11,6 +11,19 @@ const firstDefined = (record, names, fallback) => {
   return fallback;
 };
 
+const normalizeTimestamp = (value) => {
+  if (value instanceof Date) return Number.isNaN(value.getTime()) ? value : value.toISOString();
+  if (typeof value === "string") {
+    const match = /^\/Date\((-?\d+)(?:([+-])(\d{4}))?\)\/$/.exec(value);
+    if (match) {
+      const offset = match[2] ? Number(match[3]) * 60000 * (match[2] === "+" ? 1 : -1) : 0;
+      const date = new Date(Number(match[1]) + offset);
+      if (!Number.isNaN(date.getTime())) return date.toISOString();
+    }
+  }
+  return value;
+};
+
 export function createTemplateId() {
   return globalThis.crypto?.randomUUID?.() || `template-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
@@ -18,6 +31,7 @@ export function createTemplateId() {
 export function normalizeTemplateRecord(value = {}, repositoryId) {
   const raw = value || {};
   const tags = parseJson(firstDefined(raw, ["tags", "Tags"], []), []);
+  const etag = firstDefined(raw, ["etag", "ETag", "@odata.etag"], raw.__metadata?.etag);
   const record = {
     id: String(firstDefined(raw, ["id", "ID", "Id"], "")),
     name: String(firstDefined(raw, ["name", "Name", "title", "Title"], "")),
@@ -25,13 +39,14 @@ export function normalizeTemplateRecord(value = {}, repositoryId) {
     tags: Array.isArray(tags) ? tags.map(String) : String(tags || "").split(",").map((tag) => tag.trim()).filter(Boolean),
     status: String(firstDefined(raw, ["status", "Status"], "draft")),
     version: String(firstDefined(raw, ["version", "Version"], "1")),
-    updatedAt: firstDefined(raw, ["updatedAt", "UpdatedAt", "modifiedAt", "ModifiedAt"], null),
-    createdAt: firstDefined(raw, ["createdAt", "CreatedAt"], null),
+    updatedAt: normalizeTimestamp(firstDefined(raw, ["updatedAt", "UpdatedAt", "modifiedAt", "ModifiedAt"], null)),
+    createdAt: normalizeTimestamp(firstDefined(raw, ["createdAt", "CreatedAt"], null)),
     template: parseJson(firstDefined(raw, ["template", "Template", "templateJson", "TemplateJson"], null), null),
     mapping: parseJson(firstDefined(raw, ["mapping", "Mapping", "mappingJson", "MappingJson"], null), null),
     metadata: parseJson(firstDefined(raw, ["metadata", "Metadata", "metadataJson", "MetadataJson"], {}), {}),
     repositoryId: repositoryId || raw.repositoryId || raw.RepositoryId || ""
   };
+  if (etag !== undefined && etag !== null && etag !== "") record.etag = String(etag);
   const dataSources = parseJson(firstDefined(raw, ["dataSources", "DataSources", "dataSourcesJson", "DataSourcesJson"], undefined), undefined);
   if (dataSources !== undefined) record.dataSources = dataSources;
   if (!record.name) record.name = record.id || "Untitled template";
@@ -138,12 +153,28 @@ function appendQuery(url, values = {}) {
   return result;
 }
 
+function mergeHeaders(...groups) {
+  const output = {};
+  groups.filter(Boolean).forEach((group) => Object.entries(group).forEach(([key, value]) => {
+    const previous = Object.keys(output).find((candidate) => candidate.toLowerCase() === key.toLowerCase());
+    if (previous) delete output[previous];
+    output[key] = value;
+  }));
+  return output;
+}
+
 async function requestJson(source, context, url, options = {}) {
+  const { headers: optionHeaders = {}, ...requestOptions } = options;
+  const headers = mergeHeaders(
+    { accept: "application/json", ...(options.body ? { "content-type": "application/json" } : {}) },
+    source.headers,
+    optionHeaders
+  );
   const response = await resolveFetch(source, context)(url, {
     credentials: source.credentials || "same-origin",
-    headers: { ...(source.headers || {}), ...(options.body ? { "content-type": "application/json" } : {}), ...(options.headers || {}) },
     signal: context.signal,
-    ...options
+    ...requestOptions,
+    headers
   });
   if (!response.ok) throw new Error(`Template repository '${source.id}' failed with HTTP ${response.status}`);
   if (response.status === 204) return null;
@@ -206,23 +237,37 @@ const odataFields = {
   updatedAt: "UpdatedAt", createdAt: "CreatedAt", template: "TemplateJson", mapping: "MappingJson", metadata: "MetadataJson", dataSources: "DataSourcesJson"
 };
 
-function odataFilter(query, fields) {
+function odataFilter(query, fields, version = "4") {
   const clauses = [];
   const escape = (value) => String(value).replace(/'/g, "''");
   if (query.search || query.query) {
     const value = escape(query.search || query.query);
-    clauses.push(`(contains(tolower(${fields.name}),tolower('${value}')) or contains(tolower(${fields.description}),tolower('${value}')) or contains(tolower(${fields.tags}),tolower('${value}')))`);
+    const searchable = [fields.name, fields.description, fields.tags];
+    clauses.push(version === "2"
+      ? `(${searchable.map((field) => `substringof('${value}',${field}) eq true`).join(" or ")})`
+      : `(${searchable.map((field) => `contains(tolower(${field}),tolower('${value}'))`).join(" or ")})`);
   }
   if (query.status) clauses.push(`${fields.status} eq '${escape(query.status)}'`);
   return clauses.join(" and ");
 }
 
-function serializeOData(record, source) {
+function odataInt32(value) {
+  const text = String(value);
+  if (!/^[1-9][0-9]*$/.test(text)) throw new RangeError("OData Version must be an Int32 between 1 and 2147483647 using canonical decimal digits");
+  const number = Number(text);
+  if (!Number.isInteger(number) || number > 2_147_483_647) throw new RangeError("OData Version must be an Int32 between 1 and 2147483647 using canonical decimal digits");
+  return number;
+}
+
+function serializeOData(record, source, isCreate) {
   const fields = { ...odataFields, ...(source.fields || {}) };
   const output = {};
   Object.entries(fields).forEach(([key, field]) => {
     if (record[key] === undefined) return;
-    output[field] = ["template", "mapping", "metadata", "dataSources", "tags"].includes(key) ? JSON.stringify(record[key]) : record[key];
+    if (["createdAt", "updatedAt"].includes(key) && source.writeAuditFields !== true) return;
+    if (key === "id" && !isCreate) return;
+    if (key === "version") output[field] = odataInt32(record[key]);
+    else output[field] = ["template", "mapping", "metadata", "dataSources", "tags"].includes(key) ? JSON.stringify(record[key]) : record[key];
   });
   return output;
 }
@@ -233,34 +278,62 @@ function odataKeyUrl(source, id) {
   return `${source.url.replace(/\/$/, "")}('${encodeURIComponent(escaped)}')`;
 }
 
+function odataListSelect(source, fields) {
+  if (source.listSelect === false) return undefined;
+  const selected = source.listSelect || ["id", "name", "description", "tags", "status", "version", "createdAt", "updatedAt"].map((key) => fields[key]);
+  return Array.isArray(selected) ? selected.join(",") : selected;
+}
+
 const odataProvider = {
   async list(source, query, context) {
     const fields = { ...odataFields, ...(source.fields || {}) };
+    const version = String(source.odataVersion || "4") === "2" ? "2" : "4";
+    const filters = [source.query?.$filter, odataFilter(query, fields, version)].filter(Boolean);
     const url = appendQuery(source.url, {
       ...(source.query || {}),
-      $filter: [source.query?.$filter, odataFilter(query, fields)].filter(Boolean).join(" and "),
+      $select: source.query?.$select || odataListSelect(source, fields),
+      $filter: filters.map((filter) => `(${filter})`).join(" and "),
       $top: query.top,
       $skip: query.skip,
-      $count: source.count === false ? undefined : "true"
+      ...(version === "2"
+        ? { $inlinecount: source.count === false ? undefined : "allpages" }
+        : { $count: source.count === false ? undefined : "true" })
     }).toString();
     const records = await readAllPages({ ...source, followNext: source.followNext !== false }, context, url);
     return records.map((record) => normalizeTemplateRecord(record, source.id));
   },
   async get(source, id, context) {
     const payload = await requestJson(source, context, odataKeyUrl(source, id));
-    return normalizeTemplateRecord(payload?.d || payload, source.id);
+    return payload == null ? null : normalizeTemplateRecord(payload?.d || payload, source.id);
   },
   async save(source, input, context) {
     const record = normalizeTemplateRecord(input, source.id);
     const isCreate = !record.id;
     record.id ||= createTemplateId();
-    const body = serializeOData(record, source);
+    if (!isCreate && source.requireEtag === true && !record.etag) {
+      throw new Error(`Template repository '${source.id}' requires an ETag for OData updates`);
+    }
+    const etag = record.etag || (source.requireEtag === true ? undefined : source.etag);
+    const body = serializeOData(record, source, isCreate);
+    const version = String(source.odataVersion || "4") === "2" ? "2" : "4";
     const payload = await requestJson(source, context, isCreate ? source.url : odataKeyUrl(source, record.id), {
-      method: isCreate ? (source.createMethod || "POST") : (source.updateMethod || "PATCH"),
-      headers: source.etag ? { "if-match": source.etag } : undefined,
+      method: isCreate ? (source.createMethod || "POST") : (source.updateMethod || (version === "2" ? "MERGE" : "PATCH")),
+      headers: !isCreate && etag ? { "if-match": etag } : undefined,
       body: JSON.stringify(body)
     });
-    return normalizeTemplateRecord(payload?.d || payload || body, source.id);
+    const fields = { ...odataFields, ...(source.fields || {}) };
+    if (!isCreate && payload == null) {
+      const refreshed = await odataProvider.get(source, record.id, context);
+      if (!refreshed?.id) throw new Error(`Template repository '${source.id}' updated the record but could not refresh it`);
+      return refreshed;
+    }
+    const saved = normalizeTemplateRecord(payload?.d || payload || { [fields.id]: record.id, ...body }, source.id);
+    if (!isCreate && source.requireEtag === true && !saved.etag) {
+      const refreshed = await odataProvider.get(source, record.id, context);
+      if (!refreshed?.id || !refreshed.etag) throw new Error(`Template repository '${source.id}' updated the record but did not return a fresh ETag`);
+      return refreshed;
+    }
+    return saved;
   }
 };
 

@@ -2,6 +2,8 @@ import { createServer } from "node:http";
 import { randomUUID } from "node:crypto";
 
 const templates = new Map();
+const ID_PATTERN = /^[A-Za-z0-9][A-Za-z0-9._~-]{0,127}$/;
+const STATUSES = new Set(["draft", "published", "archived"]);
 const json = (response, status, body, headers = {}) => {
   response.writeHead(status, { "content-type": "application/json; charset=utf-8", ...headers });
   response.end(body == null ? "" : JSON.stringify(body));
@@ -15,8 +17,22 @@ const readBody = async (request) => {
   return body ? JSON.parse(body) : {};
 };
 const validate = (record) => {
-  if (!record.name?.trim()) throw new Error("name is required");
+  if (!ID_PATTERN.test(record.id)) throw new Error("id must be an opaque identifier of 1 to 128 safe characters");
+  if (typeof record.name !== "string" || !record.name.trim() || record.name.length > 160) throw new Error("name must contain 1 to 160 characters");
+  if (typeof record.description !== "string" || record.description.length > 1024) throw new Error("description must contain at most 1024 characters");
+  if (!Array.isArray(record.tags) || record.tags.length > 32) throw new Error("tags must be an array with at most 32 items");
+  const tags = record.tags.map((tag) => {
+    if (typeof tag !== "string" || !tag.trim() || tag.trim().length > 64) throw new Error("each tag must contain 1 to 64 characters");
+    return tag.trim();
+  });
+  if (new Set(tags.map((tag) => tag.toLocaleLowerCase())).size !== tags.length) throw new Error("tags must be unique ignoring case");
+  record.tags = tags;
+  if (!STATUSES.has(record.status)) throw new Error("status must be draft, published, or archived");
+  if (!/^[1-9][0-9]{0,9}$/.test(record.version) || Number(record.version) > 2_147_483_647) throw new Error("version must be between 1 and 2147483647");
   if (!record.template?.schemas || !Array.isArray(record.template.schemas)) throw new Error("a valid pdfme template is required");
+  if (record.mapping != null && (typeof record.mapping !== "object" || Array.isArray(record.mapping))) throw new Error("mapping must be an object or null");
+  if (!record.metadata || typeof record.metadata !== "object" || Array.isArray(record.metadata)) throw new Error("metadata must be an object");
+  if (record.dataSources != null && !Array.isArray(record.dataSources)) throw new Error("dataSources must be an array, null, or omitted");
 };
 
 const server = createServer(async (request, response) => {
@@ -44,7 +60,12 @@ const server = createServer(async (request, response) => {
       const previous = templates.get(recordId);
       if (previous && request.headers["if-match"] && request.headers["if-match"] !== `"${previous.version}"`) return json(response, 412, { error: "Template version conflict" });
       const now = new Date().toISOString();
-      const record = { ...previous, ...input, id: recordId, version: String(Number(previous?.version || 0) + 1), createdAt: previous?.createdAt || now, updatedAt: now };
+      const record = {
+        description: "", tags: [], status: "draft", metadata: {},
+        ...previous, ...input, id: recordId,
+        version: String(Number(previous?.version || 0) + 1),
+        createdAt: previous?.createdAt || now, updatedAt: now
+      };
       validate(record);
       templates.set(recordId, record);
       return json(response, previous ? 200 : 201, record, { etag: `"${record.version}"` });

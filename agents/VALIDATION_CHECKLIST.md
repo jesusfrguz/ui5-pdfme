@@ -37,6 +37,15 @@
 - [ ] React: ref is populated after mount and cleaned after unmount.
 - [ ] UI5: a production `ui5 build` passes and the library is declared in `manifest.json`.
 
+## Deferred generation
+
+- [ ] Submission returns a job ID before rendering finishes; status reaches `DONE` or `FAILED`.
+- [ ] A durable CAP/PostgreSQL job resumes after worker restart and is claimed by only one replica.
+- [ ] An idempotency key does not create duplicate documents.
+- [ ] The queued template ID/version is immutable and still available when the worker starts.
+- [ ] Scheduled `runAt`, retry exhaustion, authorization, download and retention behavior are tested.
+- [ ] Fiori/ABAP clients do not wait synchronously in a dialog process.
+
 ## Security/release
 
 - [ ] No token, cookie, credential, personal payload or private URL is committed.

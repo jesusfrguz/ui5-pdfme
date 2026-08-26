@@ -1,0 +1,24 @@
+services:
+  pdf-worker:
+    build:
+      context: ../../..
+      dockerfile: examples/deferred/docker/Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      API_TOKEN: ${API_TOKEN:-change-me}
+      CORS_ORIGIN: ${CORS_ORIGIN:-}
+      WORKER_ENABLED: ${WORKER_ENABLED:-true}
+      MAX_ATTEMPTS: ${MAX_ATTEMPTS:-3}
+      POLL_INTERVAL_MS: ${POLL_INTERVAL_MS:-1000}
+    volumes:
+      - pdf-output:/data/pdfs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3001/health',{headers:{authorization:'Bearer '+(process.env.API_TOKEN||'')}}).then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pdf-output:

@@ -13,7 +13,10 @@ Main references:
 - [SAPUI5/OpenUI5/Fiori installation](../agents/INSTALL_UI5.md)
 - [Template creation](../agents/CREATE_TEMPLATE.md)
 - [Data and OData](../agents/DATA_INTEGRATION.md)
-- [Template catalog and repositories](../agents/TEMPLATE_REPOSITORIES.md)
+- Template catalog and repositories web guide: [Spanish](repositories/index.html) · [English](repositories/en.html)
+- SAP/OData backend chooser: [Spanish](sap/index.html) · [English](sap/en.html)
+- Docker and deferred PDF generation: [web manual](deferred/index.html) · [agent recipe](../agents/DEFERRED_GENERATION.md)
+- [Template repository recipe for agents](../agents/TEMPLATE_REPOSITORIES.md)
 - [Validation checklist](../agents/VALIDATION_CHECKLIST.md)
 
 Run locally with `npm run docs:dev`.

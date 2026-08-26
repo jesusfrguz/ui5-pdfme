@@ -1,0 +1,7 @@
+.git
+**/node_modules
+**/.env
+**/output
+.playwright-cli
+.tmp-*
+coverage

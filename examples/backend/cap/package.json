@@ -1,0 +1,48 @@
+{
+  "name": "ui5-pdfme-cap-quickstart",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SAP CAP OData V4 template repository quickstart for ui5-pdfme",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": "^22.0.0 || ^24.0.0"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch",
+    "compile": "cds compile srv/template-service.cds --to edmx",
+    "test": "cds test"
+  },
+  "dependencies": {
+    "@sap/cds": "^10"
+  },
+  "devDependencies": {
+    "@cap-js/cds-test": "^1.0.2",
+    "@cap-js/sqlite": "^3",
+    "@sap/cds-dk": "^10"
+  },
+  "cds": {
+    "requires": {
+      "auth": {
+        "[development]": {
+          "kind": "mocked",
+          "users": {
+            "viewer": {
+              "password": "viewer",
+              "roles": [
+                "TemplateViewer"
+              ]
+            },
+            "editor": {
+              "password": "editor",
+              "roles": [
+                "TemplateViewer",
+                "TemplateEditor"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

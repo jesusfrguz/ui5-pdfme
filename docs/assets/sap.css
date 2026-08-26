@@ -1,0 +1,27 @@
+.hero-shot > .flow {
+  min-height: 230px;
+  margin: 0;
+  padding: 36px;
+  align-content: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #f8fbff, #e8f5ff);
+}
+
+@media (max-width: 620px) {
+  .content .matrix {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .content .matrix th,
+  .content .matrix td {
+    min-width: 118px;
+  }
+
+  .content .matrix th:first-child,
+  .content .matrix td:first-child {
+    min-width: 92px;
+  }
+}

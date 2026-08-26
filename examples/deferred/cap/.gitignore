@@ -1,0 +1,5 @@
+db.sqlite
+db.sqlite-*
+gen/
+mta_archives/
+node_modules/

@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://jesusfrguz.github.io/ui5-pdfme/contracts/template-record.schema.json",
+  "title": "ui5-pdfme template repository record",
+  "description": "Canonical REST/JavaScript representation of a ui5-pdfme template repository record. JSON payload properties have no intrinsic character limit; transports and services must enforce an operational request limit.",
+  "x-operational-max-payload-characters": 5000000,
+  "$ref": "#/$defs/templateRecord",
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._~-]{0,127}$",
+      "description": "Stable opaque template identifier. UUIDs and semantic identifiers are both valid.",
+      "x-odata-name": "ID",
+      "x-odata-type": "Edm.String",
+      "x-odata-max-length": 128
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]*$",
+      "maxLength": 10,
+      "description": "Positive decimal version normalized as a string by the JavaScript and REST contract. OData services and reference databases persist and transmit this value as Int32; adapters must convert at that boundary.",
+      "x-odata-name": "Version",
+      "x-odata-type": "Edm.Int32",
+      "x-database-type": "INTEGER",
+      "x-numeric-maximum": 2147483647
+    },
+    "template": {
+      "type": "object",
+      "required": [
+        "schemas"
+      ],
+      "properties": {
+        "schemas": {
+          "type": "array"
+        }
+      },
+      "additionalProperties": true,
+      "description": "A valid pdfme template. It is JSON in REST/JavaScript and a JSON-encoded, unbounded Edm.String in the default OData profile.",
+      "x-odata-name": "TemplateJson",
+      "x-odata-type": "Edm.String",
+      "x-odata-json-encoded": true,
+      "x-intrinsic-max-length": null
+    },
+    "mapping": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "description": "Field mapping object. It is JSON in REST/JavaScript and a JSON-encoded, unbounded Edm.String in the default OData profile.",
+      "x-odata-name": "MappingJson",
+      "x-odata-type": "Edm.String",
+      "x-odata-json-encoded": true,
+      "x-intrinsic-max-length": null
+    },
+    "metadata": {
+      "type": "object",
+      "default": {},
+      "additionalProperties": true,
+      "description": "Application metadata. It is JSON in REST/JavaScript and a JSON-encoded, unbounded Edm.String in the default OData profile.",
+      "x-odata-name": "MetadataJson",
+      "x-odata-type": "Edm.String",
+      "x-odata-json-encoded": true,
+      "x-intrinsic-max-length": null
+    },
+    "dataSources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true
+      },
+      "description": "Optional stored data-source definitions. It is JSON in REST/JavaScript and a JSON-encoded, unbounded Edm.String in the default OData profile. Credentials and private payloads must never be stored here.",
+      "x-odata-name": "DataSourcesJson",
+      "x-odata-type": "Edm.String",
+      "x-odata-json-encoded": true,
+      "x-intrinsic-max-length": null
+    },
+    "recordProperties": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "x-odata-name": "Name",
+          "x-odata-type": "Edm.String",
+          "x-odata-max-length": 160
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 1024,
+          "default": "",
+          "description": "Human-readable description.",
+          "x-odata-name": "Description",
+          "x-odata-type": "Edm.String",
+          "x-odata-max-length": 1024
+        },
+        "tags": {
+          "type": "array",
+          "maxItems": 32,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "default": [],
+          "description": "At most 32 trimmed, case-insensitively unique tags. It is a string array in REST/JavaScript and JSON-encoded text in the default OData profile.",
+          "x-odata-name": "Tags",
+          "x-odata-type": "Edm.String",
+          "x-odata-json-encoded": true,
+          "x-odata-max-length": 4096
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "draft",
+            "published",
+            "archived"
+          ],
+          "default": "draft",
+          "maxLength": 20,
+          "x-odata-name": "Status",
+          "x-odata-type": "Edm.String",
+          "x-odata-max-length": 20
+        },
+        "version": {
+          "$ref": "#/$defs/version"
+        },
+        "createdAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "readOnly": true,
+          "description": "Backend-owned RFC 3339 timestamp.",
+          "x-odata-name": "CreatedAt",
+          "x-odata-type": "Edm.DateTimeOffset"
+        },
+        "updatedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time",
+          "readOnly": true,
+          "description": "Backend-owned RFC 3339 timestamp.",
+          "x-odata-name": "UpdatedAt",
+          "x-odata-type": "Edm.DateTimeOffset"
+        },
+        "template": {
+          "$ref": "#/$defs/template"
+        },
+        "mapping": {
+          "$ref": "#/$defs/mapping"
+        },
+        "metadata": {
+          "$ref": "#/$defs/metadata"
+        },
+        "dataSources": {
+          "$ref": "#/$defs/dataSources"
+        },
+        "repositoryId": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Runtime repository identifier added by TemplateStore. Backends must not persist it.",
+          "x-persisted": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "templateSummary": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/recordProperties"
+        },
+        {
+          "required": [
+            "id",
+            "name",
+            "status",
+            "version"
+          ]
+        }
+      ]
+    },
+    "templateRecord": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/recordProperties"
+        },
+        {
+          "required": [
+            "id",
+            "name",
+            "status",
+            "version",
+            "template",
+            "metadata"
+          ]
+        }
+      ]
+    },
+    "templateSaveInput": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/recordProperties"
+        },
+        {
+          "required": [
+            "name",
+            "template"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,8 @@
+.deferred-doc .content{min-width:0}
+@media(max-width:620px){
+  .deferred-doc .content h2{font-size:30px;overflow-wrap:anywhere}
+  .deferred-doc .matrix{display:block;max-width:100%;overflow-x:auto}
+  .deferred-doc .flow{display:grid;grid-template-columns:minmax(0,1fr);justify-items:stretch}
+  .deferred-doc .flow span{text-align:center;overflow-wrap:anywhere}
+  .deferred-doc .flow i{justify-self:center;transform:rotate(90deg)}
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0"
+  xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+  xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+  xmlns:sap="http://www.sap.com/Protocols/SAPData">
+  <edmx:DataServices m:DataServiceVersion="2.0">
+    <Schema Namespace="Ui5Pdfme" xmlns="http://schemas.microsoft.com/ado/2008/09/edm" sap:schema-version="1">
+      <EntityType Name="Template">
+        <Key><PropertyRef Name="ID"/></Key>
+        <Property Name="ID" Type="Edm.String" Nullable="false" MaxLength="128"/>
+        <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="160"/>
+        <Property Name="Description" Type="Edm.String" Nullable="false" MaxLength="1024"/>
+        <Property Name="Tags" Type="Edm.String" Nullable="false" MaxLength="4096"/>
+        <Property Name="Status" Type="Edm.String" Nullable="false" MaxLength="20"/>
+        <Property Name="Version" Type="Edm.Int32" Nullable="false"/>
+        <Property Name="TemplateJson" Type="Edm.String" Nullable="false"/>
+        <Property Name="MappingJson" Type="Edm.String"/>
+        <Property Name="MetadataJson" Type="Edm.String" Nullable="false"/>
+        <Property Name="DataSourcesJson" Type="Edm.String"/>
+        <Property Name="CreatedAt" Type="Edm.DateTime" Nullable="false" Precision="7" sap:creatable="false" sap:updatable="false"/>
+        <Property Name="UpdatedAt" Type="Edm.DateTime" Nullable="false" Precision="7" ConcurrencyMode="Fixed" sap:creatable="false" sap:updatable="false"/>
+      </EntityType>
+      <EntityContainer Name="Ui5PdfmeService" m:IsDefaultEntityContainer="true">
+        <EntitySet Name="Templates" EntityType="Ui5Pdfme.Template" sap:creatable="true" sap:updatable="true" sap:deletable="false"/>
+      </EntityContainer>
+    </Schema>
+  </edmx:DataServices>
+</edmx:Edmx>

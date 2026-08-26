@@ -41,10 +41,10 @@ It combines the [pdfme](https://pdfme.com/) designer/generator with declarative 
 npm install ui5-pdfme
 ```
 
-Until the package is published in npm, install the precompiled GitHub release (including the UI5 distribution):
+Until the package is published in npm, install the latest precompiled GitHub release (including the UI5 distribution):
 
 ```bash
-npm install https://github.com/jesusfrguz/ui5-pdfme/releases/download/v0.1.0/ui5-pdfme-0.1.0.tgz
+npm install $(node -e "fetch('https://api.github.com/repos/jesusfrguz/ui5-pdfme/releases/latest').then(r => r.json()).then(r => console.log(r.assets.find(a => a.name.endsWith('.tgz')).browser_download_url))")
 ```
 
 Node.js 20+ is required for development. Browser consumers should use a modern ESM/WASM-capable bundler such as Vite.
@@ -168,9 +168,9 @@ The toolbar includes a bilingual quick-help dialog. Configure `helpUrl` to point
 
 Static fields and data-bound Text fields expose **Fixed non-moving position** (`fixedPosition: true`). This keeps the element at its absolute coordinates and outside the dynamic-content flow. Enabling it reveals the optional **Repeat on every page** flag (`repeatOnEveryPage: true`). The saved schema remains selectable in the designer; preview and generation materialize fixed content, including its resolved input value, without mutating the saved template. During generation, repeated fixed fields automatically extend the nearest top or bottom `basePdf.padding` boundary so dynamic content that moves to another page cannot overlap them; configured padding remains the minimum. Repeated static text supports `{currentPage}` and `{totalPages}`.
 
-`templateRepositories` accepts `memory`, `localStorage`, `rest`, `odata`, and `function` sources. The Templates toolbar action opens the visual catalog, where users can start with a blank A4 template, load an existing PDF as the pdfme `basePdf`, or search and filter configured repositories. Creating and importing remain available without a repository; persistence still requires one. REST/OData pagination is followed automatically. Stored data-source definitions are excluded by default and require explicit `persistDataSources`/`applyStoredDataSources` opt-ins.
+`templateRepositories` accepts `memory`, `localStorage`, `rest`, `odata`, and `function` sources. The Templates toolbar action opens the visual catalog, where users can start with a blank A4 template, load an existing PDF as the pdfme `basePdf`, or search and filter configured repositories. Creating and importing remain available without a repository; persistence still requires one. Web REST/OData follows next links up to `maxPages`; UI5 OData V4 uses `pageSize` and `maxRecords`. Stored data-source definitions are excluded by default and require explicit `persistDataSources`/`applyStoredDataSources` opt-ins.
 
-Web events are prefixed with `pdfme:` (`pdfme:templateSave`, `pdfme:templatesListed`, `pdfme:templateLoaded`, `pdfme:templateSaved`, `pdfme:dataResolved`, `pdfme:generated`, `pdfme:error`). The UI5 control exposes the equivalent native events.
+Web events are prefixed with `pdfme:`. `WebPdfTemplateStudio` emits `pdfme:templateSave`, `pdfme:templateLoaded`, `pdfme:templateSaved`, `pdfme:dataResolved`, `pdfme:generated`, and `pdfme:error`; `WebTemplateCatalog` emits `pdfme:templatesListed` and `pdfme:templateOpen` on its own root. The UI5 control exposes the equivalent native lifecycle events.
 
 ## Documentation
 
@@ -182,7 +182,11 @@ Web events are prefixed with `pdfme:` (`pdfme:templateSave`, `pdfme:templatesLis
 - [React recipe](agents/INSTALL_REACT.md)
 - [Template creation](agents/CREATE_TEMPLATE.md)
 - [Data and OData integration](agents/DATA_INTEGRATION.md)
-- [Template catalog and repositories](agents/TEMPLATE_REPOSITORIES.md)
+- [Template catalog and repositories guide](docs/repositories/en.html)
+- [SAP backend chooser: RAP, CAP, CDS, and SEGW](docs/sap/en.html)
+- [Deferred generation manual for CAP, Docker, Node, Fiori, BTP, and ABAP](docs/deferred/index.html)
+- [Runnable deferred-generation examples](examples/deferred/README.md)
+- [Template repository integration recipe for agents](agents/TEMPLATE_REPOSITORIES.md)
 - [Validation checklist](agents/VALIDATION_CHECKLIST.md)
 
 ## Development

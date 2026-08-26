@@ -1,0 +1,376 @@
+- generic [active] [ref=f4e1]:
+  - banner [ref=f4e2]:
+    - link "PDF ui5-pdfme" [ref=f4e3] [cursor=pointer]:
+      - /url: "#top"
+      - generic [ref=f4e4]: PDF
+      - text: ui5-pdfme
+    - button "Open navigation" [ref=f4e5]: Menu
+    - group "Language" [ref=f4e6]:
+      - link "ES" [ref=f4e7] [cursor=pointer]:
+        - /url: index.html
+      - link "EN" [ref=f4e8] [cursor=pointer]:
+        - /url: en.html
+  - generic [ref=f4e10]:
+    - generic [ref=f4e11]:
+      - generic [ref=f4e12]: Implementation guide
+      - heading "One contract. Several SAP routes." [level=1] [ref=f4e13]: One contract.Several SAP routes.
+      - paragraph [ref=f4e14]: Choose RAP, CAP, SAP Gateway/SEGW, classic CDS, or REST without changing the template-catalog contract.
+      - generic [ref=f4e15]:
+        - link "Choose a route" [ref=f4e16] [cursor=pointer]:
+          - /url: "#choose"
+        - link "Download the kit" [ref=f4e17] [cursor=pointer]:
+          - /url: "#downloads"
+    - generic "SAP backend routes" [ref=f4e18]:
+      - generic [ref=f4e19]:
+        - generic [ref=f4e20]: ui5-pdfme
+        - generic [ref=f4e21]: →
+        - generic [ref=f4e22]: OData V4 · OData V2 · REST
+  - main [ref=f4e24]:
+    - generic [ref=f4e25]:
+      - text: Decision
+      - heading "Which route to choose" [level=2] [ref=f4e26]
+      - paragraph [ref=f4e27]: For new development, use RAP V4 on modern ABAP or CAP V4 on BTP. Keep SEGW V2 for legacy Gateway landscapes and classic CDS only as a read-only index.
+      - table [ref=f4e28]:
+        - rowgroup [ref=f4e29]:
+          - row [ref=f4e30]:
+            - columnheader "Route" [ref=f4e31]
+            - columnheader "Protocol" [ref=f4e32]
+            - columnheader "Full payload" [ref=f4e33]
+            - columnheader "Choose it when" [ref=f4e34]
+            - columnheader "Initial effort" [ref=f4e35]
+        - rowgroup [ref=f4e36]:
+          - row [ref=f4e37]:
+            - cell [ref=f4e38]:
+              - strong [ref=f4e39]: RAP
+            - cell "OData V4" [ref=f4e40]
+            - cell "Yes" [ref=f4e41]
+            - cell "New service on modern S/4HANA/ABAP" [ref=f4e42]
+            - cell "ADT wizard or optional XCO" [ref=f4e43]
+          - row [ref=f4e44]:
+            - cell [ref=f4e45]:
+              - strong [ref=f4e46]: CAP on BTP
+            - cell "OData V4" [ref=f4e47]
+            - cell "Yes" [ref=f4e48]
+            - cell "Node.js/Java backend on SAP BTP" [ref=f4e49]
+            - cell "Included quickstart" [ref=f4e50]
+          - row [ref=f4e51]:
+            - cell [ref=f4e52]:
+              - strong [ref=f4e53]: Gateway / SEGW
+            - cell "OData V2" [ref=f4e54]
+            - cell "Yes" [ref=f4e55]
+            - cell "Legacy Gateway/ECC/S/4 landscape without RAP" [ref=f4e56]
+            - cell "Import EDMX + implement DPC_EXT" [ref=f4e57]
+          - row [ref=f4e58]:
+            - cell [ref=f4e59]:
+              - strong [ref=f4e60]: Classic CDS
+            - cell "OData V2" [ref=f4e61]
+            - cell "No" [ref=f4e62]
+            - cell "Existing, read-only index" [ref=f4e63]
+            - cell [ref=f4e64]:
+              - code [ref=f4e65]: "@OData.publish: true"
+              - text: + registration
+          - row [ref=f4e66]:
+            - cell [ref=f4e67]:
+              - strong [ref=f4e68]: REST
+            - cell "JSON HTTP" [ref=f4e69]
+            - cell "Yes" [ref=f4e70]
+            - cell "Neutral backend or existing API" [ref=f4e71]
+            - cell "OpenAPI + Node/PostgreSQL examples" [ref=f4e72]
+      - generic [ref=f4e73]:
+        - strong [ref=f4e74]: "Practical rule:"
+        - text: do not create new classic CDS or SEGW V4 merely to avoid RAP. If the service belongs on BTP, CAP is the natural route; if it belongs on modern AS ABAP, use RAP.
+    - generic [ref=f4e75]:
+      - text: Common schema
+      - heading "Types and lengths" [level=2] [ref=f4e76]
+      - table [ref=f4e77]:
+        - rowgroup [ref=f4e78]:
+          - row [ref=f4e79]:
+            - columnheader "Field" [ref=f4e80]
+            - columnheader "OData" [ref=f4e81]
+            - columnheader "ABAP / CAP" [ref=f4e82]
+            - columnheader "Rule" [ref=f4e83]
+        - rowgroup [ref=f4e84]:
+          - row [ref=f4e85]:
+            - cell [ref=f4e86]:
+              - code [ref=f4e87]: ID
+            - cell [ref=f4e88]:
+              - code [ref=f4e89]: Edm.String(128)
+              - text: ", key"
+            - cell [ref=f4e90]:
+              - code [ref=f4e91]: CHAR(128)
+              - text: /
+              - code [ref=f4e92]: String(128)
+            - cell [ref=f4e93]:
+              - text: 1–128; pattern
+              - code [ref=f4e94]: "^[A-Za-z0-9][A-Za-z0-9._~-]{0,127}$"
+          - row [ref=f4e95]:
+            - cell [ref=f4e96]:
+              - code [ref=f4e97]: Name
+            - cell [ref=f4e98]:
+              - code [ref=f4e99]: Edm.String(160)
+            - cell [ref=f4e100]:
+              - code [ref=f4e101]: CHAR(160)
+              - text: /
+              - code [ref=f4e102]: String(160)
+            - cell "1–160" [ref=f4e103]
+          - row [ref=f4e104]:
+            - cell [ref=f4e105]:
+              - code [ref=f4e106]: Description
+            - cell [ref=f4e107]:
+              - code [ref=f4e108]: Edm.String(1024)
+            - cell [ref=f4e109]:
+              - code [ref=f4e110]: CHAR(1024)
+              - text: /
+              - code [ref=f4e111]: String(1024)
+            - cell "0–1024" [ref=f4e112]
+          - row [ref=f4e113]:
+            - cell [ref=f4e114]:
+              - code [ref=f4e115]: Tags
+            - cell [ref=f4e116]:
+              - text: JSON in
+              - code [ref=f4e117]: Edm.String(4096)
+            - cell [ref=f4e118]:
+              - code [ref=f4e119]: CHAR(4096)
+              - text: /
+              - code [ref=f4e120]: String(4096)
+            - cell "max 32 unique; 1–64 per tag" [ref=f4e121]
+          - row [ref=f4e122]:
+            - cell [ref=f4e123]:
+              - code [ref=f4e124]: Status
+            - cell [ref=f4e125]:
+              - code [ref=f4e126]: Edm.String(20)
+            - cell [ref=f4e127]:
+              - code [ref=f4e128]: CHAR(20)
+              - text: /
+              - code [ref=f4e129]: String(20)
+            - cell [ref=f4e130]:
+              - code [ref=f4e131]: draft
+              - text: ","
+              - code [ref=f4e132]: published
+              - text: ","
+              - code [ref=f4e133]: archived
+          - row [ref=f4e134]:
+            - cell [ref=f4e135]:
+              - code [ref=f4e136]: Version
+            - cell [ref=f4e137]:
+              - code [ref=f4e138]: Edm.Int32
+            - cell [ref=f4e139]:
+              - code [ref=f4e140]: INT4
+              - text: /
+              - code [ref=f4e141]: Integer
+            - cell "1–2,147,483,647" [ref=f4e142]
+          - row [ref=f4e143]:
+            - cell [ref=f4e144]:
+              - text: Four
+              - code [ref=f4e145]: "*Json"
+              - text: fields
+            - cell [ref=f4e146]:
+              - text: unbounded
+              - code [ref=f4e147]: Edm.String
+            - cell [ref=f4e148]:
+              - code [ref=f4e149]: STRING
+              - text: /
+              - code [ref=f4e150]: LargeString
+            - cell "valid JSON; reference total limit 5,000,000 characters" [ref=f4e151]
+          - row [ref=f4e152]:
+            - cell "Audit" [ref=f4e153]
+            - cell [ref=f4e154]:
+              - text: V4
+              - code [ref=f4e155]: Edm.DateTimeOffset
+              - text: / V2
+              - code [ref=f4e156]: Edm.DateTime
+            - cell "backend audit fields" [ref=f4e157]
+            - cell "ignore client-supplied values" [ref=f4e158]
+      - paragraph [ref=f4e159]:
+        - code [ref=f4e160]: repositoryId
+        - text: is runtime-only. Credentials must never enter
+        - code [ref=f4e161]: DataSourcesJson
+        - text: . See the
+        - link "full REST/OData contract" [ref=f4e162] [cursor=pointer]:
+          - /url: ../repositories/en.html#field-contract
+        - text: .
+    - generic [ref=f4e163]:
+      - text: Recommended on ABAP
+      - heading "RAP with OData V4" [level=2] [ref=f4e164]
+      - paragraph [ref=f4e165]:
+        - text: The fastest supported path is the ADT
+        - strong [ref=f4e166]: Generate ABAP Repository Objects → OData Web API Service
+        - text: wizard. The optional installer uses XCO APIs to create only missing data elements, table, root/projection views, BDEFs, behavior pool, service definition, and service binding.
+      - paragraph [ref=f4e167]: The program takes a transportable package and a modifiable Workbench request. It starts in dry-run mode, never overwrites or deletes objects, and publishes the local endpoint only when explicitly selected. It targets an SAP S/4HANA 2022+ baseline; XCO APIs vary by release/SP, so syntax-check and ATC-check it in the target system.
+      - generic [ref=f4e168]:
+        - strong [ref=f4e169]: "Before production:"
+        - text: add DCL/authorization, contract validation, server-side version increment, ETag, read-only audit fields, and limits. Confirm that all four JSON fields are unbounded
+        - code [ref=f4e170]: Edm.String
+        - text: properties in
+        - code [ref=f4e171]: $metadata
+        - text: .
+    - generic [ref=f4e172]:
+      - text: BTP
+      - heading "SAP CAP CDS with OData V4" [level=2] [ref=f4e173]
+      - paragraph [ref=f4e174]:
+        - text: The included CAP Node.js quickstart defines the schema, OData V4 projection,
+        - code [ref=f4e175]: TemplateViewer
+        - text: /
+        - code [ref=f4e176]: TemplateEditor
+        - text: roles, validation, version/ETag handling, and limits. It uses SQLite locally and documents HANA/XSUAA/MTA preparation for BTP.
+      - generic [ref=f4e177]:
+        - code [ref=f4e178]: cd examples/backend/cap npm ci npm run start
+        - button "Copy" [ref=f4e179] [cursor=pointer]
+      - paragraph [ref=f4e180]: "CAP does not use an ABAP package or Workbench request: artifacts move through Git, CI/CD, MTA/HDI, and the project's BTP configuration."
+    - generic [ref=f4e181]:
+      - text: Complete legacy route
+      - heading "SAP Gateway / SEGW OData V2" [level=2] [ref=f4e182]
+      - paragraph [ref=f4e183]:
+        - text: This is the viable legacy option for complete CRUD and long JSON. Download the EDMX, create a SEGW project in the backend package/request, import the model, generate MPC/DPC, and implement persistence in
+        - code [ref=f4e184]: DPC_EXT
+        - text: . Unbounded
+        - code [ref=f4e185]: Edm.String
+        - text: properties must map to ABAP
+        - code [ref=f4e186]: STRING
+        - text: .
+      - list [ref=f4e187]:
+        - listitem [ref=f4e188]: Create/verify DDIC and the IWPR project.
+        - listitem [ref=f4e189]: Import the EDMX and generate MPC/MPC_EXT, DPC/DPC_EXT, IWSV, and IWMO.
+        - listitem [ref=f4e190]: Implement a lightweight list, full detail, create, and update.
+        - listitem [ref=f4e191]:
+          - text: Activate on the hub with an existing alias; test
+          - code [ref=f4e192]: $metadata
+          - text: ", CSRF, and ETag."
+      - paragraph [ref=f4e193]: SAP does not publish a universal API that creates/imports/generates an end-to-end SEGW project across the 7.40/7.50 landscape. The GUI step remains explicit. For unattended installation, prepare a transport or Add-On certified for each target release.
+    - generic [ref=f4e194]:
+      - text: Limited legacy route
+      - heading "Classic CDS with V2 auto-exposure" [level=2] [ref=f4e195]
+      - paragraph [ref=f4e196]:
+        - code [ref=f4e197]: "@OData.publish: true"
+        - text: generates the
+        - code [ref=f4e198]: ZPDFME_CDS_TPL_CDS
+        - text: service and backend artifacts when the DDLS is activated; it must then be registered in
+        - code [ref=f4e199]: /IWFND/MAINT_SERVICE
+        - text: or through the optional hub activator.
+      - paragraph [ref=f4e200]:
+        - text: This route exposes catalog headers only. Classic DDIC-based CDS views cannot portably expose
+        - code [ref=f4e201]: STRING
+        - text: /
+        - code [ref=f4e202]: RAWSTRING
+        - text: /
+        - code [ref=f4e203]: LCHR
+        - text: /
+        - code [ref=f4e204]: LRAW
+        - text: ", and"
+        - code [ref=f4e205]: SSTRING
+        - text: cannot hold a complete template. It therefore does not implement full-contract
+        - code [ref=f4e206]: get
+        - text: /
+        - code [ref=f4e207]: save
+        - text: .
+    - generic [ref=f4e208]:
+      - text: Neutral
+      - heading "REST" [level=2] [ref=f4e209]
+      - paragraph [ref=f4e210]: If OData metadata is not useful, use the OpenAPI contract with the Node example and PostgreSQL schema. This is the portable option for an existing backend and preserves native JSON. Authentication, authorization, tenant isolation, ETag/version, and limits still belong to the service.
+    - generic [ref=f4e211]:
+      - text: Optional
+      - heading "What the XCO installer does" [level=2] [ref=f4e212]
+      - generic "Installer flow" [ref=f4e213]:
+        - generic [ref=f4e214]: Analyze
+        - generic [ref=f4e215]: →
+        - generic [ref=f4e216]: Compare
+        - generic [ref=f4e217]: →
+        - generic [ref=f4e218]: Plan
+        - generic [ref=f4e219]: →
+        - generic [ref=f4e220]: Create missing
+        - generic [ref=f4e221]: →
+        - generic [ref=f4e222]: Verify
+      - list [ref=f4e223]:
+        - listitem [ref=f4e224]:
+          - text: Asks for RAP/CDS/SEGW route, package, Workbench request,
+          - strong [ref=f4e225]: Apply
+          - text: ", and"
+          - strong [ref=f4e226]: Publish
+          - text: .
+        - listitem [ref=f4e227]: The default mode only lists existing/missing objects.
+        - listitem [ref=f4e228]: For RAP it creates the complete skeleton and can publish the local V4 binding.
+        - listitem [ref=f4e229]: For CDS it creates a read-only V2 index; for SEGW it creates/verifies DDIC and points to the EDMX.
+        - listitem [ref=f4e230]: It never overwrites, deletes, releases requests, creates aliases/RFC/trust, or loads catalog data.
+      - paragraph [ref=f4e231]: "An existing object is preserved even when incompatible: compare its fields/types with this guide before applying. Template records are application data and must not be transported in the Workbench request."
+    - generic [ref=f4e232]:
+      - text: CTS
+      - heading "Packages, transports, and hub" [level=2] [ref=f4e233]
+      - table [ref=f4e234]:
+        - rowgroup [ref=f4e235]:
+          - row [ref=f4e236]:
+            - columnheader "Area" [ref=f4e237]
+            - columnheader "Package / request" [ref=f4e238]
+            - columnheader "Contents" [ref=f4e239]
+        - rowgroup [ref=f4e240]:
+          - row [ref=f4e241]:
+            - cell "RAP backend" [ref=f4e242]
+            - cell "Transportable package + compatible modifiable Workbench request" [ref=f4e243]
+            - cell "DDIC, DDLS, BDEF, class, SRVD, SRVB" [ref=f4e244]
+          - row [ref=f4e245]:
+            - cell "SEGW/CDS backend" [ref=f4e246]
+            - cell "Backend package + Workbench request" [ref=f4e247]
+            - cell "DDIC, IWPR/classes, IWSV, IWMO" [ref=f4e248]
+          - row [ref=f4e249]:
+            - cell "Distributed hub" [ref=f4e250]
+            - cell "Potentially separate hub package + Workbench request" [ref=f4e251]
+            - cell "IWSG, IWOM, activation" [ref=f4e252]
+          - row [ref=f4e253]:
+            - cell "Landscape" [ref=f4e254]
+            - cell "Existing configuration; possibly a Customizing request" [ref=f4e255]
+            - cell "alias, RFC, trust, ICF, authorization" [ref=f4e256]
+          - row [ref=f4e257]:
+            - cell "CAP/BTP" [ref=f4e258]
+            - cell "ABAP CTS not applicable" [ref=f4e259]
+            - cell "Git, CI/CD, MTA/HDI/XSUAA" [ref=f4e260]
+    - generic [ref=f4e261]:
+      - text: Consumption
+      - heading "Client configuration" [level=2] [ref=f4e262]
+      - generic [ref=f4e263]:
+        - code [ref=f4e264]: "// CAP or RAP V4 over HTTP { type: \"odata\", odataVersion: 4, url: \"/odata/v4/.../Templates\" } // Gateway or CDS V2 over HTTP { type: \"odata\", odataVersion: 2, url: \"/sap/opu/odata/sap/.../Templates\" }"
+        - button "Copy" [ref=f4e265] [cursor=pointer]
+      - paragraph [ref=f4e266]: The HTTP provider uses V2/V4-specific filtering, count, and update methods. In SAPUI5/Fiori, prefer a propagated V2/V4 OData model so the host retains destinations, sessions, CSRF, batches, and dynamic ETags.
+    - generic [ref=f4e267]:
+      - text: Kit
+      - heading "Downloads" [level=2] [ref=f4e268]
+      - generic [ref=f4e269]:
+        - article [ref=f4e270]:
+          - heading "XCO installer" [level=3] [ref=f4e271]
+          - paragraph [ref=f4e272]: Temporary ABAP program, dry-run by default.
+          - link "Download .abap" [ref=f4e273] [cursor=pointer]:
+            - /url: ../downloads/sap/zui5_pdfme_install.prog.abap
+        - article [ref=f4e274]:
+          - heading "SEGW V2 model" [level=3] [ref=f4e275]
+          - paragraph [ref=f4e276]: Importable EDMX with types and lengths.
+          - link "Download .edmx" [ref=f4e277] [cursor=pointer]:
+            - /url: ../downloads/sap/template-repository-v2.edmx
+        - article [ref=f4e278]:
+          - heading "V2 activator" [level=3] [ref=f4e279]
+          - paragraph [ref=f4e280]: Activates an existing backend service on the hub.
+          - link "Download .abap" [ref=f4e281] [cursor=pointer]:
+            - /url: ../downloads/sap/zui5_pdfme_activate_v2.prog.abap
+        - article [ref=f4e282]:
+          - heading "CAP quickstart" [level=3] [ref=f4e283]
+          - paragraph [ref=f4e284]: Runnable and tested Node.js project.
+          - link "Open project" [ref=f4e285] [cursor=pointer]:
+            - /url: https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/backend/cap
+    - generic [ref=f4e286]:
+      - text: Done
+      - heading "Required validation" [level=2] [ref=f4e287]
+      - list [ref=f4e288]:
+        - listitem [ref=f4e289]:
+          - text: Compare names, types, nullability, and lengths against
+          - code [ref=f4e290]: $metadata
+          - text: .
+        - listitem [ref=f4e291]: Test a LOB-free list, complete detail, create, update, and ETag conflict.
+        - listitem [ref=f4e292]: Test V2 or V4 filters/paging with the selected client.
+        - listitem [ref=f4e293]: Validate authorization, tenant/owner, CSRF, size, and malformed JSON.
+        - listitem [ref=f4e294]: Save, reload, and generate a valid PDF from the retrieved template.
+        - listitem [ref=f4e295]: Confirm no credential or private payload enters templates, logs, screenshots, or requests.
+  - contentinfo [ref=f4e296]:
+    - text: ui5-pdfme ·
+    - link "Technical documentation" [ref=f4e297] [cursor=pointer]:
+      - /url: ../en.html
+    - text: ·
+    - link "Catalog and repositories" [ref=f4e298] [cursor=pointer]:
+      - /url: ../repositories/en.html
+    - text: · Apache-2.0

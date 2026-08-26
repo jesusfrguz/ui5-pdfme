@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Jesús Franco Guzmán">
-  <meta name="description" content="Documentación técnica y funcional de ui5-pdfme para SAPUI5, OpenUI5, Fiori, React y JavaScript.">
+  <meta name="description" content="Documentación técnica y funcional de ui5-pdfme para SAPUI5, OpenUI5, Fiori, React, JavaScript y Docker.">
   <title>ui5-pdfme · Documentación</title>
   <link rel="alternate" hreflang="es" href="index.html">
   <link rel="alternate" hreflang="en" href="en.html">
@@ -16,13 +16,13 @@
   <header class="topbar">
     <a class="brand" href="#top"><span class="mark">PDF</span> ui5-pdfme</a>
     <button class="menu" aria-label="Abrir navegación">Menú</button>
-    <nav aria-label="Navegación principal"><a href="#quickstart">Inicio</a><a href="guide/">Guía de uso</a><a href="#platforms">Plataformas</a><a href="examples/">Demos</a><a href="#data">Datos</a><a href="#api">API</a><a href="https://github.com/jesusfrguz/ui5-pdfme">GitHub</a></nav>
+    <nav aria-label="Navegación principal"><a href="#quickstart">Integrar</a><a href="guide/">Guía de uso</a><a href="#choose-guide">Qué guía necesito</a><a href="examples/">Demos</a><a href="repositories/">Repositorios</a><a href="deferred/">Diferida</a><a href="https://github.com/jesusfrguz/ui5-pdfme">GitHub</a></nav>
     <div class="language-switch" role="group" aria-label="Idioma"><a href="index.html" lang="es" hreflang="es" aria-current="page" data-language="es">ES</a><a href="en.html" lang="en" hreflang="en" data-language="en">EN</a></div>
   </header>
 
   <div class="hero" id="top"><div class="hero-inner">
     <div>
-      <span class="eyebrow">SAPUI5 · OpenUI5 · Fiori · React · JavaScript</span>
+      <span class="eyebrow">SAPUI5 · OpenUI5 · Fiori · React · JavaScript · Docker</span>
       <h1>Diseña una vez.<br>Imprime con cualquier dato.</h1>
       <p>Editor visual de formularios PDF con plantillas JSON, múltiples fuentes, OData V2/V4, tablas, variables, vista previa, descarga e impresión.</p>
       <div class="actions"><a class="button" href="examples/">Probar demos</a><a class="button secondary" href="guide/">Guía de uso</a><a class="button secondary" href="#quickstart">Integrar</a></div>
@@ -32,14 +32,59 @@
 
   <div class="shell">
     <aside class="side" aria-label="Contenido">
-      <a href="#overview">Visión general</a><a href="#quickstart">Inicio rápido</a><a href="#architecture">Arquitectura</a><a href="#platforms">Plataformas</a><a href="#data">Datos y OData</a><a href="#mapping">Mapeos</a><a href="#templates">Plantillas</a><a href="#api">API y eventos</a><a href="#persistence">Persistencia</a><a href="#security">Seguridad</a><a href="#deploy">Build y despliegue</a><a href="#ai">Agentes de IA</a><a href="#troubleshooting">Problemas comunes</a>
+      <p class="side-label">Diseño y PDF inmediato</p>
+      <a href="#overview">Visión general</a><a href="#choose-guide">Mapa de conceptos</a><a href="#quickstart">Inicio rápido</a><a href="#architecture">Arquitectura</a><a href="#platforms">Plataformas</a><a href="#data">Datos y OData</a><a href="#mapping">Mapeos</a><a href="#templates">Plantillas</a><a href="#api">API y eventos</a><a href="#persistence">Resumen de repositorios</a><a href="#security">Seguridad</a><a href="#deploy">Build y despliegue</a><a href="#ai">Agentes de IA</a><a href="#troubleshooting">Problemas comunes</a>
+      <p class="side-label">Guías específicas</p>
+      <a href="guide/">Guía de uso</a><a href="repositories/">Catálogo y repositorios</a><a class="side-sub" href="sap/">↳ Implementarlo en SAP/OData</a><a href="deferred/">Generación diferida</a>
     </aside>
     <main class="content">
       <section id="overview">
         <span class="pill">Funcional</span><h2>Qué resuelve</h2>
-        <p class="lead">Permite que un usuario construya visualmente facturas, pedidos, etiquetas, certificados o cualquier formulario de impresión y que la aplicación rellene el diseño con datos reales sin acoplarlo al backend.</p>
+        <p class="lead">Permite crear visualmente plantillas para cualquier documento PDF —como facturas, pedidos, etiquetas, certificados o formularios— y rellenarlas automáticamente con datos reales procedentes de distintas fuentes. La generación puede realizarse de forma eficiente y en tiempo real directamente en el navegador, o de manera diferida.</p>
         <div class="grid"><article class="card"><h3>Diseño visual</h3><p>Textos, tablas, listas, imágenes, firmas, SVG, formas, fechas, selectores y códigos de barras.</p></article><article class="card"><h3>Datos combinados</h3><p>JSON, REST, funciones, OData V2/V4 y modelos UI5 con dependencias y valores alternativos.</p></article><article class="card"><h3>Salida real</h3><p>Plantilla versionable, vista previa PDF, descarga, impresión y bytes reutilizables por la aplicación.</p></article></div>
         <table class="matrix"><thead><tr><th>Capacidad</th><th>Resultado</th></tr></thead><tbody><tr><td>Variables</td><td>Un campo del esquema recibe un valor por ruta o plantilla de texto.</td></tr><tr><td>Tablas dinámicas</td><td>Una colección se transforma en la matriz JSON que espera pdfme.</td></tr><tr><td>Varios documentos</td><td><code>mapping.repeat</code> genera un input por registro.</td></tr><tr><td>Extensión</td><td>Proveedores, loaders, formatters y plugins de esquema registrables.</td></tr></tbody></table>
+      </section>
+
+      <section id="choose-guide">
+        <span class="pill">Mapa de conceptos</span><h2>Qué guía necesitas</h2>
+        <p class="lead">Hay tres decisiones principales: integrar el motor, persistir las plantillas y, solo si el proceso lo necesita, generar en segundo plano. SAP/OData pertenece a la decisión de repositorios: es una forma de implementar ese catálogo.</p>
+        <div class="guide-map guide-map--grouped">
+          <article class="guide-card guide-card--current guide-card--core">
+            <span class="guide-kind">Esta página · uso base</span>
+            <h3>Integración y API</h3>
+            <span class="guide-purpose">Diseño y PDF inmediato</span>
+            <p class="guide-question">“Quiero integrar el editor y generar el PDF durante la interacción actual.”</p>
+            <p>Explica adaptadores JavaScript, React y UI5, fuentes de datos, mapeos, plantillas, eventos y generación inmediata.</p>
+            <p class="guide-boundary"><strong>No decide:</strong> dónde persistir el catálogo ni cómo ejecutar trabajos en segundo plano.</p>
+            <a class="guide-link" href="#quickstart">Continuar en esta página <span aria-hidden="true">↓</span></a>
+          </article>
+          <article class="guide-card guide-card--repository">
+            <span class="guide-kind">Guía específica · persistencia</span>
+            <h3>Catálogo y repositorios</h3>
+            <span class="guide-purpose">Persistencia de plantillas</span>
+            <p class="guide-question">“Quiero listar, guardar, versionar y publicar definiciones de plantilla.”</p>
+            <p>Define cómo almacenar <code>template</code>, <code>mapping</code> y metadatos en memoria, navegador, REST, OData o un proveedor propio.</p>
+            <p class="guide-boundary"><strong>No almacena:</strong> el ciclo de trabajos ni sustituye al motor que renderiza el PDF final.</p>
+            <a class="guide-link" href="repositories/">Abrir repositorios <span aria-hidden="true">→</span></a>
+            <div class="guide-subroute">
+              <span class="guide-subroute-label">Dentro de repositorios</span>
+              <h4>¿El catálogo se implementará en SAP OnPremise?</h4>
+              <p>Entonces elige la variante OData adecuada para tu sistema: RAP, CAP, CDS clásico o SEGW. Todas exponen el mismo contrato de repositorio; no forman un cuarto concepto.</p>
+              <a href="sap/">Comparar implementaciones SAP/OData <span aria-hidden="true">→</span></a>
+            </div>
+          </article>
+          <article class="guide-card guide-card--deferred">
+            <span class="guide-kind">Guía específica · procesamiento</span>
+            <h3>Generación diferida</h3>
+            <span class="guide-purpose">Generación asíncrona</span>
+            <p class="guide-question">“El PDF debe generarse después, con cola, reintentos, agenda o worker.”</p>
+            <p>Describe el trabajo asíncrono desde la solicitud y el estado hasta el render, la descarga y la retención; incluye despliegue Docker.</p>
+            <p class="guide-boundary"><strong>No es necesaria:</strong> para vista previa, descarga o impresión inmediata en el navegador.</p>
+            <a class="guide-link" href="deferred/">Abrir generación diferida <span aria-hidden="true">→</span></a>
+          </article>
+        </div>
+        <div class="flow concept-flow" aria-label="Ejemplo de combinación entre conceptos"><span>Aplicación UI5/web</span><i>→</i><span>Repositorio de plantillas<small>local · REST · OData/SAP</small></span><i>→</i><span>Trabajo diferido<small>opcional</small></span><i>→</i><span>Worker genera PDF</span></div>
+        <p class="concept-note"><strong>La relación:</strong> SAP/OData implementa el bloque “Repositorio de plantillas”. La generación diferida puede consumir una versión inmutable de ese repositorio, pero no es obligatoria para generar en el navegador.</p>
       </section>
 
       <section id="quickstart">
@@ -47,8 +92,8 @@
         <pre><code># Cuando esté publicado en npm
 npm install ui5-pdfme
 
-# Release precompilada actual, incluida la distribución UI5
-npm install https://github.com/jesusfrguz/ui5-pdfme/releases/download/v0.1.0/ui5-pdfme-0.1.0.tgz</code></pre>
+# Última release precompilada, incluida la distribución UI5
+npm install $(node -e "fetch('https://api.github.com/repos/jesusfrguz/ui5-pdfme/releases/latest').then(r =&gt; r.json()).then(r =&gt; console.log(r.assets.find(a =&gt; a.name.endsWith('.tgz')).browser_download_url))")</code></pre>
         <h3>JavaScript</h3><pre><code>import { WebPdfTemplateStudio } from "ui5-pdfme";
 
 const studio = new WebPdfTemplateStudio("#studio", {
@@ -122,44 +167,206 @@ const studio = new WebPdfTemplateStudio("#studio", {
 
       <section id="templates">
         <span class="pill">Diseño</span><h2>Plantillas</h2>
-        <p>Una plantilla pdfme contiene el fondo/tamaño y un array de esquemas por página. El <code>name</code> de cada esquema es la clave estable que utiliza el mapeo.</p>
+        <p class="lead">Una plantilla es la definición reutilizable del documento: describe las páginas y la posición, tamaño y estilo de cada elemento. Los datos de una factura, pedido o etiqueta no se guardan dentro del diseño; llegan por separado y el mapeo decide qué valor ocupa cada campo.</p>
+        <h3>Anatomía de una plantilla</h3>
+        <table class="matrix"><thead><tr><th>Parte</th><th>Responsabilidad y ejemplo</th></tr></thead><tbody>
+          <tr><td><code>basePdf</code></td><td>Define el tamaño, los márgenes y el fondo; por ejemplo, A4 de 210 × 297 mm con 12 mm de margen. Puede ser una página en blanco o un PDF importado.</td></tr>
+          <tr><td><code>schemas</code></td><td>Contiene un array por página y, dentro de cada uno, los campos que se dibujarán. La primera posición representa la página 1.</td></tr>
+          <tr><td>Schema</td><td>Describe un campo —por ejemplo un texto, una tabla, una imagen o un código QR— mediante su identificador, tipo, posición, dimensiones, contenido inicial y estilo.</td></tr>
+          <tr><td><code>mapping.fields</code></td><td>Conecta el <code>name</code> del schema con una ruta de datos, una plantilla de texto o un formatter registrado; por ejemplo, <code>customer: "order.customer"</code>.</td></tr>
+        </tbody></table>
+        <div class="callout"><strong>Contrato principal:</strong> el <code>name</code> de cada schema debe ser único y estable en todas las páginas. Es la clave que une el diseño con <code>mapping.fields</code>; no uses como identificador una etiqueta traducida que pueda cambiar.</div>
+        <h3>Ejemplo: factura con texto, tabla y pie repetido</h3>
         <pre><code>const template = {
-  basePdf: { width: 210, height: 297, padding: [12, 12, 12, 12] },
+  basePdf: { width: 210, height: 297, padding: [12, 12, 25, 12] },
   schemas: [[
     { name: "title", type: "text", position: { x: 20, y: 18 },
-      width: 90, height: 12, content: "FACTURA", fontSize: 22 },
+      width: 90, height: 12, content: "FACTURA", readOnly: true,
+      fontSize: 22 },
     { name: "customer", type: "text", position: { x: 20, y: 42 },
-      width: 130, height: 10, content: "Cliente" }
+      width: 130, height: 10, content: "Cliente",
+      showLabel: true, label: "Cliente" },
+    { name: "items", type: "table", position: { x: 20, y: 68 },
+      width: 170, height: 70, content: "[]",
+      head: ["Concepto", "Cantidad", "Precio"] },
+    { name: "total", type: "text", position: { x: 120, y: 150 },
+      width: 70, height: 10, content: "0,00 €",
+      showLabel: true, label: "Total", alignment: "right" },
+    { name: "footer", type: "text", position: { x: 20, y: 278 },
+      width: 170, height: 6,
+      content: "Página {currentPage} de {totalPages}",
+      readOnly: true, fixedPosition: true,
+      repeatOnEveryPage: true, alignment: "center" }
   ]]
+};
+
+const mapping = {
+  fields: {
+    customer: "order.customer",
+    items: {
+      path: "order.items",
+      formatter: "table",
+      options: { columns: ["description", "quantity", "price"] }
+    },
+    total: {
+      path: "order.total",
+      formatter: "number",
+      options: { locale: "es-ES", style: "currency", currency: "EUR" }
+    }
+  }
 };</code></pre>
-        <p>El panel de datos permite insertar campos y tablas a partir de muestras resueltas. Para producción, guarda la plantilla junto al mapeo, versión del contrato, idioma, autor, estado y fecha.</p>
+        <p>Con datos como <code>{ order: { customer: "Acme S.L.", items: [...], total: 1234.5 } }</code>, el título y el pie permanecen estáticos, mientras que <code>customer</code>, <code>items</code> y <code>total</code> se resuelven para cada PDF. El formatter <code>table</code> transforma la colección en filas y <code>number</code> produce, por ejemplo, <code>1234,50 €</code> según la configuración regional.</p>
+        <h3>Campos estáticos y campos conectados</h3>
+        <table class="matrix"><thead><tr><th>Tipo</th><th>Definición y uso</th></tr></thead><tbody>
+          <tr><td>Estático</td><td>Conserva su <code>content</code> y no tiene entrada en <code>mapping.fields</code>. Úsalo para títulos, instrucciones, logotipos y textos legales.</td></tr>
+          <tr><td>Conectado</td><td>Su <code>name</code> aparece en <code>mapping.fields</code>. El diseñador muestra <strong>Valor desde datos</strong> y permite elegir una ruta disponible. Úsalo para cliente, fecha, importe, dirección o cualquier valor que cambie.</td></tr>
+          <tr><td>Colección</td><td>Usa un schema de tabla y el formatter <code>table</code> con el orden explícito de sus columnas. Es adecuado para líneas de pedido, movimientos o listados.</td></tr>
+          <tr><td>Fijo y repetido</td><td>Activa <code>fixedPosition</code> y, opcionalmente, <code>repeatOnEveryPage</code>. Es útil para cabeceras, pies y datos Text que deben conservar su posición; los textos estáticos repetidos admiten <code>{currentPage}</code> y <code>{totalPages}</code>.</td></tr>
+        </tbody></table>
+        <h3>Tres formas de empezar</h3>
+        <div class="grid">
+          <article class="card"><h3>Plantilla en blanco</h3><p>Crea una página A4 vacía. Es la opción más sencilla cuando el documento nace en el diseñador.</p></article>
+          <article class="card"><h3>Cargar PDF</h3><p>Convierte todas las páginas de un PDF local en el fondo del diseño y permite colocar campos encima. El archivo debe ser un PDF válido.</p></article>
+          <article class="card"><h3>Abrir del catálogo</h3><p>Recupera una plantilla guardada. La búsqueda incluye nombre, descripción y etiquetas; también puedes filtrar por estado y repositorio.</p></article>
+        </div>
+        <p>El panel de datos permite insertar campos y tablas a partir de muestras resueltas. Los campos añadidos desde la paleta empiezan como estáticos; los insertados desde el panel de datos quedan conectados automáticamente. Antes de guardar, genera una vista previa con valores vacíos, textos largos y tablas con pocas y muchas filas.</p>
+        <h3>Guardar, localizar y versionar</h3>
+        <pre><code>await studio.saveTemplateRecord({
+  name: "Factura de venta · España",
+  description: "Factura A4 en español con IVA y pie legal",
+  tags: ["ventas", "factura", "es"],
+  status: "draft",
+  version: "3",
+  metadata: { dataContractVersion: "2", language: "es" }
+});
+
+const published = await studio.listTemplates({
+  search: "factura",
+  status: "published"
+});
+
+await studio.loadTemplate("invoice-es-v3", {
+  repositoryId: "backend"
+});</code></pre>
+        <p>La primera guardada solicita los metadatos; las siguientes actualizan el registro activo. En producción, guarda juntos la plantilla y su mapeo, y registra además versión del contrato de datos, idioma, autor, estado y fecha. Trata una versión publicada como inmutable: crea otra versión para modificarla y conserva la anterior para reimpresiones históricas.</p>
+        <div class="callout"><strong>Seguridad:</strong> no incluyas credenciales, cookies, tokens ni payloads privados en una plantilla. Las fuentes de datos almacenadas se excluyen de forma predeterminada y su aplicación requiere una configuración explícita.</div>
+        <p>Consulta el flujo visual en la <a href="guide/">guía de uso</a> y la configuración de memoria, <code>localStorage</code>, REST, OData o funciones en la guía <a href="repositories/">Catálogo y repositorios de plantillas</a>.</p>
       </section>
 
       <section id="api">
         <span class="pill">Referencia</span><h2>API y eventos</h2>
-        <pre><code>await studio.refreshData();
-const bytes = await studio.generate();
-await studio.preview();
-await studio.download();
-await studio.print();
-studio.openHelp();
+        <p class="lead">La instancia del estudio coordina cuatro operaciones: resolver datos, convertirlos en inputs de pdfme, editar o persistir la plantilla y producir el PDF. JavaScript y React usan <code>WebPdfTemplateStudio</code>; el control UI5 ofrece los mismos conceptos mediante métodos y eventos nativos.</p>
 
-studio.getTemplate();
-studio.getResolvedData();
-studio.getInputs();
-studio.registerDataProvider(type, provider);
-studio.registerLoader(name, loader);
-studio.registerFormatter(name, formatter);
+        <h3>Ciclo recomendado</h3>
+        <pre><code>const studio = new WebPdfTemplateStudio("#studio", {
+  template,
+  dataSources,
+  mapping,
+  autoResolve: false,
+  filename: "factura-5001.pdf"
+});
 
-await studio.listTemplates({ search: "factura", status: "published" });
-await studio.loadTemplate("invoice-es", { repositoryId: "backend" });
-await studio.saveTemplateRecord({ name: "Factura", tags: ["ventas"] });</code></pre>
-        <table class="matrix"><thead><tr><th>Evento web</th><th>Evento UI5</th><th>Detalle</th></tr></thead><tbody><tr><td><code>pdfme:templateSave</code></td><td><code>templateSave</code></td><td>template</td></tr><tr><td><code>pdfme:templatesListed</code></td><td><code>templatesListed</code></td><td>templates</td></tr><tr><td><code>pdfme:templateLoaded</code></td><td><code>templateLoaded</code></td><td>record</td></tr><tr><td><code>pdfme:templateSaved</code></td><td><code>templatePersisted</code></td><td>record</td></tr><tr><td><code>pdfme:dataResolved</code></td><td><code>dataResolved</code></td><td>data, inputs</td></tr><tr><td><code>pdfme:generated</code></td><td><code>generated</code></td><td>bytes, Blob</td></tr><tr><td><code>pdfme:help</code></td><td><code>help</code></td><td>url</td></tr><tr><td><code>pdfme:error</code></td><td><code>error</code></td><td>operation, error</td></tr></tbody></table>
+// Registra extensiones antes de resolver las fuentes que las utilizan.
+studio
+  .registerLoader("totals", totalsLoader)
+  .registerFormatter("vat", vatFormatter);
+
+const data = await studio.refreshData(); // Datos agrupados por id de fuente.
+const inputs = studio.getInputs();       // Un objeto por PDF/documento.
+const bytes = await studio.generate();   // Uint8Array con el PDF final.
+
+console.info(data.order, inputs.length, bytes.byteLength);
+studio.destroy(); // Al desmontar una integración JavaScript sin framework.</code></pre>
+        <p><code>generate()</code> resuelve los datos automáticamente si todavía no existen inputs. En procesos controlados suele ser preferible llamar antes a <code>refreshData()</code>: así puedes inspeccionar o validar <code>data</code> e <code>inputs</code> antes de generar. Las promesas rechazan con el error original; escucha también <code>pdfme:error</code> para observabilidad, pero conserva <code>try/catch</code> donde la aplicación deba recuperarse.</p>
+
+        <h3>Configuración, datos y extensiones</h3>
+        <table class="matrix api-table api-method-table"><thead><tr><th>Método</th><th>Resultado</th><th>Uso</th></tr></thead><tbody>
+          <tr><td><code>configure(partial)</code></td><td>La propia instancia.</td><td>Combina una configuración parcial con la actual. Una nueva plantilla actualiza el diseñador; nuevas fuentes vuelven a resolverse cuando <code>autoResolve</code> está activo.</td></tr>
+          <tr><td><code>refreshData()</code></td><td><code>Promise&lt;object&gt;</code></td><td>Ejecuta las fuentes, respeta sus dependencias, recalcula los inputs y emite <code>dataResolved</code>.</td></tr>
+          <tr><td><code>getResolvedData()</code></td><td><code>object | null</code></td><td>Devuelve la última fotografía de datos, agrupada por el <code>id</code> de cada fuente.</td></tr>
+          <tr><td><code>getInputs()</code></td><td><code>object[] | null</code></td><td>Devuelve los inputs ya mapeados. Puede contener varios elementos cuando se usa <code>mapping.repeat</code>.</td></tr>
+          <tr><td><code>registerDataProvider(type, provider)</code></td><td>La propia instancia.</td><td>Añade un tipo de fuente. Úsalo antes de resolver una fuente con ese <code>type</code>.</td></tr>
+          <tr><td><code>registerLoader(name, loader)</code></td><td>La propia instancia.</td><td>Registra una función referenciada por una fuente de tipo <code>function</code>.</td></tr>
+          <tr><td><code>registerFormatter(name, formatter)</code></td><td>La propia instancia.</td><td>Registra una transformación referenciada desde <code>mapping.fields</code>.</td></tr>
+        </tbody></table>
+
+        <h3>Plantilla, catálogo y PDF</h3>
+        <table class="matrix api-table api-method-table"><thead><tr><th>Método</th><th>Resultado</th><th>Uso</th></tr></thead><tbody>
+          <tr><td><code>getTemplate()</code></td><td>Plantilla pdfme actual.</td><td>Lee el diseño más reciente, incluidos los cambios todavía no persistidos.</td></tr>
+          <tr><td><code>startBlankTemplate()</code></td><td>Nueva plantilla A4.</td><td>Descarta el registro activo e inicia un diseño en blanco.</td></tr>
+          <tr><td><code>importPdfTemplate(file)</code></td><td><code>Promise&lt;template&gt;</code></td><td>Usa todas las páginas de un <code>File</code>, <code>Blob</code> o bytes PDF como fondo.</td></tr>
+          <tr><td><code>listTemplates(query)</code></td><td><code>Promise&lt;record[]&gt;</code></td><td>Busca por texto, estado o <code>repositoryId</code>. Requiere al menos un repositorio configurado.</td></tr>
+          <tr><td><code>getTemplateRecord(id, options)</code></td><td><code>Promise&lt;record&gt;</code></td><td>Obtiene un registro completo sin cargarlo en el diseñador.</td></tr>
+          <tr><td><code>loadTemplate(idOrRecord, options)</code></td><td><code>Promise&lt;record&gt;</code></td><td>Carga plantilla y mapeo; las fuentes almacenadas solo se aplican con <code>applyStoredDataSources: true</code>.</td></tr>
+          <tr><td><code>saveTemplateRecord(metadata, options)</code></td><td><code>Promise&lt;record&gt;</code></td><td>Crea o actualiza el registro activo y emite la confirmación de persistencia.</td></tr>
+          <tr><td><code>openTemplateCatalog()</code></td><td>Catálogo visual.</td><td>Abre búsqueda, filtros, creación en blanco e importación de PDF.</td></tr>
+          <tr><td><code>generate()</code></td><td><code>Promise&lt;Uint8Array&gt;</code></td><td>Valida la plantilla, prepara campos fijos y genera el PDF sin abrir interfaz adicional.</td></tr>
+          <tr><td><code>preview()</code>, <code>download()</code>, <code>print()</code></td><td><code>Promise&lt;Uint8Array&gt;</code></td><td>Generan y después muestran, descargan o envían al diálogo de impresión. La impresión silenciosa no está disponible en un navegador estándar.</td></tr>
+          <tr><td><code>openHelp()</code></td><td>Diálogo de ayuda.</td><td>Abre la guía rápida y expone la URL del manual configurado.</td></tr>
+        </tbody></table>
+
+        <h3>Escuchar eventos en JavaScript y React</h3>
+        <p>En JavaScript, los eventos son <code>CustomEvent</code> despachados sobre el elemento raíz y su payload está en <code>event.detail</code>. La misma información puede recibirse con callbacks de configuración <code>onNombreDelEvento</code>; React utiliza estos callbacks y una <code>ref</code> para llamar a la API imperativa.</p>
+        <pre><code>const host = document.querySelector("#studio");
+
+host.addEventListener("pdfme:dataResolved", ({ detail }) =&gt; {
+  console.info("Documentos preparados", detail.inputs.length);
+});
+
+host.addEventListener("pdfme:generated", ({ detail }) =&gt; {
+  console.info("PDF generado", detail.bytes.byteLength, detail.blob.type);
+});
+
+host.addEventListener("pdfme:error", ({ detail }) =&gt; {
+  reportError(detail.operation, detail.error);
+});
+
+// Alternativa válida en JavaScript y como props del adaptador React:
+studio.configure({
+  onTemplateSaved: ({ record }) =&gt; console.info(record.id),
+  onError: ({ operation, error }) =&gt; reportError(operation, error)
+});</code></pre>
+
+        <h3>Escuchar eventos en UI5</h3>
+        <p>UI5 no usa <code>event.detail</code>: registra el handler con <code>attach&lt;Evento&gt;</code> o en la vista XML y lee cada valor con <code>getParameter()</code>.</p>
+        <pre><code>const studio = this.byId("printStudio");
+
+studio.attachDataResolved((event) =&gt; {
+  const inputs = event.getParameter("inputs");
+  MessageToast.show(`${inputs.length} documento(s) preparado(s)`);
+});
+
+studio.attachGenerated((event) =&gt; {
+  const blob = event.getParameter("blob");
+  console.info("PDF", blob.size, blob.type);
+});
+
+studio.attachError((event) =&gt; {
+  const operation = event.getParameter("operation");
+  const error = event.getParameter("error");
+  this.handlePdfError(operation, error);
+});</code></pre>
+
+        <h3>Referencia de eventos</h3>
+        <table class="matrix api-table api-event-table"><thead><tr><th>Evento web</th><th>Evento UI5</th><th>Payload</th><th>Cuándo se emite</th></tr></thead><tbody>
+          <tr><td><code>pdfme:templateChange</code></td><td><code>templateChange</code></td><td><code>template</code></td><td>Después de modificar el diseño. Puede ser frecuente; evita persistir en cada cambio.</td></tr>
+          <tr><td><code>pdfme:templateSave</code></td><td><code>templateSave</code></td><td><code>template</code></td><td>Cuando el diseñador entrega la plantilla mediante su acción Guardar. No confirma escritura en un repositorio.</td></tr>
+          <tr><td><code>pdfme:fieldInsert</code></td><td><code>fieldInsert</code></td><td><code>fieldName</code>, <code>path</code></td><td>Después de insertar desde el panel de datos un campo conectado.</td></tr>
+          <tr><td><code>pdfme:templatesListed</code></td><td><code>templatesListed</code></td><td><code>templates</code>; Web también incluye <code>query</code></td><td>Cuando el catálogo visual termina de listar. En Web lo emite la raíz de <code>WebTemplateCatalog</code>.</td></tr>
+          <tr><td><code>pdfme:templateLoaded</code></td><td><code>templateLoaded</code></td><td><code>record</code></td><td>Después de aplicar al diseñador el registro solicitado.</td></tr>
+          <tr><td><code>pdfme:templateSaved</code></td><td><code>templatePersisted</code></td><td><code>record</code></td><td>Solo después de que el repositorio confirma el guardado.</td></tr>
+          <tr><td><code>pdfme:dataResolved</code></td><td><code>dataResolved</code></td><td><code>data</code>, <code>inputs</code></td><td>Después de resolver todas las fuentes y completar el mapeo.</td></tr>
+          <tr><td><code>pdfme:generated</code></td><td><code>generated</code></td><td><code>bytes</code>, <code>blob</code></td><td>Después de cada generación correcta, incluidas vista previa, descarga e impresión.</td></tr>
+          <tr><td><code>pdfme:help</code></td><td><code>help</code></td><td><code>url</code></td><td>Al abrir el diálogo de ayuda.</td></tr>
+          <tr><td><code>pdfme:error</code></td><td><code>error</code></td><td><code>operation</code>, <code>error</code></td><td>Cuando falla una operación controlada como resolver, generar, importar, listar o guardar.</td></tr>
+        </tbody></table>
+        <div class="callout"><strong>Guardar no es persistir:</strong> usa <code>templateSave</code> para obtener el diseño desde el editor y <code>templateSaved</code>/<code>templatePersisted</code> para confirmar que el backend o almacenamiento local lo aceptó. Para auditoría, registra el identificador y la versión de <code>record</code>, nunca datos personales ni el contenido completo del PDF.</div>
       </section>
 
       <section id="persistence">
-        <span class="pill">Operación</span><h2>Persistencia y ciclo de vida</h2>
-        <p>El catálogo visual lista repositorios configurados, busca por nombre/descripción/etiquetas, filtra por estado y origen, y abre la plantilla elegida en el editor. Los adaptadores incluidos son <code>memory</code>, <code>localStorage</code>, <code>rest</code>, <code>odata</code> y <code>function</code>.</p>
+        <span class="pill">Resumen en esta página</span><h2>Repositorios de plantillas</h2>
+        <p class="lead">Un repositorio persiste definiciones reutilizables de plantilla; no es la cola de generación ni el almacén de los PDF producidos. El catálogo visual permite buscar esas definiciones y abrirlas en el editor.</p>
+        <p>Los adaptadores incluidos son <code>memory</code>, <code>localStorage</code>, <code>rest</code>, <code>odata</code> y <code>function</code>.</p>
         <pre><code>templateRepositories: [{
   id: "browser",
   type: "localStorage",
@@ -169,7 +376,8 @@ await studio.saveTemplateRecord({ name: "Factura", tags: ["ventas"] });</code></
   type: "rest",
   url: "/api/templates"
 }]</code></pre>
-        <p>REST usa GET de colección/detalle y POST/PUT; OData usa POST/PATCH y sigue paginación V2/V4. En Fiori se puede indicar <code>modelName</code> y <code>path</code> para conservar destinos, batch y CSRF. Se incluyen ejemplos ejecutables para Node, PostgreSQL y CAP/OData. Consulta la guía <a href="../agents/TEMPLATE_REPOSITORIES.md">Catálogo y repositorios de plantillas</a>.</p>
+        <p>En Web, REST usa GET de colección/detalle y POST/PUT. OData V4 usa POST/PATCH; al indicar <code>odataVersion: 2</code>, el proveedor cambia filtros, count y actualización a la semántica V2. Ambos siguen enlaces de paginación hasta <code>maxPages</code>. En Fiori se puede indicar <code>modelName</code> y <code>path</code> para conservar destinos, batch y CSRF. Se incluyen ejemplos para Node, PostgreSQL y CAP/OData.</p>
+        <p><a href="repositories/"><strong>Abrir la guía completa de catálogo y repositorios</strong></a>. Si el repositorio será OData sobre SAP, usa además el <a href="sap/">selector RAP/CAP/CDS/SEGW</a>.</p>
         <div class="callout">Publicar debe ser una operación autorizada. Mantén versiones inmutables para que una reimpresión histórica use exactamente el diseño aprobado.</div>
       </section>
 
@@ -180,6 +388,7 @@ await studio.saveTemplateRecord({ name: "Factura", tags: ["ventas"] });</code></
 
       <section id="deploy">
         <span class="pill">Entrega</span><h2>Build, pruebas y GitHub Pages</h2>
+        <div class="callout"><strong>Nota sobre el alcance:</strong> esta sección explica cómo compilar, probar y publicar este repositorio. Si solo quieres consumir la capa visual en una aplicación, sigue <a href="#quickstart">Inicio rápido</a>. Para guardar y consumir definiciones de plantilla, consulta el <a href="repositories/">manual de catálogo y repositorios</a>. Si necesitas generar los PDF en segundo plano mediante colas, reintentos o workers, sigue el <a href="deferred/">manual de generación diferida</a>.</div>
         <pre><code>npm ci
 npm test
 npm run build

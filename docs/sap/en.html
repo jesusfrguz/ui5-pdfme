@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Jesús Franco Guzmán">
+  <meta name="description" content="SAP backend chooser for ui5-pdfme: RAP, CAP, classic CDS, SAP Gateway/SEGW, REST, types, packages, transports, and optional installers.">
+  <title>ui5-pdfme · SAP and OData backends</title>
+  <link rel="alternate" hreflang="es" href="index.html">
+  <link rel="alternate" hreflang="en" href="en.html">
+  <link rel="alternate" hreflang="x-default" href="index.html">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <link rel="stylesheet" href="../assets/language.css">
+  <link rel="stylesheet" href="../assets/sap.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="mark">PDF</span> ui5-pdfme</a>
+    <button class="menu" aria-label="Open navigation">Menu</button>
+    <nav aria-label="Main navigation"><a href="../en.html">Documentation</a><a href="../repositories/en.html">Catalog and repositories</a><a href="#choose">Choose an implementation</a><a href="#downloads">Downloads</a><a href="https://github.com/jesusfrguz/ui5-pdfme">GitHub</a></nav>
+    <div class="language-switch" role="group" aria-label="Language"><a href="index.html" lang="es" hreflang="es" data-language="es">ES</a><a href="en.html" lang="en" hreflang="en" aria-current="page" data-language="en">EN</a></div>
+  </header>
+
+  <div class="hero" id="top"><div class="hero-inner">
+    <div>
+      <span class="eyebrow">Implementation guide</span>
+      <h1>One contract.<br>Several SAP routes.</h1>
+      <p>Choose RAP, CAP, SAP Gateway/SEGW, classic CDS, or REST without changing the template-catalog contract.</p>
+      <div class="actions"><a class="button" href="#choose">Choose a route</a><a class="button secondary" href="#downloads">Download the kit</a></div>
+    </div>
+    <div class="hero-shot" aria-label="SAP backend routes"><div class="flow"><span>ui5-pdfme</span><i>→</i><span>OData V4 · OData V2 · REST</span></div></div>
+  </div></div>
+
+  <div class="shell">
+    <aside class="side" aria-label="Contents">
+      <p class="side-label">SAP and OData backends</p>
+      <a href="#choose">Which route to choose</a><a href="#contract">Contract</a><a href="#rap">RAP V4</a><a href="#cap">CAP V4</a><a href="#segw">SEGW V2</a><a href="#classic-cds">Classic CDS V2</a><a href="#rest">REST</a><a href="#installer">XCO installer</a><a href="#packages">Packages and transports</a><a href="#client">Client</a><a href="#downloads">Downloads</a><a href="#validate">Validation</a>
+      <p class="side-label">Focused guides</p>
+      <a href="../en.html">Immediate design and PDF</a><a href="../guide/en.html">User guide</a><a href="../repositories/en.html">Catalog and repositories</a><a href="../deferred/">Deferred generation</a>
+    </aside>
+    <main class="content">
+      <section id="choose">
+        <span class="pill">Decision</span><h2>Which route to choose</h2>
+        <p class="lead">For new development, use RAP V4 on modern ABAP or CAP V4 on BTP. Keep SEGW V2 for legacy Gateway landscapes and classic CDS only as a read-only index.</p>
+        <table class="matrix"><thead><tr><th>Route</th><th>Protocol</th><th>Full payload</th><th>Choose it when</th><th>Initial effort</th></tr></thead><tbody>
+          <tr><td><strong>RAP</strong></td><td>OData V4</td><td>Yes</td><td>New service on modern S/4HANA/ABAP</td><td>ADT wizard or optional XCO</td></tr>
+          <tr><td><strong>CAP on BTP</strong></td><td>OData V4</td><td>Yes</td><td>Node.js/Java backend on SAP BTP</td><td>Included quickstart</td></tr>
+          <tr><td><strong>Gateway / SEGW</strong></td><td>OData V2</td><td>Yes</td><td>Legacy Gateway/ECC/S/4 landscape without RAP</td><td>Import EDMX + implement DPC_EXT</td></tr>
+          <tr><td><strong>Classic CDS</strong></td><td>OData V2</td><td>No</td><td>Existing, read-only index</td><td><code>@OData.publish: true</code> + registration</td></tr>
+          <tr><td><strong>REST</strong></td><td>JSON HTTP</td><td>Yes</td><td>Neutral backend or existing API</td><td>OpenAPI + Node/PostgreSQL examples</td></tr>
+        </tbody></table>
+        <div class="callout"><strong>Practical rule:</strong> do not create new classic CDS or SEGW V4 merely to avoid RAP. If the service belongs on BTP, CAP is the natural route; if it belongs on modern AS ABAP, use RAP.</div>
+      </section>
+
+      <section id="contract">
+        <span class="pill">Common schema</span><h2>Types and lengths</h2>
+        <table class="matrix"><thead><tr><th>Field</th><th>OData</th><th>ABAP / CAP</th><th>Rule</th></tr></thead><tbody>
+          <tr><td><code>ID</code></td><td><code>Edm.String(128)</code>, key</td><td><code>CHAR(128)</code> / <code>String(128)</code></td><td>1–128; pattern <code>^[A-Za-z0-9][A-Za-z0-9._~-]{0,127}$</code></td></tr>
+          <tr><td><code>Name</code></td><td><code>Edm.String(160)</code></td><td><code>CHAR(160)</code> / <code>String(160)</code></td><td>1–160</td></tr>
+          <tr><td><code>Description</code></td><td><code>Edm.String(1024)</code></td><td><code>CHAR(1024)</code> / <code>String(1024)</code></td><td>0–1024</td></tr>
+          <tr><td><code>Tags</code></td><td>JSON in <code>Edm.String(4096)</code></td><td>ABAP <code>STRING</code> / CAP <code>String(4096)</code></td><td>max 32 unique; 1–64 per tag; enforce the limit in ABAP</td></tr>
+          <tr><td><code>Status</code></td><td><code>Edm.String(20)</code></td><td><code>CHAR(20)</code> / <code>String(20)</code></td><td><code>draft</code>, <code>published</code>, <code>archived</code></td></tr>
+          <tr><td><code>Version</code></td><td><code>Edm.Int32</code></td><td><code>INT4</code> / <code>Integer</code></td><td>1–2,147,483,647</td></tr>
+          <tr><td>Four <code>*Json</code> fields</td><td>unbounded <code>Edm.String</code></td><td><code>STRING</code> / <code>LargeString</code></td><td>valid JSON; reference total limit 5,000,000 characters</td></tr>
+          <tr><td>Audit</td><td>V4 <code>Edm.DateTimeOffset</code> / V2 <code>Edm.DateTime</code></td><td>backend audit fields</td><td>ignore client-supplied values</td></tr>
+        </tbody></table>
+        <p><code>repositoryId</code> is runtime-only. Credentials must never enter <code>DataSourcesJson</code>. See the <a href="../repositories/en.html#field-contract">full REST/OData contract</a>.</p>
+      </section>
+
+      <section id="rap">
+        <span class="pill">Recommended on ABAP</span><h2>RAP with OData V4</h2>
+        <p>The fastest supported path is the ADT <strong>Generate ABAP Repository Objects → OData Web API Service</strong> wizard. The optional installer uses XCO APIs to create only missing data elements, table, root/projection views, BDEFs, behavior pool, service definition, and service binding.</p>
+        <p>The program takes a transportable package and a modifiable Workbench request. It starts in dry-run mode, never overwrites or deletes objects, and publishes the local endpoint only when explicitly selected. It targets an SAP S/4HANA 2022+ baseline; XCO APIs vary by release/SP, so syntax-check and ATC-check it in the target system.</p>
+        <div class="callout"><strong>Before production:</strong> add DCL/authorization, contract validation, server-side version increment, ETag, read-only audit fields, and limits. Confirm that all four JSON fields are unbounded <code>Edm.String</code> properties in <code>$metadata</code>.</div>
+      </section>
+
+      <section id="cap">
+        <span class="pill">BTP</span><h2>SAP CAP CDS with OData V4</h2>
+        <p>The included CAP Node.js quickstart defines the schema, OData V4 projection, <code>TemplateViewer</code>/<code>TemplateEditor</code> roles, validation, version/ETag handling, and limits. It uses SQLite locally and documents HANA/XSUAA/MTA preparation for BTP.</p>
+        <pre><code>cd examples/backend/cap
+npm ci
+npm run start</code></pre>
+        <p>CAP does not use an ABAP package or Workbench request: artifacts move through Git, CI/CD, MTA/HDI, and the project's BTP configuration.</p>
+      </section>
+
+      <section id="segw">
+        <span class="pill">Legacy implementation required</span><h2>SAP Gateway / SEGW OData V2</h2>
+        <p>This legacy route can support list, detail, create, and update with long JSON, but the kit does not include a <code>DPC_EXT</code> implementation. Download the EDMX, create a SEGW project in the backend package/request, import the model, generate MPC/DPC, and implement persistence in <code>DPC_EXT</code>. In SEGW leave Max Length blank/0 for the four unbounded JSON fields; these and <code>Tags</code> must map to ABAP <code>STRING</code>. Delete is outside the repository contract.</p>
+        <ol>
+          <li>Create/verify DDIC and the IWPR project.</li>
+          <li>Import the EDMX and generate MPC/MPC_EXT, DPC/DPC_EXT, IWSV, and IWMO.</li>
+          <li>Implement a lightweight list, full detail, create, and update.</li>
+          <li>Activate on the hub with an existing alias; test <code>$metadata</code>, CSRF, and ETag.</li>
+        </ol>
+        <p>SAP does not publish a universal API that creates/imports/generates an end-to-end SEGW project across the 7.40/7.50 landscape. The GUI step remains explicit. For unattended installation, prepare a transport or Add-On certified for each target release.</p>
+      </section>
+
+      <section id="classic-cds">
+        <span class="pill">Limited legacy route</span><h2>Classic CDS with V2 auto-exposure</h2>
+        <p><code>@OData.publish: true</code> generates the <code>ZPDFME_CDS_TPL_CDS</code> service and backend artifacts when the DDLS is activated; it must then be registered in <code>/IWFND/MAINT_SERVICE</code> or through the optional hub activator.</p>
+        <p>This route exposes only ID, name, description, status, version, and dates. It excludes Tags and the four JSON fields: classic DDIC-based CDS views cannot portably expose <code>STRING</code>/<code>RAWSTRING</code>/<code>LCHR</code>/<code>LRAW</code>, and <code>SSTRING</code> cannot cover this contract. It therefore does not implement full-contract <code>get</code>/<code>save</code>.</p>
+      </section>
+
+      <section id="rest">
+        <span class="pill">Neutral</span><h2>REST</h2>
+        <p>If OData metadata is not useful, use the OpenAPI contract with the Node example and PostgreSQL schema. This is the portable option for an existing backend and preserves native JSON. Authentication, authorization, tenant isolation, ETag/version, and limits still belong to the service.</p>
+      </section>
+
+      <section id="installer">
+        <span class="pill">Optional</span><h2>What the XCO installer does</h2>
+        <div class="flow" aria-label="Installer flow"><span>Inventory</span><i>→</i><span>Show plan</span><i>→</i><span>Create missing</span><i>→</i><span>Validate in SAP</span></div>
+        <ul>
+          <li>Asks for RAP/CDS/SEGW route, package, Workbench request, <strong>Apply</strong>, and <strong>Publish</strong>.</li>
+          <li>The default mode only lists existing/missing objects.</li>
+          <li>For RAP it creates an XCO scaffold and can attempt local V4 binding publication; production hardening is not included.</li>
+          <li>For CDS it creates a read-only V2 index; for SEGW it creates missing DDIC and points to the EDMX, but does not implement <code>DPC_EXT</code>.</li>
+          <li>It never overwrites, deletes, releases requests, creates aliases/RFC/trust, or loads catalog data.</li>
+        </ul>
+        <p>An existing object is skipped even when incompatible: the report does not compare definitions. Generation uses several PUT operations and is not atomic; inspect the log and compare every object with this guide. Template records are application data and must not be transported in the Workbench request.</p>
+      </section>
+
+      <section id="packages">
+        <span class="pill">CTS</span><h2>Packages, transports, and hub</h2>
+        <table class="matrix"><thead><tr><th>Area</th><th>Package / request</th><th>Contents</th></tr></thead><tbody>
+          <tr><td>RAP backend</td><td>Transportable package + compatible modifiable Workbench request</td><td>DDIC, DDLS, BDEF, class, SRVD, SRVB</td></tr>
+          <tr><td>SEGW/CDS backend</td><td>Backend package + Workbench request</td><td>DDIC, IWPR/classes, IWSV, IWMO</td></tr>
+          <tr><td>Distributed hub</td><td>Potentially separate hub package + Workbench request</td><td>IWSG, IWOM, activation</td></tr>
+          <tr><td>Landscape</td><td>Existing configuration; possibly a Customizing request</td><td>alias, RFC, trust, ICF, authorization</td></tr>
+          <tr><td>CAP/BTP</td><td>ABAP CTS not applicable</td><td>Git, CI/CD, MTA/HDI/XSUAA</td></tr>
+        </tbody></table>
+      </section>
+
+      <section id="client">
+        <span class="pill">Consumption</span><h2>Client configuration</h2>
+        <pre><code>// CAP or RAP V4 over HTTP
+{ type: "odata", odataVersion: 4, url: "/odata/v4/.../Templates" }
+
+// Gateway or CDS V2 over HTTP (list/get)
+{ type: "odata", odataVersion: 2, url: "/sap/opu/odata/sap/.../Templates" }</code></pre>
+        <p>The HTTP provider avoids <code>tolower</code> in SAP V2 filters. For writes, add an application <code>fetch</code> wrapper that manages the session and <code>X-CSRF-Token</code>, and use <code>requireEtag: true</code> with the dynamic ETag read from the record. In SAPUI5/Fiori, prefer a propagated V2/V4 OData model for destinations, sessions, CSRF, batches, and ETags.</p>
+      </section>
+
+      <section id="downloads">
+        <span class="pill">Kit</span><h2>Downloads</h2>
+        <div class="grid">
+          <article class="card"><h3>XCO scaffold</h3><p>Temporary ABAP program, dry-run by default; review it for the exact release/SP.</p><a class="button" href="../downloads/sap/zui5_pdfme_install.prog.abap" download>Download .abap</a></article>
+          <article class="card"><h3>SEGW V2 model</h3><p>Importable EDMX with types and lengths.</p><a class="button" href="../downloads/sap/template-repository-v2.edmx" download>Download .edmx</a></article>
+          <article class="card"><h3>V2 activator</h3><p>Activates an existing backend service on the hub.</p><a class="button" href="../downloads/sap/zui5_pdfme_activate_v2.prog.abap" download>Download .abap</a></article>
+          <article class="card"><h3>CAP quickstart</h3><p>Runnable and tested Node.js project.</p><a class="button" href="https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/backend/cap">Open project</a></article>
+        </div>
+      </section>
+
+      <section id="validate">
+        <span class="pill">Done</span><h2>Required validation</h2>
+        <ul>
+          <li>Compare names, types, nullability, and lengths against <code>$metadata</code>.</li>
+          <li>Test a LOB-free list, complete detail, create, update, and ETag conflict.</li>
+          <li>Test V2 or V4 filters/paging with the selected client.</li>
+          <li>Validate authorization, tenant/owner, CSRF, size, and malformed JSON.</li>
+          <li>Save, reload, and generate a valid PDF from the retrieved template.</li>
+          <li>Confirm no credential or private payload enters templates, logs, screenshots, or requests.</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+  <footer class="footer">ui5-pdfme · <a href="../en.html">Technical documentation</a> · <a href="../repositories/en.html">Catalog and repositories</a> · Apache-2.0</footer>
+  <script type="module" src="../assets/docs.js"></script>
+</body>
+</html>

@@ -8,7 +8,7 @@ Maintain `ui5-pdfme` as one visual print-template engine with stable adapters fo
 
 1. Read [agents/README.md](agents/README.md).
 2. Choose exactly one installation guide for the target stack.
-3. Use [agents/CREATE_TEMPLATE.md](agents/CREATE_TEMPLATE.md) for template work and [agents/DATA_INTEGRATION.md](agents/DATA_INTEGRATION.md) for data/OData work.
+3. Use [agents/CREATE_TEMPLATE.md](agents/CREATE_TEMPLATE.md) for template work, [agents/DATA_INTEGRATION.md](agents/DATA_INTEGRATION.md) for data/OData work, [agents/TEMPLATE_REPOSITORIES.md](agents/TEMPLATE_REPOSITORIES.md) for catalog/persistence work, and [agents/DEFERRED_GENERATION.md](agents/DEFERRED_GENERATION.md) for backend jobs/workers.
 4. Run the checks in [agents/VALIDATION_CHECKLIST.md](agents/VALIDATION_CHECKLIST.md) before declaring success.
 
 ## Repository contracts

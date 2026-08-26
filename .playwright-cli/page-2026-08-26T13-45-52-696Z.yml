@@ -1,0 +1,713 @@
+- generic [active] [ref=f2e1]:
+  - banner [ref=f2e2]:
+    - link "PDF ui5-pdfme" [ref=f2e3] [cursor=pointer]:
+      - /url: "#top"
+      - generic [ref=f2e4]: PDF
+      - text: ui5-pdfme
+    - button "Abrir navegación" [ref=f2e5]: Menú
+    - group "Idioma" [ref=f2e6]:
+      - link "ES" [ref=f2e7] [cursor=pointer]:
+        - /url: index.html
+      - link "EN" [ref=f2e8] [cursor=pointer]:
+        - /url: en.html
+  - generic [ref=f2e10]:
+    - generic [ref=f2e11]:
+      - generic [ref=f2e12]: Guía técnica
+      - heading "Un catálogo. Cinco formas de persistir." [level=1] [ref=f2e13]: Un catálogo.Cinco formas de persistir.
+      - paragraph [ref=f2e14]: Configura cómo listar, recuperar y guardar plantillas con memoria, almacenamiento del navegador, REST, OData o funciones de la aplicación.
+      - generic [ref=f2e15]:
+        - link "Elegir un repositorio" [ref=f2e16] [cursor=pointer]:
+          - /url: "#choose"
+        - link "Ver el contrato" [ref=f2e17] [cursor=pointer]:
+          - /url: "#record"
+    - figure [ref=f2e18]:
+      - img "Editor ui5-pdfme con la acción Plantillas en la barra superior" [ref=f2e19]
+  - main [ref=f2e21]:
+    - generic [ref=f2e22]:
+      - text: Modelo común
+      - heading "Cómo funciona" [level=2] [ref=f2e23]
+      - paragraph [ref=f2e24]:
+        - text: El estudio y el catálogo trabajan con un
+        - emphasis [ref=f2e25]: store
+        - text: común. Cada repositorio adapta su sistema de persistencia al mismo registro de plantilla.
+      - generic "Flujo del catálogo de plantillas" [ref=f2e26]:
+        - generic [ref=f2e27]: Catálogo / estudio
+        - generic [ref=f2e28]: →
+        - generic [ref=f2e29]: TemplateStore
+        - generic [ref=f2e30]: →
+        - generic [ref=f2e31]: memory · localStorage · REST · OData · function
+      - paragraph [ref=f2e32]:
+        - text: Puedes configurar varios repositorios. El catálogo reúne sus resultados, permite buscar por nombre, descripción y etiquetas, filtra por estado y origen, y conserva
+        - code [ref=f2e33]: repositoryId
+        - text: para saber dónde recuperar o actualizar cada registro. No se eliminan duplicados y, si un origen falla, el listado combinado también falla.
+      - paragraph [ref=f2e34]:
+        - strong [ref=f2e35]: Plantilla en blanco
+        - text: "y"
+        - strong [ref=f2e36]: Cargar PDF
+        - text: están disponibles aunque no haya repositorios. Listar, abrir un registro guardado y persistir cambios sí requieren al menos uno.
+    - generic [ref=f2e37]:
+      - text: Decisión
+      - heading "Qué tipo elegir" [level=2] [ref=f2e38]
+      - table [ref=f2e39]:
+        - rowgroup [ref=f2e40]:
+          - row [ref=f2e41]:
+            - columnheader "Tipo" [ref=f2e42]
+            - columnheader "Alcance" [ref=f2e43]
+            - columnheader "Úsalo para" [ref=f2e44]
+            - columnheader "No lo uses para" [ref=f2e45]
+        - rowgroup [ref=f2e46]:
+          - row [ref=f2e47]:
+            - cell [ref=f2e48]:
+              - code [ref=f2e49]: memory
+            - cell "Instancia actual de JavaScript" [ref=f2e50]
+            - cell "Demos, pruebas y registros precargados" [ref=f2e51]
+            - cell "Conservar cambios tras recargar" [ref=f2e52]
+          - row [ref=f2e53]:
+            - cell [ref=f2e54]:
+              - code [ref=f2e55]: localStorage
+            - cell "Navegador, origen y perfil actuales" [ref=f2e56]
+            - cell "Prototipos, trabajo individual y modo local" [ref=f2e57]
+            - cell "Catálogos compartidos, autorización o grandes volúmenes" [ref=f2e58]
+          - row [ref=f2e59]:
+            - cell [ref=f2e60]:
+              - code [ref=f2e61]: rest
+            - cell "Servicio HTTP de la aplicación" [ref=f2e62]
+            - cell "Backends existentes y contratos JSON propios" [ref=f2e63]
+            - cell "Acceso directo del navegador a una base de datos" [ref=f2e64]
+          - row [ref=f2e65]:
+            - cell [ref=f2e66]:
+              - code [ref=f2e67]: odata
+            - cell "Servicio OData V2/V4 o modelo UI5" [ref=f2e68]
+            - cell "SAP Fiori, CAP y servicios con paginación OData" [ref=f2e69]
+            - cell "Ocultar reglas de autorización solo en la interfaz" [ref=f2e70]
+          - row [ref=f2e71]:
+            - cell [ref=f2e72]:
+              - code [ref=f2e73]: function
+            - cell "Funciones de la aplicación" [ref=f2e74]
+            - cell "SDKs, cachés o persistencia con un contrato no HTTP" [ref=f2e75]
+            - cell "Incluir credenciales dentro del registro de plantilla" [ref=f2e76]
+      - generic [ref=f2e77]:
+        - strong [ref=f2e78]: "Producción multiusuario:"
+        - text: usa normalmente REST, OData o
+        - code [ref=f2e79]: function
+        - text: sobre un servicio autorizado.
+        - code [ref=f2e80]: memory
+        - text: "y"
+        - code [ref=f2e81]: localStorage
+        - text: no proporcionan control de acceso, concurrencia ni una fuente compartida de verdad.
+    - generic [ref=f2e82]:
+      - text: Contrato estable
+      - heading "Registro de plantilla" [level=2] [ref=f2e83]
+      - paragraph [ref=f2e84]:
+        - text: Todos los proveedores reciben y devuelven la misma forma normalizada. Una respuesta de listado puede omitir
+        - code [ref=f2e85]: template
+        - text: ","
+        - code [ref=f2e86]: mapping
+        - text: "y"
+        - code [ref=f2e87]: dataSources
+        - text: ; la respuesta de detalle debe incluir una plantilla pdfme válida.
+      - generic [ref=f2e88]:
+        - code [ref=f2e89]: "{ id: \"invoice-es\", name: \"Factura España\", description: \"Factura de ventas aprobada\", tags: [\"ventas\", \"es\"], status: \"published\", // draft | published | archived version: \"3\", createdAt: \"2026-08-20T09:00:00Z\", updatedAt: \"2026-08-23T10:30:00Z\", template, mapping, metadata: { dataContractVersion: \"2\" }, dataSources // opcional y desactivado por defecto al guardar }"
+        - button "Copiar" [ref=f2e90] [cursor=pointer]
+      - paragraph [ref=f2e91]:
+        - text: Los nombres camelCase y los campos OData habituales (
+        - code [ref=f2e92]: ID
+        - text: ","
+        - code [ref=f2e93]: Name
+        - text: ","
+        - code [ref=f2e94]: TemplateJson
+        - text: ", etc.) se normalizan. Las columnas JSON pueden llegar como objetos o como cadenas JSON."
+        - code [ref=f2e95]: repositoryId
+        - text: lo añade el store y no sustituye al
+        - code [ref=f2e96]: id
+        - text: "del registro. Los tres estados son convenciones del catálogo: el backend sigue siendo responsable de validar y autorizar el ciclo de aprobación."
+    - generic [ref=f2e97]:
+      - text: Esquema de backend
+      - heading "Tipos y longitudes de las propiedades" [level=2] [ref=f2e98]
+      - paragraph [ref=f2e99]:
+        - text: REST mantiene los valores nativos de JSON. OData serializa las etiquetas y los cuatro objetos del documento como texto JSON.
+        - code [ref=f2e100]: version
+        - text: sigue siendo una cadena decimal en el registro JavaScript público y solo se convierte a
+        - code [ref=f2e101]: Edm.Int32
+        - text: en el límite OData.
+      - table [ref=f2e102]:
+        - rowgroup [ref=f2e103]:
+          - row [ref=f2e104]:
+            - columnheader "Propiedad" [ref=f2e105]
+            - columnheader "REST / JavaScript" [ref=f2e106]
+            - columnheader "OData / almacenamiento" [ref=f2e107]
+            - columnheader "Validación" [ref=f2e108]
+        - rowgroup [ref=f2e109]:
+          - row [ref=f2e110]:
+            - cell [ref=f2e111]:
+              - code [ref=f2e112]: id
+            - cell "string" [ref=f2e113]
+            - cell [ref=f2e114]:
+              - text: clave
+              - code [ref=f2e115]: Edm.String(128)
+              - text: ·
+              - code [ref=f2e116]: varchar/CHAR/String(128)
+            - cell [ref=f2e117]:
+              - text: 1–128; primero letra/dígito y después se admite
+              - code [ref=f2e118]: ._~-
+          - row [ref=f2e119]:
+            - cell [ref=f2e120]:
+              - code [ref=f2e121]: name
+            - cell "string" [ref=f2e122]
+            - cell [ref=f2e123]:
+              - code [ref=f2e124]: Edm.String(160)
+            - cell "sin espacios exteriores, 1–160" [ref=f2e125]
+          - row [ref=f2e126]:
+            - cell [ref=f2e127]:
+              - code [ref=f2e128]: description
+            - cell "string" [ref=f2e129]
+            - cell [ref=f2e130]:
+              - code [ref=f2e131]: Edm.String(1024)
+            - cell "0–1024" [ref=f2e132]
+          - row [ref=f2e133]:
+            - cell [ref=f2e134]:
+              - code [ref=f2e135]: tags
+            - cell "array de strings" [ref=f2e136]
+            - cell [ref=f2e137]:
+              - text: texto JSON en
+              - code [ref=f2e138]: Edm.String(4096)
+            - cell "hasta 32 valores únicos, 1–64 cada uno" [ref=f2e139]
+          - row [ref=f2e140]:
+            - cell [ref=f2e141]:
+              - code [ref=f2e142]: status
+            - cell "string enumerado" [ref=f2e143]
+            - cell [ref=f2e144]:
+              - code [ref=f2e145]: Edm.String(20)
+            - cell [ref=f2e146]:
+              - code [ref=f2e147]: draft
+              - text: ","
+              - code [ref=f2e148]: published
+              - text: o
+              - code [ref=f2e149]: archived
+          - row [ref=f2e150]:
+            - cell [ref=f2e151]:
+              - code [ref=f2e152]: version
+            - cell "cadena decimal" [ref=f2e153]
+            - cell [ref=f2e154]:
+              - code [ref=f2e155]: Edm.Int32
+              - text: ·
+              - code [ref=f2e156]: integer/INT4
+            - cell "1–2.147.483.647" [ref=f2e157]
+          - row [ref=f2e158]:
+            - cell [ref=f2e159]:
+              - code [ref=f2e160]: template
+              - text: ","
+              - code [ref=f2e161]: mapping
+              - text: ","
+              - code [ref=f2e162]: metadata
+              - text: ","
+              - code [ref=f2e163]: dataSources
+            - cell "valores JSON" [ref=f2e164]
+            - cell [ref=f2e165]:
+              - text: texto JSON en
+              - code [ref=f2e166]: Edm.String
+              - text: sin límite · CLOB/
+              - code [ref=f2e167]: STRING
+              - text: /
+              - code [ref=f2e168]: LargeString
+            - 'cell "JSON válido; límite total de referencia por petición: 5.000.000 de caracteres" [ref=f2e169]'
+          - row [ref=f2e170]:
+            - cell [ref=f2e171]:
+              - code [ref=f2e172]: createdAt
+              - text: ","
+              - code [ref=f2e173]: updatedAt
+            - cell "cadenas RFC 3339" [ref=f2e174]
+            - cell [ref=f2e175]:
+              - code [ref=f2e176]: Edm.DateTimeOffset
+              - text: V4 /
+              - code [ref=f2e177]: Edm.DateTime
+              - text: V2, precisión 7
+            - cell "propiedad del backend; el adaptador normaliza fechas V2" [ref=f2e178]
+      - paragraph [ref=f2e179]:
+        - text: El contrato procesable está disponible como
+        - link "JSON Schema y OpenAPI" [ref=f2e180] [cursor=pointer]:
+          - /url: https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/backend/contracts
+        - text: . Las implementaciones de base de datos y OData deben validar el JSON decodificado, no solo la longitud de la columna serializada.
+    - generic [ref=f2e181]:
+      - text: Todas las plataformas
+      - heading "Configuración común" [level=2] [ref=f2e182]
+      - generic [ref=f2e183]:
+        - code [ref=f2e184]: "const templateRepositories = [ { id: \"session\", name: \"Ejemplos de esta sesión\", type: \"memory\", records: initialTemplates }, { id: \"browser\", name: \"Este navegador\", type: \"localStorage\", storageKey: \"my-app.pdf-templates\", default: true } ]; const studio = new WebPdfTemplateStudio(\"#studio\", { template, templateRepositories });"
+        - button "Copiar" [ref=f2e185] [cursor=pointer]
+      - paragraph [ref=f2e186]:
+        - code [ref=f2e187]: id
+        - text: identifica el origen en filtros y llamadas.
+        - code [ref=f2e188]: name
+        - text: es su etiqueta visible. Al guardar sin indicar un origen, se usa el primer repositorio con
+        - code [ref=f2e189]: "default: true"
+        - text: o, si no existe, el primero de la lista.
+      - paragraph [ref=f2e190]:
+        - text: React recibe el mismo array en la prop
+        - code [ref=f2e191]: templateRepositories
+        - text: . En UI5, pásalo a
+        - code [ref=f2e192]: configure
+        - text: o llama a
+        - code [ref=f2e193]: setTemplateRepositories
+        - text: .
+    - generic [ref=f2e194]:
+      - text: Volátil
+      - heading "Repositorio memory" [level=2] [ref=f2e195]
+      - generic [ref=f2e196]:
+        - code [ref=f2e197]: "templateRepositories: [{ id: \"examples\", name: \"Plantillas de ejemplo\", type: \"memory\", records: [invoiceRecord, shippingLabelRecord] }]"
+        - button "Copiar" [ref=f2e198] [cursor=pointer]
+      - paragraph [ref=f2e199]:
+        - text: El proveedor mantiene
+        - code [ref=f2e200]: records
+        - text: en el objeto de configuración. Al crear asigna un ID y fechas; al actualizar incrementa
+        - code [ref=f2e201]: version
+        - text: . Los cambios desaparecen cuando la aplicación se recarga o se crea otra configuración.
+      - paragraph [ref=f2e202]: Es la opción más simple para precargar un catálogo reproducible en pruebas y demos. Si los registros iniciales deben conservarse intactos entre instancias, entrega una copia nueva del array.
+    - generic [ref=f2e203]:
+      - text: Navegador
+      - heading "Repositorio localStorage" [level=2] [ref=f2e204]
+      - generic [ref=f2e205]:
+        - code [ref=f2e206]: "templateRepositories: [{ id: \"browser\", name: \"Este navegador\", type: \"localStorage\", storageKey: \"my-app.pdf-templates\", default: true }]"
+        - button "Copiar" [ref=f2e207] [cursor=pointer]
+      - paragraph [ref=f2e208]:
+        - text: Guarda el array completo de registros como JSON. La clave predeterminada es
+        - code [ref=f2e209]: ui5-pdfme.templates
+        - text: ; usa una clave propia por aplicación y entorno para evitar colisiones. También puedes proporcionar un objeto compatible mediante
+        - code [ref=f2e210]: storage
+        - text: en el repositorio o, en Web, en la configuración del estudio.
+      - paragraph [ref=f2e211]: Los datos pertenecen al origen y perfil del navegador. Pueden borrarse, tienen cuota limitada, no se sincronizan con otros dispositivos y dos pestañas pueden sobrescribir sus cambios. No trates esta opción como un repositorio corporativo ni como una frontera de seguridad.
+    - generic [ref=f2e212]:
+      - text: Backend JSON
+      - heading "Repositorio REST" [level=2] [ref=f2e213]
+      - generic [ref=f2e214]:
+        - code [ref=f2e215]: "templateRepositories: [{ id: \"company-api\", name: \"Plantillas corporativas\", type: \"rest\", url: \"/api/templates\", headers: { \"x-client\": \"print-studio\" }, maxPages: 50 }]"
+        - button "Copiar" [ref=f2e216] [cursor=pointer]
+      - paragraph [ref=f2e217]: "El contrato predeterminado del adaptador Web es:"
+      - table [ref=f2e218]:
+        - rowgroup [ref=f2e219]:
+          - row [ref=f2e220]:
+            - columnheader "Operación" [ref=f2e221]
+            - columnheader "Petición predeterminada" [ref=f2e222]
+            - columnheader "Respuesta" [ref=f2e223]
+        - rowgroup [ref=f2e224]:
+          - row [ref=f2e225]:
+            - cell "Listar" [ref=f2e226]
+            - cell [ref=f2e227]:
+              - code [ref=f2e228]: GET /api/templates?search=&status=&tags=&top=&skip=
+            - cell "Array o envoltorio paginado" [ref=f2e229]
+          - row [ref=f2e230]:
+            - cell "Detalle" [ref=f2e231]
+            - cell [ref=f2e232]:
+              - code [ref=f2e233]: GET /api/templates/:id
+            - cell "Registro completo" [ref=f2e234]
+          - row [ref=f2e235]:
+            - cell "Crear" [ref=f2e236]
+            - cell [ref=f2e237]:
+              - code [ref=f2e238]: POST /api/templates
+            - cell "Registro guardado" [ref=f2e239]
+          - row [ref=f2e240]:
+            - cell "Actualizar" [ref=f2e241]
+            - cell [ref=f2e242]:
+              - code [ref=f2e243]: PUT /api/templates/:id
+            - cell "Registro guardado" [ref=f2e244]
+      - paragraph [ref=f2e245]:
+        - text: El listado admite un array,
+        - code [ref=f2e246]: "{ items, total, next }"
+        - text: ","
+        - code [ref=f2e247]: "{ items, nextLink }"
+        - text: ", OData V4 ("
+        - code [ref=f2e248]: value
+        - text: /
+        - code [ref=f2e249]: "@odata.nextLink"
+        - text: ) y OData V2 (
+        - code [ref=f2e250]: d.results
+        - text: /
+        - code [ref=f2e251]: d.__next
+        - text: ). Se siguen enlaces relativos o absolutos hasta terminar, hasta
+        - code [ref=f2e252]: maxPages
+        - text: (100 por defecto), o hasta desactivar
+        - code [ref=f2e253]: followNext
+        - text: .
+      - paragraph [ref=f2e254]:
+        - text: En el adaptador Web puedes cambiar nombres de parámetros con
+        - code [ref=f2e255]: searchParameter
+        - text: ","
+        - code [ref=f2e256]: statusParameter
+        - text: ","
+        - code [ref=f2e257]: tagsParameter
+        - text: ","
+        - code [ref=f2e258]: topParameter
+        - text: "y"
+        - code [ref=f2e259]: skipParameter
+        - text: . Usa
+        - code [ref=f2e260]: getUrl
+        - text: ","
+        - code [ref=f2e261]: createMethod
+        - text: ","
+        - code [ref=f2e262]: updateMethod
+        - text: ","
+        - code [ref=f2e263]: mapRecord
+        - text: "y"
+        - code [ref=f2e264]: serializeRecord
+        - text: para adaptar una API existente. El proveedor REST nativo de UI5 usa los parámetros fijos
+        - code [ref=f2e265]: search
+        - text: ","
+        - code [ref=f2e266]: status
+        - text: ","
+        - code [ref=f2e267]: top
+        - text: "y"
+        - code [ref=f2e268]: skip
+        - text: ", y no aplica esas funciones de mapeo."
+      - generic [ref=f2e269]:
+        - code [ref=f2e270]: "const repository = { id: \"legacy-api\", type: \"rest\", url: \"/templates\", getUrl: (id) => `/templates/${encodeURIComponent(id)}`, mapRecord: (payload) => payload.result, serializeRecord: (record) => ({ documentTemplate: record }) };"
+        - button "Copiar" [ref=f2e271] [cursor=pointer]
+      - paragraph [ref=f2e272]:
+        - text: El cliente usa credenciales
+        - code [ref=f2e273]: same-origin
+        - text: por defecto. Para autenticación dinámica, proporciona un
+        - code [ref=f2e274]: fetch
+        - text: de la aplicación; no incrustes bearer tokens en plantillas ni en ejemplos. Valida también el origen de cualquier enlace de página siguiente antes de reenviar cabeceras sensibles.
+    - generic [ref=f2e275]:
+      - text: V2 / V4
+      - heading "Repositorio OData" [level=2] [ref=f2e276]
+      - heading "JavaScript y React sobre HTTP" [level=3] [ref=f2e277]
+      - generic [ref=f2e278]:
+        - code [ref=f2e279]: "templateRepositories: [{ id: \"cap-http\", type: \"odata\", odataVersion: 4, url: \"/odata/v4/pdf-templates/Templates\", fields: { template: \"TemplateJson\", mapping: \"MappingJson\" } }]"
+        - button "Copiar" [ref=f2e280] [cursor=pointer]
+      - paragraph [ref=f2e281]:
+        - text: Indica
+        - code [ref=f2e282]: "odataVersion: 2"
+        - text: para un endpoint HTTP V2; V4 es el valor predeterminado. V4 usa
+        - code [ref=f2e283]: contains
+        - text: ","
+        - code [ref=f2e284]: $count=true
+        - text: "y"
+        - code [ref=f2e285]: PATCH
+        - text: . V2 usa
+        - code [ref=f2e286]: substringof
+        - text: sin
+        - code [ref=f2e287]: tolower
+        - text: para ser compatible con SAP Gateway,
+        - code [ref=f2e288]: $inlinecount=allpages
+        - text: "y"
+        - code [ref=f2e289]: MERGE
+        - text: ; las mayúsculas/minúsculas dependen del backend. Ambos entienden sus envoltorios nativos y siguen la paginación del servidor.
+      - table [ref=f2e290]:
+        - rowgroup [ref=f2e291]:
+          - row [ref=f2e292]:
+            - columnheader "Propiedad" [ref=f2e293]
+            - columnheader "Campo OData predeterminado" [ref=f2e294]
+        - rowgroup [ref=f2e295]:
+          - row [ref=f2e296]:
+            - cell [ref=f2e297]:
+              - code [ref=f2e298]: id
+              - text: ","
+              - code [ref=f2e299]: name
+              - text: ","
+              - code [ref=f2e300]: description
+            - cell [ref=f2e301]:
+              - code [ref=f2e302]: ID
+              - text: ","
+              - code [ref=f2e303]: Name
+              - text: ","
+              - code [ref=f2e304]: Description
+          - row [ref=f2e305]:
+            - cell [ref=f2e306]:
+              - code [ref=f2e307]: tags
+              - text: ","
+              - code [ref=f2e308]: status
+              - text: ","
+              - code [ref=f2e309]: version
+            - cell [ref=f2e310]:
+              - code [ref=f2e311]: Tags
+              - text: ","
+              - code [ref=f2e312]: Status
+              - text: ","
+              - code [ref=f2e313]: Version
+          - row [ref=f2e314]:
+            - cell [ref=f2e315]:
+              - code [ref=f2e316]: template
+              - text: ","
+              - code [ref=f2e317]: mapping
+            - cell [ref=f2e318]:
+              - code [ref=f2e319]: TemplateJson
+              - text: ","
+              - code [ref=f2e320]: MappingJson
+          - row [ref=f2e321]:
+            - cell [ref=f2e322]:
+              - code [ref=f2e323]: metadata
+              - text: ","
+              - code [ref=f2e324]: dataSources
+            - cell [ref=f2e325]:
+              - code [ref=f2e326]: MetadataJson
+              - text: ","
+              - code [ref=f2e327]: DataSourcesJson
+          - row [ref=f2e328]:
+            - cell [ref=f2e329]:
+              - code [ref=f2e330]: createdAt
+              - text: ","
+              - code [ref=f2e331]: updatedAt
+            - cell [ref=f2e332]:
+              - code [ref=f2e333]: CreatedAt
+              - text: ","
+              - code [ref=f2e334]: UpdatedAt
+      - paragraph [ref=f2e335]:
+        - code [ref=f2e336]: Tags
+        - text: y las columnas terminadas en
+        - code [ref=f2e337]: Json
+        - text: se serializan como cadenas JSON. Los listados seleccionan por defecto solo ID/nombre/descripción/etiquetas/estado/versión/auditoría para dejar los JSON grandes en la petición de detalle; personalízalo con
+        - code [ref=f2e338]: listSelect
+        - text: o desactívalo con
+        - code [ref=f2e339]: "false"
+        - text: . La lectura conserva ETags V2/V4 dinámicos en
+        - code [ref=f2e340]: record.etag
+        - text: . Para escribir en SAP por HTTP, proporciona un
+        - code [ref=f2e341]: fetch
+        - text: de la aplicación que gestione sesión y
+        - code [ref=f2e342]: X-CSRF-Token
+        - text: ", y activa"
+        - code [ref=f2e343]: "requireEtag: true"
+        - text: ; después de una respuesta sin cuerpo se relee la entidad para recuperar versión, auditoría y ETag nuevos.
+        - code [ref=f2e344]: fields
+        - text: cambia los nombres usados al filtrar y guardar; si el servicio devuelve nombres completamente distintos, usa REST,
+        - code [ref=f2e345]: function
+        - text: o un proveedor registrado.
+      - heading "SAPUI5 / OpenUI5 / Fiori con modelo propagado" [level=3] [ref=f2e346]
+      - generic [ref=f2e347]:
+        - code [ref=f2e348]: "studio.setTemplateRepositories([{ id: \"cap-model\", name: \"CAP\", type: \"odata\", modelName: \"templates\", path: \"/Templates\", pageSize: 100, maxRecords: 10000, updateGroupId: \"templates\" }]);"
+        - button "Copiar" [ref=f2e349] [cursor=pointer]
+      - paragraph [ref=f2e350]:
+        - text: Esta modalidad conserva destinos, sesión, CSRF y grupos batch en el modelo de la aplicación. OData V4 usa bindings de lista/contexto y lee páginas hasta agotarlas o alcanzar
+        - code [ref=f2e351]: maxRecords
+        - text: . OData V2 usa
+        - code [ref=f2e352]: read
+        - text: ","
+        - code [ref=f2e353]: create
+        - text: "y"
+        - code [ref=f2e354]: update
+        - text: . Aplica filtros de tenant y propietario en el servicio o en el modelo, no solo en el catálogo.
+      - generic [ref=f2e355]:
+        - strong [ref=f2e356]: "Selector de implementación SAP:"
+        - text: consulta la
+        - link "guía de RAP, CAP, CDS clásico y SAP Gateway/SEGW" [ref=f2e357] [cursor=pointer]:
+          - /url: ../sap/index.html
+        - text: ", con reglas de paquete/transporte, descargas e instalador opcional en modo simulación."
+    - generic [ref=f2e358]:
+      - text: Aplicación
+      - heading "Repositorio function" [level=2] [ref=f2e359]
+      - generic [ref=f2e360]:
+        - code [ref=f2e361]: "const repository = { id: \"application\", name: \"Repositorio de la aplicación\", type: \"function\", list: (query, context) => templateApi.list(query), get: (id, context) => templateApi.get(id), save: (record, context) => templateApi.save(record) };"
+        - button "Copiar" [ref=f2e362] [cursor=pointer]
+      - paragraph [ref=f2e363]:
+        - text: Las tres funciones pueden ser síncronas o devolver promesas.
+        - code [ref=f2e364]: list
+        - text: debe devolver un array de registros o resúmenes;
+        - code [ref=f2e365]: get
+        - text: devuelve el registro completo;
+        - code [ref=f2e366]: save
+        - text: devuelve la versión persistida. Los callbacks son responsables de los IDs duraderos, fechas, versiones, conflictos y transacciones. Rechaza la promesa para que el estudio emita su evento de error.
+      - paragraph [ref=f2e367]: "Si necesitas reutilizar un tipo propio en varias configuraciones, registra un proveedor. En este contrato el repositorio se recibe como primer argumento:"
+      - generic [ref=f2e368]:
+        - code [ref=f2e369]: "studio.registerTemplateRepositoryProvider(\"acme\", { list: (source, query, context) => {}, get: (source, id, context) => {}, save: (source, record, context) => {} });"
+        - button "Copiar" [ref=f2e370] [cursor=pointer]
+    - generic [ref=f2e371]:
+      - text: Uso
+      - heading "Catálogo, ciclo de vida y API" [level=2] [ref=f2e372]
+      - paragraph [ref=f2e373]:
+        - text: La primera pulsación en
+        - strong [ref=f2e374]: Guardar plantilla
+        - text: solicita nombre, descripción, etiquetas, estado y repositorio. Después, el estudio conserva el registro activo y lo actualiza. Para crear otro registro o versión, guarda metadatos con un
+        - code [ref=f2e375]: id
+        - text: vacío según el flujo de tu aplicación. Cambiar solo
+        - code [ref=f2e376]: repositoryId
+        - text: no mueve ni copia el original.
+      - generic [ref=f2e377]:
+        - code [ref=f2e378]: "await studio.listTemplates({ search: \"factura\", status: \"published\", tags: [\"ventas\"], repositoryId: \"company-api\" }); const record = await studio.getTemplateRecord(\"invoice-es\", { repositoryId: \"company-api\" }); await studio.loadTemplate(record); await studio.saveTemplateRecord( { name: \"Factura\", tags: [\"ventas\"], status: \"draft\" }, { repositoryId: \"company-api\" } );"
+        - button "Copiar" [ref=f2e379] [cursor=pointer]
+      - heading "Catálogo web independiente" [level=3] [ref=f2e380]
+      - generic [ref=f2e381]:
+        - code [ref=f2e382]: "import { TemplateStore, WebTemplateCatalog } from \"ui5-pdfme\"; const store = new TemplateStore(templateRepositories); const catalog = new WebTemplateCatalog(\"#catalog\", { store, language: \"es\", onTemplateOpen: ({ template: record }) => studio.applyTemplateRecord(record) });"
+        - button "Copiar" [ref=f2e383] [cursor=pointer]
+      - paragraph [ref=f2e384]:
+        - text: React exporta
+        - code [ref=f2e385]: PdfTemplateCatalog
+        - text: y acepta los repositorios en
+        - code [ref=f2e386]: PdfTemplateStudio
+        - text: . UI5 expone
+        - code [ref=f2e387]: setTemplateRepositories
+        - text: ","
+        - code [ref=f2e388]: openTemplateCatalog
+        - text: ","
+        - code [ref=f2e389]: listTemplates
+        - text: ","
+        - code [ref=f2e390]: getTemplateRecord
+        - text: ","
+        - code [ref=f2e391]: loadTemplate
+        - text: ","
+        - code [ref=f2e392]: saveTemplateRecord
+        - text: "y"
+        - code [ref=f2e393]: registerTemplateRepositoryProvider
+        - text: . No hay una API común para borrar, mover o consultar un historial de versiones; esas operaciones pertenecen al backend o a la aplicación.
+      - table [ref=f2e394]:
+        - rowgroup [ref=f2e395]:
+          - row [ref=f2e396]:
+            - columnheader "Evento web" [ref=f2e397]
+            - columnheader "Origen Web" [ref=f2e398]
+            - columnheader "Evento UI5" [ref=f2e399]
+            - columnheader "Contenido" [ref=f2e400]
+        - rowgroup [ref=f2e401]:
+          - row [ref=f2e402]:
+            - cell [ref=f2e403]:
+              - code [ref=f2e404]: pdfme:templatesListed
+            - cell [ref=f2e405]:
+              - text: Raíz de
+              - code [ref=f2e406]: WebTemplateCatalog
+            - cell [ref=f2e407]:
+              - code [ref=f2e408]: templatesListed
+            - cell "Lista y consulta" [ref=f2e409]
+          - row [ref=f2e410]:
+            - cell [ref=f2e411]:
+              - code [ref=f2e412]: pdfme:templateOpen
+            - cell [ref=f2e413]:
+              - text: Raíz de
+              - code [ref=f2e414]: WebTemplateCatalog
+            - cell "—" [ref=f2e415]
+            - cell "Registro elegido" [ref=f2e416]
+          - row [ref=f2e417]:
+            - cell [ref=f2e418]:
+              - code [ref=f2e419]: pdfme:templateLoaded
+            - cell [ref=f2e420]:
+              - text: Raíz de
+              - code [ref=f2e421]: WebPdfTemplateStudio
+            - cell [ref=f2e422]:
+              - code [ref=f2e423]: templateLoaded
+            - cell "Registro abierto" [ref=f2e424]
+          - row [ref=f2e425]:
+            - cell [ref=f2e426]:
+              - code [ref=f2e427]: pdfme:templateSaved
+            - cell [ref=f2e428]:
+              - text: Raíz de
+              - code [ref=f2e429]: WebPdfTemplateStudio
+            - cell [ref=f2e430]:
+              - code [ref=f2e431]: templatePersisted
+            - cell "Registro guardado" [ref=f2e432]
+          - row [ref=f2e433]:
+            - cell [ref=f2e434]:
+              - code [ref=f2e435]: pdfme:error
+            - cell "Componente que ejecuta la operación" [ref=f2e436]
+            - cell [ref=f2e437]:
+              - code [ref=f2e438]: error
+            - cell "Operación y error" [ref=f2e439]
+    - generic [ref=f2e440]:
+      - text: Producción
+      - heading "Seguridad y datos almacenados" [level=2] [ref=f2e441]
+      - paragraph [ref=f2e442]:
+        - text: Al guardar desde el estudio,
+        - code [ref=f2e443]: dataSources
+        - text: se excluye por defecto. Solo se persiste con
+        - code [ref=f2e444]: "persistDataSources: true"
+        - text: . Al abrir un registro, las fuentes almacenadas solo se aplican con
+        - code [ref=f2e445]: "applyStoredDataSources: true"
+        - text: .
+      - generic [ref=f2e446]:
+        - code [ref=f2e447]: "const studio = new WebPdfTemplateStudio(\"#studio\", { template, templateRepositories, persistDataSources: false, applyStoredDataSources: false });"
+        - button "Copiar" [ref=f2e448] [cursor=pointer]
+      - list [ref=f2e449]:
+        - listitem [ref=f2e450]:
+          - text: No guardes tokens, cookies, contraseñas ni payloads privados en
+          - code [ref=f2e451]: template
+          - text: ","
+          - code [ref=f2e452]: mapping
+          - text: ","
+          - code [ref=f2e453]: metadata
+          - text: o
+          - code [ref=f2e454]: dataSources
+          - text: .
+        - listitem [ref=f2e455]: Autoriza por separado listar, leer, crear, actualizar y publicar.
+        - listitem [ref=f2e456]: Impón filtros de tenant/propietario y límites de tamaño en el backend.
+        - listitem [ref=f2e457]: Valida esquemas pdfme y mapeos antes de publicar.
+        - listitem [ref=f2e458]: Usa versión o ETag para detectar escrituras concurrentes y conserva versiones publicadas inmutables.
+        - listitem [ref=f2e459]: Trata nombres, descripciones y etiquetas remotas como texto no confiable.
+    - generic [ref=f2e460]:
+      - text: Checklist
+      - heading "Validar la integración" [level=2] [ref=f2e461]
+      - list [ref=f2e462]:
+        - listitem [ref=f2e463]: Lista, filtra, abre y guarda en cada repositorio configurado.
+        - listitem [ref=f2e464]: Comprueba una creación sin ID y una actualización con ID y versión.
+        - listitem [ref=f2e465]:
+          - text: Verifica que un resumen de listado sin
+          - code [ref=f2e466]: template
+          - text: provoque una lectura de detalle al abrirlo.
+        - listitem [ref=f2e467]: Prueba paginación relativa y absoluta, el límite configurado y, en Web, la cancelación.
+        - listitem [ref=f2e468]: Guarda, recarga y genera un PDF válido con el mapeo recuperado.
+        - listitem [ref=f2e469]: Confirma que fuentes de datos y credenciales no se persisten accidentalmente.
+        - listitem [ref=f2e470]: Prueba autorización, aislamiento de tenant y conflicto de versión en el backend.
+      - paragraph [ref=f2e471]:
+        - text: El repositorio incluye un
+        - link "ejemplo REST en Node, un esquema PostgreSQL y un modelo CAP/OData" [ref=f2e472] [cursor=pointer]:
+          - /url: https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/backend
+        - text: .
+    - generic [ref=f2e473]:
+      - text: Ayuda
+      - heading "Problemas comunes" [level=2] [ref=f2e474]
+      - table [ref=f2e475]:
+        - rowgroup [ref=f2e476]:
+          - row [ref=f2e477]:
+            - columnheader "Mensaje o síntoma" [ref=f2e478]
+            - columnheader "Comprobación" [ref=f2e479]
+        - rowgroup [ref=f2e480]:
+          - row [ref=f2e481]:
+            - cell [ref=f2e482]:
+              - code [ref=f2e483]: No template repository configured
+            - cell "Configura al menos un repositorio antes de listar, abrir un registro o guardar." [ref=f2e484]
+          - row [ref=f2e485]:
+            - cell [ref=f2e486]:
+              - code [ref=f2e487]: Unknown template repository type
+            - cell [ref=f2e488]:
+              - text: Corrige
+              - code [ref=f2e489]: type
+              - text: o registra el proveedor antes del primer uso.
+          - row [ref=f2e490]:
+            - cell [ref=f2e491]:
+              - code [ref=f2e492]: No storage implementation
+            - cell [ref=f2e493]:
+              - code [ref=f2e494]: localStorage
+              - text: no está disponible; proporciona un objeto
+              - code [ref=f2e495]: storage
+              - text: compatible.
+          - row [ref=f2e496]:
+            - cell "Error HTTP" [ref=f2e497]
+            - cell "Revisa URL, método, credenciales, CORS, CSRF y el cuerpo devuelto por el servicio." [ref=f2e498]
+          - row [ref=f2e499]:
+            - cell "El catálogo muestra datos pero no abre" [ref=f2e500]
+            - cell [ref=f2e501]:
+              - text: El endpoint de detalle debe devolver
+              - code [ref=f2e502]: template.schemas
+              - text: y conservar el mismo ID.
+          - row [ref=f2e503]:
+            - cell "Resultados incompletos" [ref=f2e504]
+            - cell [ref=f2e505]:
+              - text: Revisa
+              - code [ref=f2e506]: next
+              - text: /
+              - code [ref=f2e507]: nextLink
+              - text: ","
+              - code [ref=f2e508]: followNext
+              - text: ","
+              - code [ref=f2e509]: maxPages
+              - text: o
+              - code [ref=f2e510]: maxRecords
+              - text: .
+          - row [ref=f2e511]:
+            - cell "Se actualiza el repositorio equivocado" [ref=f2e512]
+            - cell [ref=f2e513]:
+              - text: Usa IDs únicos, marca un único origen predeterminado y pasa
+              - code [ref=f2e514]: repositoryId
+              - text: explícitamente.
+  - contentinfo [ref=f2e515]:
+    - text: ui5-pdfme ·
+    - link "Documentación técnica" [ref=f2e516] [cursor=pointer]:
+      - /url: ../
+    - text: ·
+    - link "Guía de uso" [ref=f2e517] [cursor=pointer]:
+      - /url: ../guide/
+    - text: · Apache-2.0

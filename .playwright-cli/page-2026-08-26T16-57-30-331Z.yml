@@ -1,0 +1,273 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "PDF ui5-pdfme" [ref=e3] [cursor=pointer]:
+      - /url: ../
+      - generic [ref=e4]: PDF
+      - text: ui5-pdfme
+    - navigation "Navegación principal" [ref=e5]:
+      - link "Arquitectura" [ref=e6] [cursor=pointer]:
+        - /url: "#arquitectura"
+      - link "Node" [ref=e7] [cursor=pointer]:
+        - /url: "#node"
+      - link "Docker" [ref=e8] [cursor=pointer]:
+        - /url: "#docker"
+      - link "CAP/BTP" [ref=e9] [cursor=pointer]:
+        - /url: "#cap"
+      - link "Fiori" [ref=e10] [cursor=pointer]:
+        - /url: "#fiori"
+      - link "ABAP" [ref=e11] [cursor=pointer]:
+        - /url: "#abap"
+      - link "Código" [ref=e12] [cursor=pointer]:
+        - /url: "#codigo"
+  - generic [ref=e15]:
+    - generic [ref=e16]: CAP · Docker · Node.js · Fiori · BTP · ABAP
+    - heading "Generación PDF diferida" [level=1] [ref=e17]
+    - paragraph [ref=e18]: Encola un documento, permite que el usuario continúe trabajando y genera el PDF de forma fiable en un worker Node.js con plantillas versionadas.
+    - generic [ref=e19]:
+      - link "Abrir código" [ref=e20] [cursor=pointer]:
+        - /url: https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/deferred
+      - link "Documentación principal" [ref=e21] [cursor=pointer]:
+        - /url: ../
+  - generic [ref=e22]:
+    - complementary "Contenido" [ref=e23]:
+      - link "Arquitectura" [ref=e24] [cursor=pointer]:
+        - /url: "#arquitectura"
+      - link "Contrato HTTP" [ref=e25] [cursor=pointer]:
+        - /url: "#contrato"
+      - link "Node.js puro" [ref=e26] [cursor=pointer]:
+        - /url: "#node"
+      - link "Docker" [ref=e27] [cursor=pointer]:
+        - /url: "#docker"
+      - link "CAP y BTP" [ref=e28] [cursor=pointer]:
+        - /url: "#cap"
+      - link "Consumir desde Fiori" [ref=e29] [cursor=pointer]:
+        - /url: "#fiori"
+      - link "Consumir desde ABAP" [ref=e30] [cursor=pointer]:
+        - /url: "#abap"
+      - link "Seguridad" [ref=e31] [cursor=pointer]:
+        - /url: "#seguridad"
+      - link "Código disponible" [ref=e32] [cursor=pointer]:
+        - /url: "#codigo"
+    - main [ref=e33]:
+      - generic [ref=e34]:
+        - text: Objetivo
+        - heading "Separar solicitud y renderizado" [level=2] [ref=e35]
+        - generic "Flujo de generación diferida" [ref=e36]:
+          - generic [ref=e37]: Fiori / ABAP
+          - generic [ref=e38]: →
+          - generic [ref=e39]: Job QUEUED
+          - generic [ref=e40]: →
+          - generic [ref=e41]: Worker Node
+          - generic [ref=e42]: →
+          - generic [ref=e43]: PDF
+          - generic [ref=e44]: →
+          - generic [ref=e45]: Object Store / DMS
+        - paragraph [ref=e46]:
+          - text: El diseñador continúa en UI5/JavaScript/React. El backend recupera una versión publicada, carga los datos empresariales, ejecuta
+          - code [ref=e47]: MappingEngine
+          - text: y llama a
+          - code [ref=e48]: generatePdf
+          - text: sin interfaz. El navegador no necesita permanecer abierto.
+        - table [ref=e49]:
+          - rowgroup [ref=e50]:
+            - row [ref=e51]:
+              - columnheader "Opción" [ref=e52]
+              - columnheader "Persistencia" [ref=e53]
+              - columnheader "Uso recomendado" [ref=e54]
+          - rowgroup [ref=e55]:
+            - row [ref=e56]:
+              - cell "CAP Node.js" [ref=e57]
+              - cell "Cola CAP + HANA" [ref=e58]
+              - cell "Aplicaciones SAP BTP con CAP/XSUAA" [ref=e59]
+            - row [ref=e60]:
+              - cell "Docker + PostgreSQL" [ref=e61]
+              - cell "Cola y plantillas duraderas" [ref=e62]
+              - cell "Kyma, Kubernetes o infraestructura propia" [ref=e63]
+            - row [ref=e64]:
+              - cell "Node + PostgreSQL" [ref=e65]
+              - cell "Cola y plantillas duraderas" [ref=e66]
+              - cell "Servidor Linux/Windows o VM" [ref=e67]
+            - row [ref=e68]:
+              - cell "Memoria" [ref=e69]
+              - cell "No duradera" [ref=e70]
+              - cell "Desarrollo y pruebas locales" [ref=e71]
+      - generic [ref=e72]:
+        - text: REST
+        - heading "Contrato de jobs" [level=2] [ref=e73]
+        - generic [ref=e74]:
+          - code [ref=e75]: "POST /api/pdf-jobs Idempotency-Key: sales-order-5001-v3 Content-Type: application/json { \"templateId\": \"sales-order\", \"filename\": \"order-5001.pdf\", \"runAt\": \"2026-08-27T02:00:00Z\", \"payload\": { \"data\": { \"order\": { \"number\": \"5001\" } } } }"
+          - button "Copiar" [ref=e76] [cursor=pointer]
+        - paragraph [ref=e77]:
+          - text: La respuesta es
+          - code [ref=e78]: 202 Accepted
+          - text: con
+          - code [ref=e79]: id
+          - text: ","
+          - code [ref=e80]: statusUrl
+          - text: "y"
+          - code [ref=e81]: contentUrl
+          - text: . Consulta el estado hasta
+          - code [ref=e82]: DONE
+          - text: o
+          - code [ref=e83]: FAILED
+          - text: . La descarga devuelve 409 mientras el PDF no esté listo.
+        - generic [ref=e84]:
+          - strong [ref=e85]: "Producción SAP:"
+          - text: envía preferentemente
+          - code [ref=e86]: businessObject
+          - text: "y"
+          - code [ref=e87]: businessKey
+          - text: . El worker debe resolver los datos mediante una Destination autorizada; evita persistir documentos empresariales completos dentro de la cola.
+      - generic [ref=e88]:
+        - text: Servidor
+        - heading "Instalación Node.js pura" [level=2] [ref=e89]
+        - generic [ref=e90]:
+          - code [ref=e91]: cd examples/deferred/node npm install npm start
+          - button "Copiar" [ref=e92] [cursor=pointer]
+        - paragraph [ref=e93]:
+          - text: Sin
+          - code [ref=e94]: DATABASE_URL
+          - text: usa memoria. Con PostgreSQL crea las tablas de referencia y emplea
+          - code [ref=e95]: FOR UPDATE SKIP LOCKED
+          - text: ", por lo que pueden ejecutarse varios workers sin procesar el mismo job."
+        - generic [ref=e96]:
+          - code [ref=e97]: DATABASE_URL=postgresql://pdfme:secret@localhost:5432/pdfme PDF_OUTPUT_DIR=/srv/pdfme/output API_TOKEN=replace-me WORKER_ENABLED=true npm start
+          - button "Copiar" [ref=e98] [cursor=pointer]
+        - paragraph [ref=e99]:
+          - text: Las variables adicionales controlan host, puerto, CORS, tamaño máximo, intervalo de polling y número de intentos. Se puede separar API y worker iniciando una instancia con
+          - code [ref=e100]: WORKER_ENABLED=false
+          - text: .
+      - generic [ref=e101]:
+        - text: Despliegue portable
+        - heading "Docker y Docker Compose" [level=2] [ref=e102]
+        - paragraph [ref=e103]: Docker empaqueta la API y el worker de generación diferida. Es una opción de despliegue de este patrón; el editor no lo necesita y el mismo worker también puede ejecutarse directamente con Node o CAP.
+        - paragraph [ref=e104]:
+          - text: La imagen de ejemplo se ejecuta sin privilegios de root, publica el puerto
+          - code [ref=e105]: "3001"
+          - text: ", expone la comprobación"
+          - code [ref=e106]: /health
+          - text: y conserva los PDF generados en un volumen.
+        - generic [ref=e107]:
+          - article [ref=e108]:
+            - heading "Prueba local en memoria" [level=3] [ref=e109]
+            - paragraph [ref=e110]: Inicia el servicio con la cola y las plantillas en memoria. Este modo pierde el estado al reiniciar y no debe escalarse.
+            - generic [ref=e111]:
+              - code [ref=e112]: cd examples/deferred/docker docker compose up --build
+              - button "Copiar" [ref=e113] [cursor=pointer]
+          - article [ref=e114]:
+            - heading "PostgreSQL persistente" [level=3] [ref=e115]
+            - paragraph [ref=e116]: Añade una base de datos y volúmenes duraderos para plantillas, trabajos y PDF. Es el modo adecuado para réplicas y despliegues reales.
+            - generic [ref=e117]:
+              - code [ref=e118]: docker compose -f compose.yaml -f compose.postgres.yaml up --build
+              - button "Copiar" [ref=e119] [cursor=pointer]
+        - generic [ref=e120]:
+          - strong [ref=e121]: "Antes de exponer el servicio:"
+          - text: copia
+          - code [ref=e122]: .env.example
+          - text: a
+          - code [ref=e123]: .env
+          - text: ", sustituye"
+          - code [ref=e124]: API_TOKEN
+          - text: "y"
+          - code [ref=e125]: POSTGRES_PASSWORD
+          - text: ", limita"
+          - code [ref=e126]: CORS_ORIGIN
+          - text: y usa OAuth/XSUAA, mTLS o un gateway en producción.
+        - paragraph [ref=e127]:
+          - link "Abrir el Dockerfile y las configuraciones Compose en GitHub" [ref=e128] [cursor=pointer]:
+            - /url: https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/deferred/docker
+          - text: .
+      - generic [ref=e129]:
+        - text: SAP
+        - heading "CAP Node.js y SAP BTP" [level=2] [ref=e130]
+        - generic [ref=e131]:
+          - code [ref=e132]: cd examples/deferred/cap npm install npm run watch
+          - button "Copiar" [ref=e133] [cursor=pointer]
+        - paragraph [ref=e134]:
+          - text: El servicio OData V4 está en
+          - code [ref=e135]: /odata/v4/pdf-generation
+          - text: . La acción
+          - code [ref=e136]: enqueue
+          - text: crea el job y publica
+          - code [ref=e137]: RenderRequested
+          - text: en la cola persistente de CAP. Si se proporciona
+          - code [ref=e138]: runAt
+          - text: ", usa la planificación de la misma cola."
+        - generic [ref=e139]:
+          - code [ref=e140]: npx cds add hana npx cds add xsuaa npx cds add mta npx cds build --production mbt build cf deploy mta_archives/*.mtar
+          - button "Copiar" [ref=e141] [cursor=pointer]
+        - paragraph [ref=e142]:
+          - text: Asigna
+          - code [ref=e143]: PdfViewer
+          - text: ","
+          - code [ref=e144]: PdfGenerator
+          - text: "y"
+          - code [ref=e145]: TemplateEditor
+          - text: a colecciones de roles. El ejemplo guarda el binario en la base de datos para ser autocontenido; para PDFs grandes utiliza Object Store o Document Management y conserva únicamente la clave y metadatos.
+      - generic [ref=e146]:
+        - text: Cliente UI5
+        - heading "Consumir desde Fiori" [level=2] [ref=e147]
+        - paragraph [ref=e148]: La vía REST recomendada publica el renderer tras un approuter y una Destination. Fiori envía el job, libera el busy indicator al recibir 202 y muestra el proceso en una lista de trabajos.
+        - generic [ref=e149]:
+          - code [ref=e150]: "const response = await fetch(\"/pdf-api/api/pdf-jobs\", { method: \"POST\", headers: { \"content-type\": \"application/json\", \"idempotency-key\": `order-${order.SalesOrder}` }, body: JSON.stringify({ templateId: \"sales-order\", filename: `order-${order.SalesOrder}.pdf`, payload: { data: { order } } }) }); const job = await response.json();"
+          - button "Copiar" [ref=e151] [cursor=pointer]
+        - paragraph [ref=e152]:
+          - text: Para CAP, crea un modelo OData V4 y llama a
+          - code [ref=e153]: /enqueue(...)
+          - text: mediante
+          - code [ref=e154]: bindContext
+          - text: . Después lee
+          - code [ref=e155]: /Jobs(<uuid>)
+          - text: . El manual técnico incluye el código completo de envío, polling y descarga.
+      - generic [ref=e156]:
+        - text: ECC / S/4HANA
+        - heading "Consumir desde ABAP" [level=2] [ref=e157]
+        - list [ref=e158]:
+          - listitem [ref=e159]: Crea una Destination HTTP SM59 o Communication Arrangement.
+          - listitem [ref=e160]: Haz POST del job con una clave de idempotencia estable.
+          - listitem [ref=e161]: Guarda el ID junto al objeto de negocio.
+          - listitem [ref=e162]: Un job de fondo ABAP consulta el estado; no mantengas un proceso de diálogo esperando.
+          - listitem [ref=e163]:
+            - text: Al finalizar, descarga el
+            - code [ref=e164]: xstring
+            - text: y archívalo mediante ArchiveLink, DMS/GOS o el repositorio aprobado.
+        - generic [ref=e165]:
+          - code [ref=e166]: "cl_http_client=>create_by_destination( EXPORTING destination = 'Z_PDFME_API' IMPORTING client = lo_client ). lo_client->request->set_method( if_http_request=>co_request_method_post ). lo_client->request->set_header_field( name = 'Idempotency-Key' value = |billing-{ lv_vbeln }| ). lo_client->request->set_cdata( lv_json ). lo_client->send( ). lo_client->receive( )."
+          - button "Copiar" [ref=e167] [cursor=pointer]
+      - generic [ref=e168]:
+        - text: Producción
+        - heading "Seguridad y operación" [level=2] [ref=e169]
+        - list [ref=e170]:
+          - listitem [ref=e171]: Solo plantillas publicadas, versionadas y autorizadas.
+          - listitem [ref=e172]: Nunca ejecutes URLs, loaders, formatters o plugins recibidos del job.
+          - listitem [ref=e173]:
+            - text: El renderer de referencia rechaza URLs remotas en
+            - code [ref=e174]: basePdf
+            - text: .
+          - listitem [ref=e175]: Usa XSUAA/OAuth2 o mTLS; el token estático es solo una ayuda de despliegue aislado.
+          - listitem [ref=e176]: Aísla tenant/propietario y limita payload, inputs, imágenes, tiempo, intentos y retención.
+          - listitem [ref=e177]: Monitoriza antigüedad de cola, fallos, tiempo, tamaño, dead letters y capacidad.
+      - generic [ref=e178]:
+        - text: Accesible
+        - heading "Manual y código" [level=2] [ref=e179]
+        - generic [ref=e180]:
+          - article [ref=e181]:
+            - heading "Manual técnico completo" [level=3] [ref=e182]
+            - paragraph [ref=e183]: Contrato, variables, despliegue, Fiori, ABAP, seguridad y validación.
+            - link "Abrir Markdown" [ref=e184] [cursor=pointer]:
+              - /url: https://github.com/jesusfrguz/ui5-pdfme/blob/main/agents/DEFERRED_GENERATION.md
+          - article [ref=e185]:
+            - heading "Node y PostgreSQL" [level=3] [ref=e186]
+            - paragraph [ref=e187]: API HTTP, worker, stores y generación de bytes.
+            - link "Abrir código" [ref=e188] [cursor=pointer]:
+              - /url: https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/deferred/node
+          - article [ref=e189]:
+            - heading "Docker" [level=3] [ref=e190]
+            - paragraph [ref=e191]: Dockerfile y dos configuraciones Compose.
+            - link "Abrir código" [ref=e192] [cursor=pointer]:
+              - /url: https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/deferred/docker
+          - article [ref=e193]:
+            - heading "CAP Node.js" [level=3] [ref=e194]
+            - paragraph [ref=e195]: Entidades, servicio OData, acciones y evento persistente.
+            - link "Abrir código" [ref=e196] [cursor=pointer]:
+              - /url: https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/deferred/cap

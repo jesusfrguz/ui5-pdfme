@@ -1,0 +1,411 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "PDF ui5-pdfme" [ref=e3] [cursor=pointer]:
+      - /url: "#top"
+      - generic [ref=e4]: PDF
+      - text: ui5-pdfme
+    - navigation "Navegación principal" [ref=e5]:
+      - link "Documentación" [ref=e6] [cursor=pointer]:
+        - /url: ../index.html
+      - link "Catálogo y repositorios" [ref=e7] [cursor=pointer]:
+        - /url: ../repositories/index.html
+      - link "Elegir implementación" [ref=e8] [cursor=pointer]:
+        - /url: "#choose"
+      - link "Descargas" [ref=e9] [cursor=pointer]:
+        - /url: "#downloads"
+      - link "GitHub" [ref=e10] [cursor=pointer]:
+        - /url: https://github.com/jesusfrguz/ui5-pdfme
+    - group "Idioma" [ref=e11]:
+      - link "ES" [ref=e12] [cursor=pointer]:
+        - /url: index.html
+      - link "EN" [ref=e13] [cursor=pointer]:
+        - /url: en.html
+  - generic [ref=e15]:
+    - generic [ref=e16]:
+      - generic [ref=e17]: Guía de implementación
+      - heading "Un contrato. Varias rutas SAP." [level=1] [ref=e18]: Un contrato.Varias rutas SAP.
+      - paragraph [ref=e19]: Elige RAP, CAP, SAP Gateway/SEGW, CDS clásico o REST sin cambiar el contrato del catálogo de plantillas.
+      - generic [ref=e20]:
+        - link "Elegir ruta" [ref=e21] [cursor=pointer]:
+          - /url: "#choose"
+        - link "Descargar kit" [ref=e22] [cursor=pointer]:
+          - /url: "#downloads"
+    - generic "Rutas de backend SAP" [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e25]: ui5-pdfme
+        - generic [ref=e26]: →
+        - generic [ref=e27]: OData V4 · OData V2 · REST
+  - generic [ref=e28]:
+    - complementary "Contenido" [ref=e29]:
+      - link "Qué ruta elegir" [ref=e30] [cursor=pointer]:
+        - /url: "#choose"
+      - link "Contrato" [ref=e31] [cursor=pointer]:
+        - /url: "#contract"
+      - link "RAP V4" [ref=e32] [cursor=pointer]:
+        - /url: "#rap"
+      - link "CAP V4" [ref=e33] [cursor=pointer]:
+        - /url: "#cap"
+      - link "SEGW V2" [ref=e34] [cursor=pointer]:
+        - /url: "#segw"
+      - link "CDS clásico V2" [ref=e35] [cursor=pointer]:
+        - /url: "#classic-cds"
+      - link "REST" [ref=e36] [cursor=pointer]:
+        - /url: "#rest"
+      - link "Instalador XCO" [ref=e37] [cursor=pointer]:
+        - /url: "#installer"
+      - link "Paquetes y órdenes" [ref=e38] [cursor=pointer]:
+        - /url: "#packages"
+      - link "Cliente" [ref=e39] [cursor=pointer]:
+        - /url: "#client"
+      - link "Descargas" [ref=e40] [cursor=pointer]:
+        - /url: "#downloads"
+      - link "Validación" [ref=e41] [cursor=pointer]:
+        - /url: "#validate"
+    - main [ref=e42]:
+      - generic [ref=e43]:
+        - text: Decisión
+        - heading "Qué ruta elegir" [level=2] [ref=e44]
+        - paragraph [ref=e45]: Para desarrollo nuevo usa RAP V4 en ABAP moderno o CAP V4 en BTP. Conserva SEGW V2 para paisajes Gateway heredados y CDS clásico solo como índice de lectura.
+        - table [ref=e46]:
+          - rowgroup [ref=e47]:
+            - row [ref=e48]:
+              - columnheader "Ruta" [ref=e49]
+              - columnheader "Protocolo" [ref=e50]
+              - columnheader "Payload completo" [ref=e51]
+              - columnheader "Cuándo elegirla" [ref=e52]
+              - columnheader "Esfuerzo inicial" [ref=e53]
+          - rowgroup [ref=e54]:
+            - row [ref=e55]:
+              - cell [ref=e56]:
+                - strong [ref=e57]: RAP
+              - cell "OData V4" [ref=e58]
+              - cell "Sí" [ref=e59]
+              - cell "Nuevo servicio en S/4HANA/ABAP moderno" [ref=e60]
+              - cell "Asistente ADT o XCO opcional" [ref=e61]
+            - row [ref=e62]:
+              - cell [ref=e63]:
+                - strong [ref=e64]: CAP en BTP
+              - cell "OData V4" [ref=e65]
+              - cell "Sí" [ref=e66]
+              - cell "Backend Node.js/Java en SAP BTP" [ref=e67]
+              - cell "Quickstart incluido" [ref=e68]
+            - row [ref=e69]:
+              - cell [ref=e70]:
+                - strong [ref=e71]: Gateway / SEGW
+              - cell "OData V2" [ref=e72]
+              - cell "Sí" [ref=e73]
+              - cell "Landscape Gateway/ECC/S/4 heredado sin RAP" [ref=e74]
+              - cell "Importar EDMX + implementar DPC_EXT" [ref=e75]
+            - row [ref=e76]:
+              - cell [ref=e77]:
+                - strong [ref=e78]: CDS clásico
+              - cell "OData V2" [ref=e79]
+              - cell "No" [ref=e80]
+              - cell "Índice existente, solo lectura" [ref=e81]
+              - cell [ref=e82]:
+                - code [ref=e83]: "@OData.publish: true"
+                - text: + registro
+            - row [ref=e84]:
+              - cell [ref=e85]:
+                - strong [ref=e86]: REST
+              - cell "JSON HTTP" [ref=e87]
+              - cell "Sí" [ref=e88]
+              - cell "Backend neutral o API existente" [ref=e89]
+              - cell "OpenAPI + ejemplos Node/PostgreSQL" [ref=e90]
+        - generic [ref=e91]:
+          - strong [ref=e92]: "Regla práctica:"
+          - text: no crees un nuevo CDS clásico ni un SEGW V4 para evitar RAP. Si el servicio vive en BTP, CAP es la vía natural; si vive en AS ABAP moderno, usa RAP.
+      - generic [ref=e93]:
+        - text: Esquema común
+        - heading "Tipos y longitudes" [level=2] [ref=e94]
+        - table [ref=e95]:
+          - rowgroup [ref=e96]:
+            - row [ref=e97]:
+              - columnheader "Campo" [ref=e98]
+              - columnheader "OData" [ref=e99]
+              - columnheader "ABAP / CAP" [ref=e100]
+              - columnheader "Regla" [ref=e101]
+          - rowgroup [ref=e102]:
+            - row [ref=e103]:
+              - cell [ref=e104]:
+                - code [ref=e105]: ID
+              - cell [ref=e106]:
+                - code [ref=e107]: Edm.String(128)
+                - text: ", clave"
+              - cell [ref=e108]:
+                - code [ref=e109]: CHAR(128)
+                - text: /
+                - code [ref=e110]: String(128)
+              - cell [ref=e111]:
+                - text: 1–128; patrón
+                - code [ref=e112]: "^[A-Za-z0-9][A-Za-z0-9._~-]{0,127}$"
+            - row [ref=e113]:
+              - cell [ref=e114]:
+                - code [ref=e115]: Name
+              - cell [ref=e116]:
+                - code [ref=e117]: Edm.String(160)
+              - cell [ref=e118]:
+                - code [ref=e119]: CHAR(160)
+                - text: /
+                - code [ref=e120]: String(160)
+              - cell "1–160" [ref=e121]
+            - row [ref=e122]:
+              - cell [ref=e123]:
+                - code [ref=e124]: Description
+              - cell [ref=e125]:
+                - code [ref=e126]: Edm.String(1024)
+              - cell [ref=e127]:
+                - code [ref=e128]: CHAR(1024)
+                - text: /
+                - code [ref=e129]: String(1024)
+              - cell "0–1024" [ref=e130]
+            - row [ref=e131]:
+              - cell [ref=e132]:
+                - code [ref=e133]: Tags
+              - cell [ref=e134]:
+                - text: JSON en
+                - code [ref=e135]: Edm.String(4096)
+              - cell [ref=e136]:
+                - code [ref=e137]: CHAR(4096)
+                - text: /
+                - code [ref=e138]: String(4096)
+              - cell "máx. 32 únicos; 1–64 por etiqueta" [ref=e139]
+            - row [ref=e140]:
+              - cell [ref=e141]:
+                - code [ref=e142]: Status
+              - cell [ref=e143]:
+                - code [ref=e144]: Edm.String(20)
+              - cell [ref=e145]:
+                - code [ref=e146]: CHAR(20)
+                - text: /
+                - code [ref=e147]: String(20)
+              - cell [ref=e148]:
+                - code [ref=e149]: draft
+                - text: ","
+                - code [ref=e150]: published
+                - text: ","
+                - code [ref=e151]: archived
+            - row [ref=e152]:
+              - cell [ref=e153]:
+                - code [ref=e154]: Version
+              - cell [ref=e155]:
+                - code [ref=e156]: Edm.Int32
+              - cell [ref=e157]:
+                - code [ref=e158]: INT4
+                - text: /
+                - code [ref=e159]: Integer
+              - cell "1–2.147.483.647" [ref=e160]
+            - row [ref=e161]:
+              - cell [ref=e162]:
+                - text: Cuatro
+                - code [ref=e163]: "*Json"
+              - cell [ref=e164]:
+                - code [ref=e165]: Edm.String
+                - text: sin límite
+              - cell [ref=e166]:
+                - code [ref=e167]: STRING
+                - text: /
+                - code [ref=e168]: LargeString
+              - 'cell "JSON válido; límite total de referencia: 5.000.000 caracteres" [ref=e169]'
+            - row [ref=e170]:
+              - cell "Auditoría" [ref=e171]
+              - cell [ref=e172]:
+                - code [ref=e173]: Edm.DateTimeOffset
+                - text: V4 /
+                - code [ref=e174]: Edm.DateTime
+                - text: V2
+              - cell "campos de auditoría del backend" [ref=e175]
+              - cell "ignorar valores enviados por cliente" [ref=e176]
+        - paragraph [ref=e177]:
+          - code [ref=e178]: repositoryId
+          - text: solo existe en ejecución. Las credenciales nunca deben entrar en
+          - code [ref=e179]: DataSourcesJson
+          - text: . Consulta el
+          - link "contrato completo REST/OData" [ref=e180] [cursor=pointer]:
+            - /url: ../repositories/index.html#field-contract
+          - text: .
+      - generic [ref=e181]:
+        - text: Recomendado en ABAP
+        - heading "RAP con OData V4" [level=2] [ref=e182]
+        - paragraph [ref=e183]:
+          - text: La ruta más rápida soportada es el asistente de ADT
+          - strong [ref=e184]: Generate ABAP Repository Objects → OData Web API Service
+          - text: ". El instalador opcional usa las APIs XCO para crear solo lo que falta: elementos de datos, tabla, vistas raíz/proyección, BDEF, behavior pool, definición y binding de servicio."
+        - paragraph [ref=e185]: El programa toma un paquete transportable y una orden Workbench modificable. Empieza siempre en modo simulación, no sobrescribe ni borra objetos y solo publica el endpoint local cuando se marca expresamente. Está orientado a S/4HANA 2022+; las APIs XCO varían por release/SP, por lo que se debe ejecutar syntax check y ATC en el sistema destino.
+        - generic [ref=e186]:
+          - strong [ref=e187]: "Antes de producción:"
+          - text: añade DCL/autorizaciones, validaciones del contrato, incremento de versión en servidor, ETag, auditoría read-only y límites. Comprueba que los cuatro JSON aparecen como
+          - code [ref=e188]: Edm.String
+          - text: no acotados en
+          - code [ref=e189]: $metadata
+          - text: .
+      - generic [ref=e190]:
+        - text: BTP
+        - heading "SAP CAP CDS con OData V4" [level=2] [ref=e191]
+        - paragraph [ref=e192]:
+          - text: El quickstart CAP Node.js incluido define el esquema, la proyección OData V4, roles
+          - code [ref=e193]: TemplateViewer
+          - text: /
+          - code [ref=e194]: TemplateEditor
+          - text: ", validación, versión/ETag y límites. Usa SQLite en local y documenta la preparación HANA/XSUAA/MTA para BTP."
+        - generic [ref=e195]:
+          - code [ref=e196]: cd examples/backend/cap npm ci npm run start
+          - button "Copiar" [ref=e197] [cursor=pointer]
+        - paragraph [ref=e198]: "CAP no usa paquete ABAP ni orden Workbench: sus artefactos viajan por Git, CI/CD, MTA/HDI y la configuración BTP del proyecto."
+      - generic [ref=e199]:
+        - text: Legacy completo
+        - heading "SAP Gateway / SEGW OData V2" [level=2] [ref=e200]
+        - paragraph [ref=e201]:
+          - text: Es la opción heredada viable para CRUD completo y JSON largo. Descarga el EDMX, crea un proyecto SEGW en el paquete/orden del backend, importa el modelo, genera MPC/DPC y escribe la persistencia en
+          - code [ref=e202]: DPC_EXT
+          - text: . Los
+          - code [ref=e203]: Edm.String
+          - text: no acotados deben mapearse a ABAP
+          - code [ref=e204]: STRING
+          - text: .
+        - list [ref=e205]:
+          - listitem [ref=e206]: Crear/verificar DDIC y proyecto IWPR.
+          - listitem [ref=e207]: Importar EDMX y generar MPC/MPC_EXT, DPC/DPC_EXT, IWSV e IWMO.
+          - listitem [ref=e208]: Implementar listado ligero, detalle completo, creación y actualización.
+          - listitem [ref=e209]:
+            - text: Activar en el hub con alias existente, probar
+            - code [ref=e210]: $metadata
+            - text: ", CSRF y ETag."
+        - paragraph [ref=e211]: SAP no publica una API universal para crear/importar/generar un proyecto SEGW de extremo a extremo en todos los releases 7.40/7.50. El paso gráfico queda explícito. Para una instalación sin intervención, prepara un transporte o Add-On certificado por release.
+      - generic [ref=e212]:
+        - text: Legacy limitado
+        - heading "CDS clásico con autoexposición V2" [level=2] [ref=e213]
+        - paragraph [ref=e214]:
+          - code [ref=e215]: "@OData.publish: true"
+          - text: genera el servicio
+          - code [ref=e216]: ZPDFME_CDS_TPL_CDS
+          - text: y sus artefactos backend al activar el DDLS; después hay que registrarlo en
+          - code [ref=e217]: /IWFND/MAINT_SERVICE
+          - text: o usar el activador opcional del hub.
+        - paragraph [ref=e218]:
+          - text: Esta ruta solo expone cabeceras del catálogo. Las vistas CDS DDIC clásicas no admiten de forma portable
+          - code [ref=e219]: STRING
+          - text: /
+          - code [ref=e220]: RAWSTRING
+          - text: /
+          - code [ref=e221]: LCHR
+          - text: /
+          - code [ref=e222]: LRAW
+          - text: ", y"
+          - code [ref=e223]: SSTRING
+          - text: no puede contener una plantilla completa. Por eso no implementa
+          - code [ref=e224]: get
+          - text: /
+          - code [ref=e225]: save
+          - text: del contrato completo.
+      - generic [ref=e226]:
+        - text: Neutral
+        - heading "REST" [level=2] [ref=e227]
+        - paragraph [ref=e228]: Si no necesitas metadatos OData, usa el contrato OpenAPI con el ejemplo Node y el esquema PostgreSQL. Es la opción portable para un backend existente y conserva JSON nativo. La autenticación, autorización, aislamiento de tenant, ETag/versión y límites siguen perteneciendo al servicio.
+      - generic [ref=e229]:
+        - text: Opcional
+        - heading "Qué hace el instalador XCO" [level=2] [ref=e230]
+        - generic "Flujo del instalador" [ref=e231]:
+          - generic [ref=e232]: Analizar
+          - generic [ref=e233]: →
+          - generic [ref=e234]: Comparar
+          - generic [ref=e235]: →
+          - generic [ref=e236]: Plan
+          - generic [ref=e237]: →
+          - generic [ref=e238]: Crear faltantes
+          - generic [ref=e239]: →
+          - generic [ref=e240]: Verificar
+        - list [ref=e241]:
+          - listitem [ref=e242]:
+            - text: Pide ruta RAP/CDS/SEGW, paquete, orden Workbench,
+            - strong [ref=e243]: Apply
+            - text: "y"
+            - strong [ref=e244]: Publish
+            - text: .
+          - listitem [ref=e245]: El modo por defecto solo lista objetos existentes/faltantes.
+          - listitem [ref=e246]: En RAP crea el esqueleto completo y puede publicar el binding V4 local.
+          - listitem [ref=e247]: En CDS crea un índice V2 de lectura; en SEGW crea/verifica DDIC y remite al EDMX.
+          - listitem [ref=e248]: No sobrescribe, borra, libera órdenes, crea alias/RFC/trust ni carga datos de catálogo.
+        - paragraph [ref=e249]: "Un objeto existente se conserva aunque sea incompatible: compara sus campos/tipos con esta guía antes de aplicar. Los datos de plantilla son datos de aplicación y no deben transportarse en la orden Workbench."
+      - generic [ref=e250]:
+        - text: CTS
+        - heading "Paquetes, órdenes y hub" [level=2] [ref=e251]
+        - table [ref=e252]:
+          - rowgroup [ref=e253]:
+            - row [ref=e254]:
+              - columnheader "Zona" [ref=e255]
+              - columnheader "Paquete / orden" [ref=e256]
+              - columnheader "Contenido" [ref=e257]
+          - rowgroup [ref=e258]:
+            - row [ref=e259]:
+              - cell "Backend RAP" [ref=e260]
+              - cell "Paquete transportable + Workbench modificable compatible" [ref=e261]
+              - cell "DDIC, DDLS, BDEF, clase, SRVD, SRVB" [ref=e262]
+            - row [ref=e263]:
+              - cell "Backend SEGW/CDS" [ref=e264]
+              - cell "Paquete + Workbench backend" [ref=e265]
+              - cell "DDIC, IWPR/clases, IWSV, IWMO" [ref=e266]
+            - row [ref=e267]:
+              - cell "Hub distribuido" [ref=e268]
+              - cell "Paquete + Workbench del hub, posiblemente separados" [ref=e269]
+              - cell "IWSG, IWOM y activación" [ref=e270]
+            - row [ref=e271]:
+              - cell "Landscape" [ref=e272]
+              - cell "Configuración existente; quizá orden Customizing" [ref=e273]
+              - cell "alias, RFC, trust, ICF y autorizaciones" [ref=e274]
+            - row [ref=e275]:
+              - cell "CAP/BTP" [ref=e276]
+              - cell "No aplica CTS ABAP" [ref=e277]
+              - cell "Git, CI/CD, MTA/HDI/XSUAA" [ref=e278]
+      - generic [ref=e279]:
+        - text: Consumo
+        - heading "Configuración del cliente" [level=2] [ref=e280]
+        - generic [ref=e281]:
+          - code [ref=e282]: "// CAP o RAP V4 por HTTP { type: \"odata\", odataVersion: 4, url: \"/odata/v4/.../Templates\" } // Gateway o CDS V2 por HTTP { type: \"odata\", odataVersion: 2, url: \"/sap/opu/odata/sap/.../Templates\" }"
+          - button "Copiar" [ref=e283] [cursor=pointer]
+        - paragraph [ref=e284]: "El proveedor HTTP usa sintaxis de filtro, count y método de actualización específicos de V2/V4. En SAPUI5/Fiori prefiere el modelo OData V2/V4 propagado: el host conserva destino, sesión, CSRF, batches y ETags dinámicos."
+      - generic [ref=e285]:
+        - text: Kit
+        - heading "Descargas" [level=2] [ref=e286]
+        - generic [ref=e287]:
+          - article [ref=e288]:
+            - heading "Instalador XCO" [level=3] [ref=e289]
+            - paragraph [ref=e290]: Programa ABAP temporal, simulación por defecto.
+            - link "Descargar .abap" [ref=e291] [cursor=pointer]:
+              - /url: ../downloads/sap/zui5_pdfme_install.prog.abap
+          - article [ref=e292]:
+            - heading "Modelo SEGW V2" [level=3] [ref=e293]
+            - paragraph [ref=e294]: EDMX importable con tipos y longitudes.
+            - link "Descargar .edmx" [ref=e295] [cursor=pointer]:
+              - /url: ../downloads/sap/template-repository-v2.edmx
+          - article [ref=e296]:
+            - heading "Activador V2" [level=3] [ref=e297]
+            - paragraph [ref=e298]: Activa en el hub un servicio backend ya existente.
+            - link "Descargar .abap" [ref=e299] [cursor=pointer]:
+              - /url: ../downloads/sap/zui5_pdfme_activate_v2.prog.abap
+          - article [ref=e300]:
+            - heading "CAP quickstart" [level=3] [ref=e301]
+            - paragraph [ref=e302]: Proyecto Node.js ejecutable y probado.
+            - link "Abrir proyecto" [ref=e303] [cursor=pointer]:
+              - /url: https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/backend/cap
+      - generic [ref=e304]:
+        - text: Cierre
+        - heading "Validación obligatoria" [level=2] [ref=e305]
+        - list [ref=e306]:
+          - listitem [ref=e307]:
+            - text: Comparar nombres, tipos, nullabilidad y longitudes contra
+            - code [ref=e308]: $metadata
+            - text: .
+          - listitem [ref=e309]: Probar lista sin LOB, detalle completo, creación, actualización y conflicto ETag.
+          - listitem [ref=e310]: Probar filtros/paginación V2 o V4 con el cliente elegido.
+          - listitem [ref=e311]: Validar autorización, tenant/propietario, CSRF, tamaño y JSON malformado.
+          - listitem [ref=e312]: Guardar, recargar y generar un PDF válido con la plantilla recuperada.
+          - listitem [ref=e313]: Verificar que ninguna credencial o payload privado entra en plantillas, logs, capturas u órdenes.
+  - contentinfo [ref=e314]:
+    - text: ui5-pdfme ·
+    - link "Documentación técnica" [ref=e315] [cursor=pointer]:
+      - /url: ../index.html
+    - text: ·
+    - link "Catálogo y repositorios" [ref=e316] [cursor=pointer]:
+      - /url: ../repositories/index.html
+    - text: · Apache-2.0

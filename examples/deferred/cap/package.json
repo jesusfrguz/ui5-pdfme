@@ -1,0 +1,33 @@
+{
+  "name": "ui5-pdfme-deferred-cap-example",
+  "version": "0.1.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch"
+  },
+  "dependencies": {
+    "@cap-js/sqlite": "^3",
+    "@sap/cds": "^10",
+    "express": "^5",
+    "ui5-pdfme-deferred-renderer": "file:../renderer"
+  },
+  "devDependencies": {
+    "@sap/cds-dk": "^10"
+  },
+  "cds": {
+    "requires": {
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "viewer": { "password": "viewer", "roles": ["PdfViewer"] },
+          "generator": { "password": "generator", "roles": ["PdfViewer", "PdfGenerator"] },
+          "editor": { "password": "editor", "roles": ["PdfViewer", "PdfGenerator", "TemplateEditor"] }
+        }
+      },
+      "db": { "kind": "sqlite", "credentials": { "url": ":memory:" } },
+      "queue": { "maxAttempts": 5, "timeout": "30m" }
+    }
+  }
+}

@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Jesús Franco Guzmán">
+  <meta name="description" content="Guía técnica del catálogo y los repositorios de plantillas de ui5-pdfme: memory, localStorage, REST, OData y funciones.">
+  <title>ui5-pdfme · Catálogo y repositorios de plantillas</title>
+  <link rel="alternate" hreflang="es" href="index.html">
+  <link rel="alternate" hreflang="en" href="en.html">
+  <link rel="alternate" hreflang="x-default" href="index.html">
+  <link rel="stylesheet" href="../assets/styles.css">
+  <link rel="stylesheet" href="../assets/language.css">
+  <link rel="stylesheet" href="../assets/repositories.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top"><span class="mark">PDF</span> ui5-pdfme</a>
+    <button class="menu" aria-label="Abrir navegación">Menú</button>
+    <nav aria-label="Navegación principal"><a href="../">Documentación</a><a href="../guide/">Guía de uso</a><a href="#choose">Elegir repositorio</a><a href="#api">API</a><a href="https://github.com/jesusfrguz/ui5-pdfme">GitHub</a></nav>
+    <div class="language-switch" role="group" aria-label="Idioma"><a href="index.html" lang="es" hreflang="es" aria-current="page" data-language="es">ES</a><a href="en.html" lang="en" hreflang="en" data-language="en">EN</a></div>
+  </header>
+
+  <div class="hero" id="top"><div class="hero-inner">
+    <div>
+      <span class="eyebrow">Guía técnica</span>
+      <h1>Un catálogo.<br>Cinco formas de persistir.</h1>
+      <p>Configura cómo listar, recuperar y guardar plantillas con memoria, almacenamiento del navegador, REST, OData o funciones de la aplicación.</p>
+      <div class="actions"><a class="button" href="#choose">Elegir un repositorio</a><a class="button secondary" href="#record">Ver el contrato</a></div>
+    </div>
+    <figure class="hero-shot"><img src="../assets/images/javascript-studio.png" alt="Editor ui5-pdfme con la acción Plantillas en la barra superior"></figure>
+  </div></div>
+
+  <div class="shell">
+    <aside class="side" aria-label="Contenido">
+      <p class="side-label">Catálogo y repositorios</p>
+      <a href="#overview">Cómo funciona</a><a href="#choose">Qué tipo elegir</a><a href="#record">Contrato del registro</a><a href="#field-contract">Tipos y longitudes</a><a href="#configure">Configuración común</a><a href="#memory">Memory</a><a href="#local-storage">localStorage</a><a href="#rest">REST</a><a href="#odata">OData</a><a href="#function">Function</a><a href="#api">Catálogo y API</a><a href="#security">Seguridad</a><a href="#validate">Validación</a><a href="#troubleshooting">Problemas comunes</a>
+      <p class="side-label">Guías específicas</p>
+      <a href="../">Diseño y PDF inmediato</a><a href="../guide/">Guía de uso</a><a class="side-sub" href="../sap/">↳ Implementarlo en SAP/OData</a><a href="../deferred/">Generación diferida</a>
+    </aside>
+    <main class="content">
+      <section id="overview">
+        <span class="pill">Modelo común</span><h2>Cómo funciona</h2>
+        <p class="lead">El estudio y el catálogo trabajan con un <em>store</em> común. Cada repositorio adapta su sistema de persistencia al mismo registro de plantilla.</p>
+        <div class="flow" aria-label="Flujo del catálogo de plantillas"><span>Catálogo / estudio</span><i>→</i><span>TemplateStore</span><i>→</i><span>memory · localStorage · REST · OData · function</span></div>
+        <p>Puedes configurar varios repositorios. El catálogo reúne sus resultados, permite buscar por nombre, descripción y etiquetas, filtra por estado y origen, y conserva <code>repositoryId</code> para saber dónde recuperar o actualizar cada registro. No se eliminan duplicados y, si un origen falla, el listado combinado también falla.</p>
+        <p><strong>Plantilla en blanco</strong> y <strong>Cargar PDF</strong> están disponibles aunque no haya repositorios. Listar, abrir un registro guardado y persistir cambios sí requieren al menos uno.</p>
+      </section>
+
+      <section id="choose">
+        <span class="pill">Decisión</span><h2>Qué tipo elegir</h2>
+        <table class="matrix"><thead><tr><th>Tipo</th><th>Alcance</th><th>Úsalo para</th><th>No lo uses para</th></tr></thead><tbody>
+          <tr><td><code>memory</code></td><td>Instancia actual de JavaScript</td><td>Demos, pruebas y registros precargados</td><td>Conservar cambios tras recargar</td></tr>
+          <tr><td><code>localStorage</code></td><td>Navegador, origen y perfil actuales</td><td>Prototipos, trabajo individual y modo local</td><td>Catálogos compartidos, autorización o grandes volúmenes</td></tr>
+          <tr><td><code>rest</code></td><td>Servicio HTTP de la aplicación</td><td>Backends existentes y contratos JSON propios</td><td>Acceso directo del navegador a una base de datos</td></tr>
+          <tr><td><code>odata</code></td><td>Servicio OData V2/V4 o modelo UI5</td><td>SAP Fiori, CAP y servicios con paginación OData</td><td>Ocultar reglas de autorización solo en la interfaz</td></tr>
+          <tr><td><code>function</code></td><td>Funciones de la aplicación</td><td>SDKs, cachés o persistencia con un contrato no HTTP</td><td>Incluir credenciales dentro del registro de plantilla</td></tr>
+        </tbody></table>
+        <div class="callout"><strong>Producción multiusuario:</strong> usa normalmente REST, OData o <code>function</code> sobre un servicio autorizado. <code>memory</code> y <code>localStorage</code> no proporcionan control de acceso, concurrencia ni una fuente compartida de verdad.</div>
+      </section>
+
+      <section id="record">
+        <span class="pill">Contrato estable</span><h2>Registro de plantilla</h2>
+        <p>Todos los proveedores reciben y devuelven la misma forma normalizada. Una respuesta de listado puede omitir <code>template</code>, <code>mapping</code> y <code>dataSources</code>; la respuesta de detalle debe incluir una plantilla pdfme válida.</p>
+        <pre><code>{
+  id: "invoice-es",
+  name: "Factura España",
+  description: "Factura de ventas aprobada",
+  tags: ["ventas", "es"],
+  status: "published", // draft | published | archived
+  version: "3",
+  createdAt: "2026-08-20T09:00:00Z",
+  updatedAt: "2026-08-23T10:30:00Z",
+  template,
+  mapping,
+  metadata: { dataContractVersion: "2" },
+  dataSources // opcional y desactivado por defecto al guardar
+}</code></pre>
+        <p>Los nombres camelCase y los campos OData habituales (<code>ID</code>, <code>Name</code>, <code>TemplateJson</code>, etc.) se normalizan. Las columnas JSON pueden llegar como objetos o como cadenas JSON. <code>repositoryId</code> lo añade el store y no sustituye al <code>id</code> del registro. Los tres estados son convenciones del catálogo: el backend sigue siendo responsable de validar y autorizar el ciclo de aprobación.</p>
+      </section>
+
+      <section id="field-contract">
+        <span class="pill">Esquema de backend</span><h2>Tipos y longitudes de las propiedades</h2>
+        <p>REST mantiene los valores nativos de JSON. OData serializa las etiquetas y los cuatro objetos del documento como texto JSON. <code>version</code> sigue siendo una cadena decimal en el registro JavaScript público y solo se convierte a <code>Edm.Int32</code> en el límite OData.</p>
+        <table class="matrix"><thead><tr><th>Propiedad</th><th>REST / JavaScript</th><th>OData / almacenamiento</th><th>Validación</th></tr></thead><tbody>
+          <tr><td><code>id</code></td><td>string</td><td>clave <code>Edm.String(128)</code> · <code>varchar/CHAR/String(128)</code></td><td>1–128; primero letra/dígito y después se admite <code>._~-</code></td></tr>
+          <tr><td><code>name</code></td><td>string</td><td><code>Edm.String(160)</code></td><td>sin espacios exteriores, 1–160</td></tr>
+          <tr><td><code>description</code></td><td>string</td><td><code>Edm.String(1024)</code></td><td>0–1024</td></tr>
+          <tr><td><code>tags</code></td><td>array de strings</td><td>texto JSON en <code>Edm.String(4096)</code></td><td>hasta 32 valores únicos, 1–64 cada uno</td></tr>
+          <tr><td><code>status</code></td><td>string enumerado</td><td><code>Edm.String(20)</code></td><td><code>draft</code>, <code>published</code> o <code>archived</code></td></tr>
+          <tr><td><code>version</code></td><td>cadena decimal</td><td><code>Edm.Int32</code> · <code>integer/INT4</code></td><td>1–2.147.483.647</td></tr>
+          <tr><td><code>template</code>, <code>mapping</code>, <code>metadata</code>, <code>dataSources</code></td><td>valores JSON</td><td>texto JSON en <code>Edm.String</code> sin límite · CLOB/<code>STRING</code>/<code>LargeString</code></td><td>JSON válido; límite total de referencia por petición: 5.000.000 de caracteres</td></tr>
+          <tr><td><code>createdAt</code>, <code>updatedAt</code></td><td>cadenas RFC 3339</td><td><code>Edm.DateTimeOffset</code> V4 / <code>Edm.DateTime</code> V2, precisión 7</td><td>propiedad del backend; el adaptador normaliza fechas V2</td></tr>
+        </tbody></table>
+        <p>El contrato procesable está disponible como <a href="https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/backend/contracts">JSON Schema y OpenAPI</a>. Las implementaciones de base de datos y OData deben validar el JSON decodificado, no solo la longitud de la columna serializada.</p>
+      </section>
+
+      <section id="configure">
+        <span class="pill">Todas las plataformas</span><h2>Configuración común</h2>
+        <pre><code>const templateRepositories = [
+  {
+    id: "session",
+    name: "Ejemplos de esta sesión",
+    type: "memory",
+    records: initialTemplates
+  },
+  {
+    id: "browser",
+    name: "Este navegador",
+    type: "localStorage",
+    storageKey: "my-app.pdf-templates",
+    default: true
+  }
+];
+
+const studio = new WebPdfTemplateStudio("#studio", {
+  template,
+  templateRepositories
+});</code></pre>
+        <p><code>id</code> identifica el origen en filtros y llamadas. <code>name</code> es su etiqueta visible. Al guardar sin indicar un origen, se usa el primer repositorio con <code>default: true</code> o, si no existe, el primero de la lista.</p>
+        <p>React recibe el mismo array en la prop <code>templateRepositories</code>. En UI5, pásalo a <code>configure</code> o llama a <code>setTemplateRepositories</code>.</p>
+      </section>
+
+      <section id="memory">
+        <span class="pill">Volátil</span><h2>Repositorio memory</h2>
+        <pre><code>templateRepositories: [{
+  id: "examples",
+  name: "Plantillas de ejemplo",
+  type: "memory",
+  records: [invoiceRecord, shippingLabelRecord]
+}]</code></pre>
+        <p>El proveedor mantiene <code>records</code> en el objeto de configuración. Al crear asigna un ID y fechas; al actualizar incrementa <code>version</code>. Los cambios desaparecen cuando la aplicación se recarga o se crea otra configuración.</p>
+        <p>Es la opción más simple para precargar un catálogo reproducible en pruebas y demos. Si los registros iniciales deben conservarse intactos entre instancias, entrega una copia nueva del array.</p>
+      </section>
+
+      <section id="local-storage">
+        <span class="pill">Navegador</span><h2>Repositorio localStorage</h2>
+        <pre><code>templateRepositories: [{
+  id: "browser",
+  name: "Este navegador",
+  type: "localStorage",
+  storageKey: "my-app.pdf-templates",
+  default: true
+}]</code></pre>
+        <p>Guarda el array completo de registros como JSON. La clave predeterminada es <code>ui5-pdfme.templates</code>; usa una clave propia por aplicación y entorno para evitar colisiones. También puedes proporcionar un objeto compatible mediante <code>storage</code> en el repositorio o, en Web, en la configuración del estudio.</p>
+        <p>Los datos pertenecen al origen y perfil del navegador. Pueden borrarse, tienen cuota limitada, no se sincronizan con otros dispositivos y dos pestañas pueden sobrescribir sus cambios. No trates esta opción como un repositorio corporativo ni como una frontera de seguridad.</p>
+      </section>
+
+      <section id="rest">
+        <span class="pill">Backend JSON</span><h2>Repositorio REST</h2>
+        <pre><code>templateRepositories: [{
+  id: "company-api",
+  name: "Plantillas corporativas",
+  type: "rest",
+  url: "/api/templates",
+  headers: { "x-client": "print-studio" },
+  maxPages: 50
+}]</code></pre>
+        <p>El contrato predeterminado del adaptador Web es:</p>
+        <table class="matrix"><thead><tr><th>Operación</th><th>Petición predeterminada</th><th>Respuesta</th></tr></thead><tbody>
+          <tr><td>Listar</td><td><code>GET /api/templates?search=&amp;status=&amp;tags=&amp;top=&amp;skip=</code></td><td>Array o envoltorio paginado</td></tr>
+          <tr><td>Detalle</td><td><code>GET /api/templates/:id</code></td><td>Registro completo</td></tr>
+          <tr><td>Crear</td><td><code>POST /api/templates</code></td><td>Registro guardado</td></tr>
+          <tr><td>Actualizar</td><td><code>PUT /api/templates/:id</code></td><td>Registro guardado</td></tr>
+        </tbody></table>
+        <p>El listado admite un array, <code>{ items, total, next }</code>, <code>{ items, nextLink }</code>, OData V4 (<code>value</code>/<code>@odata.nextLink</code>) y OData V2 (<code>d.results</code>/<code>d.__next</code>). Se siguen enlaces relativos o absolutos hasta terminar, hasta <code>maxPages</code> (100 por defecto), o hasta desactivar <code>followNext</code>.</p>
+        <p>En el adaptador Web puedes cambiar nombres de parámetros con <code>searchParameter</code>, <code>statusParameter</code>, <code>tagsParameter</code>, <code>topParameter</code> y <code>skipParameter</code>. Usa <code>getUrl</code>, <code>createMethod</code>, <code>updateMethod</code>, <code>mapRecord</code> y <code>serializeRecord</code> para adaptar una API existente. El proveedor REST nativo de UI5 usa los parámetros fijos <code>search</code>, <code>status</code>, <code>top</code> y <code>skip</code>, y no aplica esas funciones de mapeo.</p>
+        <pre><code>const repository = {
+  id: "legacy-api",
+  type: "rest",
+  url: "/templates",
+  getUrl: (id) =&gt; `/templates/${encodeURIComponent(id)}`,
+  mapRecord: (payload) =&gt; payload.result,
+  serializeRecord: (record) =&gt; ({ documentTemplate: record })
+};</code></pre>
+        <p>El cliente usa credenciales <code>same-origin</code> por defecto. Para autenticación dinámica, proporciona un <code>fetch</code> de la aplicación; no incrustes bearer tokens en plantillas ni en ejemplos. Valida también el origen de cualquier enlace de página siguiente antes de reenviar cabeceras sensibles.</p>
+        <div class="callout"><strong>Documentación y ejemplos:</strong> consulta el <a href="../deferred/#node">manual de generación diferida</a>, el <a href="https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/deferred/node">ejemplo ejecutable de Node.js</a> y el <a href="https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/deferred/docker">ejemplo de Docker Compose</a>. Incluyen API REST, worker, persistencia opcional con PostgreSQL, Dockerfile y configuraciones Compose.</div>
+      </section>
+
+      <section id="odata">
+        <span class="pill">V2 / V4</span><h2>Repositorio OData</h2>
+        <h3>JavaScript y React sobre HTTP</h3>
+        <pre><code>templateRepositories: [{
+  id: "cap-http",
+  type: "odata",
+  odataVersion: 4,
+  url: "/odata/v4/pdf-templates/Templates",
+  fields: {
+    template: "TemplateJson",
+    mapping: "MappingJson"
+  }
+}]</code></pre>
+        <p>Indica <code>odataVersion: 2</code> para un endpoint HTTP V2; V4 es el valor predeterminado. V4 usa <code>contains</code>, <code>$count=true</code> y <code>PATCH</code>. V2 usa <code>substringof</code> sin <code>tolower</code> para ser compatible con SAP Gateway, <code>$inlinecount=allpages</code> y <code>MERGE</code>; las mayúsculas/minúsculas dependen del backend. Ambos entienden sus envoltorios nativos y siguen la paginación del servidor.</p>
+        <table class="matrix"><thead><tr><th>Propiedad</th><th>Campo OData predeterminado</th></tr></thead><tbody>
+          <tr><td><code>id</code>, <code>name</code>, <code>description</code></td><td><code>ID</code>, <code>Name</code>, <code>Description</code></td></tr>
+          <tr><td><code>tags</code>, <code>status</code>, <code>version</code></td><td><code>Tags</code>, <code>Status</code>, <code>Version</code></td></tr>
+          <tr><td><code>template</code>, <code>mapping</code></td><td><code>TemplateJson</code>, <code>MappingJson</code></td></tr>
+          <tr><td><code>metadata</code>, <code>dataSources</code></td><td><code>MetadataJson</code>, <code>DataSourcesJson</code></td></tr>
+          <tr><td><code>createdAt</code>, <code>updatedAt</code></td><td><code>CreatedAt</code>, <code>UpdatedAt</code></td></tr>
+        </tbody></table>
+        <p><code>Tags</code> y las columnas terminadas en <code>Json</code> se serializan como cadenas JSON. Los listados seleccionan por defecto solo ID/nombre/descripción/etiquetas/estado/versión/auditoría para dejar los JSON grandes en la petición de detalle; personalízalo con <code>listSelect</code> o desactívalo con <code>false</code>. La lectura conserva ETags V2/V4 dinámicos en <code>record.etag</code>. Para escribir en SAP por HTTP, proporciona un <code>fetch</code> de la aplicación que gestione sesión y <code>X-CSRF-Token</code>, y activa <code>requireEtag: true</code>; después de una respuesta sin cuerpo se relee la entidad para recuperar versión, auditoría y ETag nuevos. <code>fields</code> cambia los nombres usados al filtrar y guardar; si el servicio devuelve nombres completamente distintos, usa REST, <code>function</code> o un proveedor registrado.</p>
+        <h3>SAPUI5 / OpenUI5 / Fiori con modelo propagado</h3>
+        <pre><code>studio.setTemplateRepositories([{
+  id: "cap-model",
+  name: "CAP",
+  type: "odata",
+  modelName: "templates",
+  path: "/Templates",
+  pageSize: 100,
+  maxRecords: 10000,
+  updateGroupId: "templates"
+}]);</code></pre>
+        <p>Esta modalidad conserva destinos, sesión, CSRF y grupos batch en el modelo de la aplicación. OData V4 usa bindings de lista/contexto y lee páginas hasta agotarlas o alcanzar <code>maxRecords</code>. OData V2 usa <code>read</code>, <code>create</code> y <code>update</code>. Aplica filtros de tenant y propietario en el servicio o en el modelo, no solo en el catálogo.</p>
+        <div class="callout"><strong>Selector de implementación SAP:</strong> consulta la <a href="../sap/index.html">guía de RAP, CAP, CDS clásico y SAP Gateway/SEGW</a>, con reglas de paquete/transporte, descargas e instalador opcional en modo simulación.</div>
+      </section>
+
+      <section id="function">
+        <span class="pill">Aplicación</span><h2>Repositorio function</h2>
+        <pre><code>const repository = {
+  id: "application",
+  name: "Repositorio de la aplicación",
+  type: "function",
+  list: (query, context) =&gt; templateApi.list(query),
+  get: (id, context) =&gt; templateApi.get(id),
+  save: (record, context) =&gt; templateApi.save(record)
+};</code></pre>
+        <p>Las tres funciones pueden ser síncronas o devolver promesas. <code>list</code> debe devolver un array de registros o resúmenes; <code>get</code> devuelve el registro completo; <code>save</code> devuelve la versión persistida. Los callbacks son responsables de los IDs duraderos, fechas, versiones, conflictos y transacciones. Rechaza la promesa para que el estudio emita su evento de error.</p>
+        <p>Si necesitas reutilizar un tipo propio en varias configuraciones, registra un proveedor. En este contrato el repositorio se recibe como primer argumento:</p>
+        <pre><code>studio.registerTemplateRepositoryProvider("acme", {
+  list: (source, query, context) =&gt; {},
+  get: (source, id, context) =&gt; {},
+  save: (source, record, context) =&gt; {}
+});</code></pre>
+      </section>
+
+      <section id="api">
+        <span class="pill">Uso</span><h2>Catálogo, ciclo de vida y API</h2>
+        <p>La primera pulsación en <strong>Guardar plantilla</strong> solicita nombre, descripción, etiquetas, estado y repositorio. Después, el estudio conserva el registro activo y lo actualiza. Para crear otro registro o versión, guarda metadatos con un <code>id</code> vacío según el flujo de tu aplicación. Cambiar solo <code>repositoryId</code> no mueve ni copia el original.</p>
+        <pre><code>await studio.listTemplates({
+  search: "factura",
+  status: "published",
+  tags: ["ventas"],
+  repositoryId: "company-api"
+});
+
+const record = await studio.getTemplateRecord("invoice-es", {
+  repositoryId: "company-api"
+});
+await studio.loadTemplate(record);
+await studio.saveTemplateRecord(
+  { name: "Factura", tags: ["ventas"], status: "draft" },
+  { repositoryId: "company-api" }
+);</code></pre>
+        <h3>Catálogo web independiente</h3>
+        <pre><code>import { TemplateStore, WebTemplateCatalog } from "ui5-pdfme";
+
+const store = new TemplateStore(templateRepositories);
+const catalog = new WebTemplateCatalog("#catalog", {
+  store,
+  language: "es",
+  onTemplateOpen: ({ template: record }) =&gt;
+    studio.applyTemplateRecord(record)
+});</code></pre>
+        <p>React exporta <code>PdfTemplateCatalog</code> y acepta los repositorios en <code>PdfTemplateStudio</code>. UI5 expone <code>setTemplateRepositories</code>, <code>openTemplateCatalog</code>, <code>listTemplates</code>, <code>getTemplateRecord</code>, <code>loadTemplate</code>, <code>saveTemplateRecord</code> y <code>registerTemplateRepositoryProvider</code>. No hay una API común para borrar, mover o consultar un historial de versiones; esas operaciones pertenecen al backend o a la aplicación.</p>
+        <table class="matrix"><thead><tr><th>Evento web</th><th>Origen Web</th><th>Evento UI5</th><th>Contenido</th></tr></thead><tbody>
+          <tr><td><code>pdfme:templatesListed</code></td><td>Raíz de <code>WebTemplateCatalog</code></td><td><code>templatesListed</code></td><td>Lista y consulta</td></tr>
+          <tr><td><code>pdfme:templateOpen</code></td><td>Raíz de <code>WebTemplateCatalog</code></td><td>—</td><td>Registro elegido</td></tr>
+          <tr><td><code>pdfme:templateLoaded</code></td><td>Raíz de <code>WebPdfTemplateStudio</code></td><td><code>templateLoaded</code></td><td>Registro abierto</td></tr>
+          <tr><td><code>pdfme:templateSaved</code></td><td>Raíz de <code>WebPdfTemplateStudio</code></td><td><code>templatePersisted</code></td><td>Registro guardado</td></tr>
+          <tr><td><code>pdfme:error</code></td><td>Componente que ejecuta la operación</td><td><code>error</code></td><td>Operación y error</td></tr>
+        </tbody></table>
+      </section>
+
+      <section id="security">
+        <span class="pill">Producción</span><h2>Seguridad y datos almacenados</h2>
+        <p>Al guardar desde el estudio, <code>dataSources</code> se excluye por defecto. Solo se persiste con <code>persistDataSources: true</code>. Al abrir un registro, las fuentes almacenadas solo se aplican con <code>applyStoredDataSources: true</code>.</p>
+        <pre><code>const studio = new WebPdfTemplateStudio("#studio", {
+  template,
+  templateRepositories,
+  persistDataSources: false,
+  applyStoredDataSources: false
+});</code></pre>
+        <ul>
+          <li>No guardes tokens, cookies, contraseñas ni payloads privados en <code>template</code>, <code>mapping</code>, <code>metadata</code> o <code>dataSources</code>.</li>
+          <li>Autoriza por separado listar, leer, crear, actualizar y publicar.</li>
+          <li>Impón filtros de tenant/propietario y límites de tamaño en el backend.</li>
+          <li>Valida esquemas pdfme y mapeos antes de publicar.</li>
+          <li>Usa versión o ETag para detectar escrituras concurrentes y conserva versiones publicadas inmutables.</li>
+          <li>Trata nombres, descripciones y etiquetas remotas como texto no confiable.</li>
+        </ul>
+      </section>
+
+      <section id="validate">
+        <span class="pill">Checklist</span><h2>Validar la integración</h2>
+        <ul>
+          <li>Lista, filtra, abre y guarda en cada repositorio configurado.</li>
+          <li>Comprueba una creación sin ID y una actualización con ID y versión.</li>
+          <li>Verifica que un resumen de listado sin <code>template</code> provoque una lectura de detalle al abrirlo.</li>
+          <li>Prueba paginación relativa y absoluta, el límite configurado y, en Web, la cancelación.</li>
+          <li>Guarda, recarga y genera un PDF válido con el mapeo recuperado.</li>
+          <li>Confirma que fuentes de datos y credenciales no se persisten accidentalmente.</li>
+          <li>Prueba autorización, aislamiento de tenant y conflicto de versión en el backend.</li>
+        </ul>
+        <p>El repositorio incluye un <a href="https://github.com/jesusfrguz/ui5-pdfme/tree/main/examples/backend">ejemplo REST en Node, un esquema PostgreSQL y un modelo CAP/OData</a>.</p>
+      </section>
+
+      <section id="troubleshooting">
+        <span class="pill">Ayuda</span><h2>Problemas comunes</h2>
+        <table class="matrix"><thead><tr><th>Mensaje o síntoma</th><th>Comprobación</th></tr></thead><tbody>
+          <tr><td><code>No template repository configured</code></td><td>Configura al menos un repositorio antes de listar, abrir un registro o guardar.</td></tr>
+          <tr><td><code>Unknown template repository type</code></td><td>Corrige <code>type</code> o registra el proveedor antes del primer uso.</td></tr>
+          <tr><td><code>No storage implementation</code></td><td><code>localStorage</code> no está disponible; proporciona un objeto <code>storage</code> compatible.</td></tr>
+          <tr><td>Error HTTP</td><td>Revisa URL, método, credenciales, CORS, CSRF y el cuerpo devuelto por el servicio.</td></tr>
+          <tr><td>El catálogo muestra datos pero no abre</td><td>El endpoint de detalle debe devolver <code>template.schemas</code> y conservar el mismo ID.</td></tr>
+          <tr><td>Resultados incompletos</td><td>Revisa <code>next</code>/<code>nextLink</code>, <code>followNext</code>, <code>maxPages</code> o <code>maxRecords</code>.</td></tr>
+          <tr><td>Se actualiza el repositorio equivocado</td><td>Usa IDs únicos, marca un único origen predeterminado y pasa <code>repositoryId</code> explícitamente.</td></tr>
+        </tbody></table>
+      </section>
+    </main>
+  </div>
+  <footer class="footer">ui5-pdfme · <a href="../">Documentación técnica</a> · <a href="../guide/">Guía de uso</a> · Apache-2.0</footer>
+  <script type="module" src="../assets/docs.js"></script>
+</body>
+</html>
